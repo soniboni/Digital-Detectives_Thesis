@@ -1,7 +1,27 @@
+# Python cache & venv
 .venv/
 __pycache__/
 *.pyc
+
+# Jupyter Notebook checkpoints
 .ipynb_checkpoints/
+
+# Data (raw data stays local, not shared)
 data/raw/
+!data/raw/.gitkeep
+
+# Models (saved ML models, not pushed)
 models/
+!models/.gitkeep
+
+# Outputs (plots, reports, predictions, etc.)
 outputs/
+!outputs/.gitkeep
+
+# VS Code settings (keep shared interpreter, ignore local junk)
+.vscode/*
+!.vscode/settings.json
+
+# OS-specific files
+.DS_Store
+Thumbs.db
