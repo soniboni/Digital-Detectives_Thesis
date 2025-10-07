@@ -25,3 +25,5 @@ outputs/
 # OS-specific files
 .DS_Store
 Thumbs.db
+data/processed/Phase 2.1 - Data Merging/Master_Timeline.csv
+data/processed/Phase 2 - Data Cleaning/Master_UsnJrnl_Cleaned.csv
