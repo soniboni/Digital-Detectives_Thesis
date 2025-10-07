@@ -1,0 +1,64 @@
+PHASE 4 - FEATURE PREPROCESSING METADATA
+================================================================================
+
+DATASET INFORMATION:
+- Input file: data/processed/Phase 3 - Feature Engineering/Master_Timeline_Features.csv
+- Total records: 2,264,521
+- Total features (pre-processing): 47
+- Training features (post-processing): 27
+
+OUTLIER HANDLING:
+- Delta features clipped to: [-315,360,000, 315,360,000] seconds (±10 years)
+
+CATEGORICAL ENCODING:
+- file_extension: Grouped rare (<0.1%) → Label Encoded
+- event_type: Label Encoded
+
+FEATURE SCALING:
+- Method: StandardScaler (mean=0, std=1)
+- Scaled features: 22
+- Unscaled features: 7 (binary/categorical)
+
+TRAIN/VAL/TEST SPLIT:
+- Method: GroupShuffleSplit stratified by case_id
+- Random state: 42
+- Train: 1,496,071 records (66.1%) - 8 cases
+- Val:   391,550 records (17.3%) - 2 cases
+- Test:  376,900 records (16.6%) - 2 cases
+
+LABELED ROWS DISTRIBUTION:
+- Train: 181 timestomped + 10 suspicious
+- Val:   33 timestomped + 2 suspicious
+- Test:  38 timestomped + 4 suspicious
+- Total: 268 labeled rows preserved ✅
+
+TRAINING FEATURES (27):
+  1. redo
+  2. target vcn
+  3. cluster index
+  4. has_incomplete_timestamps
+  5. eventinfo
+  6. fileattribute
+  7. filereferencenumber
+  8. parentfilereferencenumber
+  9. Delta_MFTM_vs_M
+  10. Delta_M_vs_C
+  11. Delta_C_vs_A
+  12. Delta_Event_vs_M
+  13. Delta_Event_vs_MFTM
+  14. Delta_Event_vs_C
+  15. hour
+  16. day_of_week
+  17. day_of_month
+  18. month
+  19. year
+  20. is_weekend
+  21. is_night
+  22. is_business_hours
+  23. path_depth
+  24. is_system_file
+  25. is_logfile
+  26. file_extension_encoded
+  27. event_type_encoded_v2
+
+Generated: 2025-10-08 07:05:12

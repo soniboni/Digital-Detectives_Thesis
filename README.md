@@ -8,7 +8,7 @@ This repository is part of our thesis project, which aims to develop a prototype
 
 ## 📊 Current Project Status
 
-**Current Phase:** Phase 3 - Feature Engineering (Complete)
+**Current Phase:** Phase 4 - Feature Preprocessing (Complete)
 
 **Branch:** `dataset-soni`
 
@@ -183,38 +183,86 @@ The project analyzes **12 forensic case datasets** (01-PE through 12-PE), each c
 
 ---
 
-### 📋 Upcoming Phases
+### ✅ Phase 4: Feature Preprocessing
+**Status:** Complete
 
-#### Phase 4: Feature Preprocessing (Next)
 **Objective:** Prepare features for machine learning model training
 
-**Planned Tasks:**
-- **Outlier handling:** Clip time delta features to ±10 years (±315,360,000 seconds)
-- **Categorical encoding:**
-  - One-hot or target encoding for `event_type`
-  - Group rare file extensions, then encode
-- **Feature scaling:** StandardScaler for numerical features (deltas, depth, temporal)
-- **Train/Val/Test split:** 70/15/15 stratified by `case_id` (prevent data leakage)
-  - **Important:** Stratify by case_id, NOT random split
-  - Ensures model tested on completely unseen forensic cases
-- **Class imbalance:** Not a concern for Isolation Forest (unsupervised)
-  - Labels only used for evaluation, not training
+**Process:**
 
-**Target Output:**
-- `data/processed/Phase 4 - Preprocessing/X_train.csv`, `X_val.csv`, `X_test.csv`
-- `data/processed/Phase 4 - Preprocessing/y_train.csv`, `y_val.csv`, `y_test.csv`
+**1. Outlier Handling:**
+- Clipped 6 time delta features to ±10 years (±315,360,000 seconds)
+- Outliers affected: 0.04-0.08% of data (minimal impact)
+- Examples:
+  - `Delta_MFTM_vs_M`: 1,730 outliers clipped (0.08%)
+  - `Delta_M_vs_C`: 802 outliers clipped (0.04%)
+
+**2. Categorical Encoding:**
+- **File extensions:** Grouped 264 rare extensions (<0.1% frequency) → "other" category
+- **Event types:** Label encoded 211 unique event types
+- Final encoded features: 51 extension groups, 211 event types
+
+**3. Feature Scaling:**
+- Applied StandardScaler to 22 numerical features (mean=0, std=1)
+- Kept 7 binary/categorical features unscaled
+- Handled object-type conversions with proper NaN filling
+
+**4. Stratified Train/Val/Test Split:**
+- Method: GroupShuffleSplit by `case_id` (prevents data leakage)
+- Random state: 42
+- **Perfect case separation:** No overlap between splits ✅
+
+**Key Metrics:**
+- Initial: 2,264,521 records, 44 features
+- Final: **27 training features selected**
+- All 268 labeled rows preserved ✅
+
+**Split Distribution:**
+
+| Split | Records | % | Cases | Timestomped | Suspicious |
+|-------|---------|---|-------|-------------|------------|
+| Train | 1,496,071 | 66.1% | 8 | 181 | 10 |
+| Val | 391,550 | 17.3% | 2 | 33 | 2 |
+| Test | 376,900 | 16.6% | 2 | 38 | 4 |
+
+**Critical Observations:**
+- ⚠️ **Zero-variance features identified:** `redo`, `target vcn`, `eventinfo`, `fileattribute`, `filereferencenumber`, `parentfilereferencenumber` (all LogFile hex values converted to 0)
+- 🔧 **Action for Phase 5:** Filter out zero-variance features before model training using VarianceThreshold
+
+**Output:**
+- `data/processed/Phase 4 - Feature Preprocessing/X_train.csv`
+- `data/processed/Phase 4 - Feature Preprocessing/X_val.csv`
+- `data/processed/Phase 4 - Feature Preprocessing/X_test.csv`
+- `data/processed/Phase 4 - Feature Preprocessing/y_train.csv`
+- `data/processed/Phase 4 - Feature Preprocessing/y_val.csv`
+- `data/processed/Phase 4 - Feature Preprocessing/y_test.csv`
+- `data/processed/Phase 4 - Feature Preprocessing/preprocessing_metadata.txt`
+
+**Notebook:**
+- `notebooks/presentation notebooks/Phase 4 - Feature Preprocessing.ipynb`
 
 ---
 
-#### Phase 5: Model Training (Planned)
-- **Algorithm:** Isolation Forest (unsupervised anomaly detection)
-- Hyperparameter tuning (contamination, n_estimators, max_features)
-- Model evaluation:
-  - Precision, Recall, F1-Score
-  - ROC-AUC curve
-  - Confusion matrix
-- Cross-validation across 12 case datasets
-- Feature importance analysis
+### 📋 Upcoming Phases
+
+#### Phase 5: Model Training (Next)
+**Objective:** Train Isolation Forest model for timestomping detection
+
+**Planned Tasks:**
+1. **Load preprocessed data:** X_train, X_val, X_test splits
+2. **Filter zero-variance features:** Remove features with variance < 0.01 (VarianceThreshold)
+3. **Train Isolation Forest:** Unsupervised anomaly detection on training data
+4. **Hyperparameter tuning:** Optimize contamination, n_estimators, max_features
+5. **Validation evaluation:** Precision, Recall, F1-Score, ROC-AUC on validation set
+6. **Final test evaluation:** Performance on completely unseen test cases
+7. **Feature importance analysis:** Identify most critical timestomping indicators
+8. **Model persistence:** Save trained model and scaler objects
+
+**Target Output:**
+- `models/isolation_forest_model.pkl`
+- `models/variance_selector.pkl`
+- `outputs/model_evaluation_report.txt`
+- `outputs/feature_importance.csv`
 
 ---
 
@@ -244,7 +292,7 @@ The project analyzes **12 forensic case datasets** (01-PE through 12-PE), each c
 
 ## 📁 Project Structure
 
-Digital-Detectives_Thesis/ ├── data/ │ ├── raw/ # Original forensic artifacts │ │ ├── 01-PE-LogFile.csv # Case 1 LogFile │ │ ├── 01-PE-UsnJrnl.csv # Case 1 UsnJrnl │ │ ├── suspicious/ # Manual suspicious file indicators │ │ └── ... (12 cases total) │ └── processed/ │ ├── Phase 1 - Data Labeling/ # Labeled datasets │ ├── Phase 2 - Data Cleaning/ # Cleaned LogFile & UsnJrnl │ ├── Phase 2.1 - Data Merging/ # Merged Master Timeline │ ├── Phase 3 - Feature Engineering/ # Feature-rich datasets │ └── Phase 4 - Preprocessing/ # Train/Val/Test splits (next) ├── notebooks/ │ ├── presentation notebooks/ # Clean, documented notebooks │ │ ├── Phase 1 - Data Labeling.ipynb │ │ ├── Phase 2 - Data Cleaning.ipynb │ │ ├── Phase 2.1 - Data Merging.ipynb │ │ └── Phase 3 - Feature Engineering.ipynb │ ├── display notebooks/ # Analysis notebooks │ └── specific dataset notebooks/ # Per-case notebooks ├── models/ # Saved ML models (future) ├── outputs/ # Analysis outputs ├── src/ # Source code (future plugin) ├── requirements.txt # Python dependencies └── README.md # This file
+Digital-Detectives_Thesis/ ├── data/ │ ├── raw/ # Original forensic artifacts │ │ ├── 01-PE-LogFile.csv # Case 1 LogFile │ │ ├── 01-PE-UsnJrnl.csv # Case 1 UsnJrnl │ │ ├── suspicious/ # Manual suspicious file indicators │ │ └── ... (12 cases total) │ └── processed/ │ ├── Phase 1 - Data Labeling/ # Labeled datasets │ ├── Phase 2 - Data Cleaning/ # Cleaned LogFile & UsnJrnl │ ├── Phase 2.1 - Data Merging/ # Merged Master Timeline │ ├── Phase 3 - Feature Engineering/ # Feature-rich datasets │ ├── Phase 4 - Feature Preprocessing/ # Train/Val/Test splits │ └── Phase 5 - Model Training/ # Model outputs (next) ├── notebooks/ │ ├── presentation notebooks/ # Clean, documented notebooks │ │ ├── Phase 1 - Data Labeling.ipynb │ │ ├── Phase 2 - Data Cleaning.ipynb │ │ ├── Phase 2.1 - Data Merging.ipynb │ │ ├── Phase 3 - Feature Engineering.ipynb │ │ └── Phase 4 - Feature Preprocessing.ipynb │ ├── display notebooks/ # Analysis notebooks │ └── specific dataset notebooks/ # Per-case notebooks ├── models/ # Saved ML models (next) ├── outputs/ # Analysis outputs (next) ├── src/ # Source code (future plugin) ├── requirements.txt # Python dependencies └── README.md # This file
 
 ---
 
@@ -260,14 +308,15 @@ jupyter lab
 # Navigate to notebooks/presentation notebooks/
 ## 🎯 Current Work Session
 
-**Focus:** Completed Phase 3 - Feature Engineering
+**Focus:** Completed Phase 4 - Feature Preprocessing
 
 **Next Steps:**
-- Begin Phase 4: Feature Preprocessing
-- Clip extreme outliers in time delta features (±10 years)
-- Encode categorical variables (event_type, file_extension)
-- Apply StandardScaler to numerical features
-- Stratified train/val/test split by case_id (70/15/15)
+- Begin Phase 5: Model Training
+- Filter zero-variance features (VarianceThreshold)
+- Train Isolation Forest on training data
+- Hyperparameter tuning and validation
+- Final evaluation on test set
+- Feature importance analysis
 ## 📝 Notes for Resuming Work
 
 **Completed:**
@@ -275,27 +324,32 @@ jupyter lab
 - ✅ Phase 2: Data Cleaning (LogFile + UsnJrnl separately cleaned)
 - ✅ Phase 2.1: Data Merging (Unified Master Timeline created)
 - ✅ Phase 3: Feature Engineering (44 features engineered)
+- ✅ Phase 4: Feature Preprocessing (Train/Val/Test splits created)
 
 **Current Datasets:**
 - `Master_LogFile_Cleaned.csv`: 83,458 records
 - `Master_UsnJrnl_Cleaned.csv`: 2,181,063 records
 - `Master_Timeline.csv`: 2,264,521 records (merged)
 - `Master_Timeline_Features.csv`: 2,264,521 records, 44 features (866 MB)
+- **Preprocessed splits:**
+  - `X_train.csv`: 1,496,071 records, 27 features
+  - `X_val.csv`: 391,550 records, 27 features
+  - `X_test.csv`: 376,900 records, 27 features
 
 **Key Files:**
-- Latest dataset: `data/processed/Phase 3 - Feature Engineering/Master_Timeline_Features.csv`
-- Working notebook: `notebooks/presentation notebooks/Phase 3 - Feature Engineering.ipynb`
+- Latest datasets: `data/processed/Phase 4 - Feature Preprocessing/X_train.csv`, `X_val.csv`, `X_test.csv`
+- Working notebook: `notebooks/presentation notebooks/Phase 4 - Feature Preprocessing.ipynb`
 
 **Labeled Data Summary:**
 - Total timestomped events: 252 (across all sources)
 - Total suspicious execution events: 16
 - Total labeled for evaluation: **268 events** (0.01% of dataset)
+- Distribution: Train (191), Val (35), Test (42)
 
-**Next Phase:**
-- Create Phase 4 notebook for Feature Preprocessing
-- Handle extreme outliers (time deltas ±24 years → clip to ±10 years)
-- Encode categorical variables and scale numerical features
-- **CRITICAL:** Stratified split by `case_id` to prevent data leakage
+**Critical Notes for Phase 5:**
+- ⚠️ **Zero-variance features identified:** 6 features (`redo`, `target vcn`, etc.) need removal
+- 🔧 **Action:** Apply VarianceThreshold(0.01) before model training
+- ✅ **Perfect data split:** No case overlap between train/val/test
 ## 📊 Data Pipeline Summary
 
 | Phase | Input | Output | Records | Features | Status |
@@ -304,8 +358,10 @@ jupyter lab
 | Phase 2 | 24 labeled CSVs | 2 cleaned masters | 2.26M | 25 | ✅ Complete |
 | Phase 2.1 | 2 cleaned masters | Unified timeline | 2.26M | 25 | ✅ Complete |
 | Phase 3 | Unified timeline | Feature matrix | 2.26M | 44 | ✅ Complete |
-| Phase 4 | Feature matrix | Train/Val/Test splits | TBD | TBD | 🔜 Next |
-| Phase 5 | Preprocessed data | Trained model | N/A | N/A | ⏳ Planned |
+| Phase 4 | Feature matrix | Train/Val/Test splits | Train: 1.5M<br>Val: 391K<br>Test: 377K | 27 | ✅ Complete |
+| Phase 5 | Preprocessed splits | Trained IF model | N/A | ~20* | 🔜 Next |
+
+*After filtering zero-variance features
 👥 Team
 Project: Digital Detectives Thesis Institution: [Your University] Supervisor: [Supervisor Name]
 📄 License
