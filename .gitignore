@@ -27,3 +27,4 @@ outputs/
 Thumbs.db
 data/processed/Phase 2.1 - Data Merging/Master_Timeline.csv
 data/processed/Phase 2 - Data Cleaning/Master_UsnJrnl_Cleaned.csv
+data/processed/Phase 3 - Feature Engineering/Master_Timeline_Features.csv
