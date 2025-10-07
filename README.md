@@ -8,7 +8,7 @@ This repository is part of our thesis project, which aims to develop a prototype
 
 ## 📊 Current Project Status
 
-**Current Phase:** Phase 2.2 - Feature Engineering (In Progress)
+**Current Phase:** Phase 2.1 - Data Merging (Complete)
 
 **Branch:** `dataset-soni`
 
@@ -21,9 +21,11 @@ This repository is part of our thesis project, which aims to develop a prototype
 The project analyzes **12 forensic case datasets** (01-PE through 12-PE), each containing:
 - **$LogFile** artifacts: LSN-based NTFS file system event logs
 - **$UsnJrnl** artifacts: Update Sequence Number journal entries
-- **Suspicious indicators**: Manually labeled timestomping and malicious execution events
+- **Suspicious indicators:** Manually labeled timestomping and malicious execution events
+- **ML Algorithm:** Isolation Forest (unsupervised anomaly detection)
 
-**Total Records:** ~3.19 million timeline entries (before filtering)
+**Initial Records:** ~3.19 million timeline entries
+**After Cleaning:** 2.26 million high-quality forensic events
 
 ---
 
@@ -50,106 +52,134 @@ The project analyzes **12 forensic case datasets** (01-PE through 12-PE), each c
 
 ---
 
-### ✅ Phase 2.1: Data Cleaning & Merging
+### ✅ Phase 2: Data Cleaning
 **Status:** Complete
 
-**Objective:** Clean, standardize, and merge LogFile + UsnJrnl into unified timeline
+**Objective:** Clean and standardize LogFile and UsnJrnl datasets separately
+
+#### Part A: LogFile Cleaning
 
 **Process:**
-- Standardized column names to lowercase
-- Converted all timestamps to UTC datetime objects
-- Merged LogFile and UsnJrnl on `fullpath` + time proximity
-- Created master timeline with unified schema
-- Added `Case_ID` column (1-12) for multi-case analysis
+- Dropped rows with null `event` AND `detail` (46.19% reduction)
+- Dropped irrelevant columns (`targetvcn`, `clusterindex`)
+- Conditional imputation for `eventtime(utc+8)` based on event type
+- Extracted timestamps from `detail` column (recovered 12,675 timestamps)
+- Preserved all 14 timestomped + 8 suspicious labeled rows
+- Converted timestamps to datetime format (UTC)
+- Handled missing `fullpath` and `file/directory name`
 
 **Key Metrics:**
-- LogFile records: ~62K (across all 12 cases)
-- UsnJrnl records: ~3.1M (across all 12 cases)
-- Combined master timeline: **3,190,725 rows**
+- Initial: 243,884 records
+- Final: **83,458 records**
+- Reduction: 65.77%
+- All 22 labeled rows preserved ✅
 
 **Output:**
-- `data/processed/Phase 2.1 - Data Cleaning/Master_LogFile_Cleaned.csv`
-- `data/processed/Phase 2.1 - Data Cleaning/Master_UsnJrnl_Cleaned.csv`
-- `data/processed/phase 2.1 - data merged (all sub-folders)/MASTER_TIMELINE_ALL_CASES.csv`
+- `data/processed/Phase 2 - Data Cleaning/Master_LogFile_Cleaned.csv`
+
+#### Part B: UsnJrnl Cleaning
+
+**Process:**
+- Dropped irrelevant columns (`sourceinfo`, `carving flag`)
+- **Filtered low-value events** (30.28% reduction):
+  - Kept: HIGH_VALUE events (`Basic_Info_Changed`, `File_Created`, `Data_Overwritten`, etc.)
+  - Dropped: LOW_VALUE events (`File_Closed/Deleted`, `Access_Right_Changed`, etc.)
+- Handled missing `fullpath` (9.93% missing, acceptable)
+- Converted `timestamp(utc+8)` to datetime format
+- Renamed `Case_ID` to `case_id` and moved to first column
+- Preserved all 238 timestomped + 8 suspicious labeled rows
+
+**Key Metrics:**
+- Initial: 3,128,446 records
+- Final: **2,181,063 records**
+- Reduction: 30.28%
+- All 246 labeled rows preserved ✅
+- Timestamp completeness: 100% ✅
+
+**Output:**
+- `data/processed/Phase 2 - Data Cleaning/Master_UsnJrnl_Cleaned.csv`
 
 **Notebooks:**
-- `notebooks/display notebooks/Phase 2.1 - Merging All Sub-Folder.ipynb`
 - `notebooks/presentation notebooks/Phase 2 - Data Cleaning.ipynb`
 
 ---
 
-### 🔄 Phase 2.2: Feature Engineering
-**Status:** In Progress
+### ✅ Phase 2.1: Data Merging
+**Status:** Complete
 
-**Objective:** Reduce noise and calculate forensic features for ML model training
+**Objective:** Merge cleaned LogFile and UsnJrnl into unified temporal timeline
 
-#### Step 1: UsnJrnl Event Filtering (Noise Reduction)
-**Goal:** Filter out low-value system noise events
+**Process:**
+- Loaded both cleaned master datasets
+- Added `source` identifier column (LogFile/UsnJrnl)
+- Standardized column names (`fullpath`, `timestamp_primary`)
+- Merged datasets vertically (concatenation)
+- Sorted by `case_id` and `timestamp_primary`
+- Reordered columns for readability
 
-**Strategy:** Keep only high-forensic-value UsnJrnl events that indicate file manipulation:
-- `Basic_Info_Changed` – Direct MAC timestamp modification (CRITICAL)
-- `File_Created` – File creation events
-- `File_Renamed` – File renaming
-- `Data_Overwritten` / `Data_Added` / `Data_Truncated` – Content modifications
+**Key Metrics:**
+- LogFile: 83,458 records (3.7%)
+- UsnJrnl: 2,181,063 records (96.3%)
+- **Master Timeline: 2,264,521 records**
+- Labeled rows: 252 timestomped + 16 suspicious = **268 total**
+- Temporal coverage: ~24 years
 
-**Events Excluded:**
-- Permission changes (`Access_Right_Changed`, `SECURITY_CHANGE`)
-- Internal system operations (`Transacted_Changed`, `Reparse_Point_Changed`)
-- Non-contextual `File_Closed` events
+**Output:**
+- `data/processed/Phase 2.1 - Data Merging/Master_Timeline.csv`
 
-**Results:**
-- **Rows dropped:** 951,307 (29.81% reduction)
-- **Filtered dataset:** 2,239,418 rows
-- All LogFile records retained (62K rows)
-- UsnJrnl reduced to 2.18M high-value records
-
-**Output:** `data/processed/phase 3 - feature engineered/MASTER_TIMELINE_FILTERED.csv`
-
-#### Step 2: Time Delta Feature Calculation
-**Goal:** Calculate temporal anomaly features for timestomping detection
-
-**Features Calculated (6 total):**
-
-| Feature | Formula | Forensic Significance |
-|---------|---------|----------------------|
-| `Delta_MFTM_vs_M` | MFT Modified - Modified | **Most critical:** Detects direct timestamp manipulation |
-| `Delta_M_vs_C` | Modified - Creation | File age since creation |
-| `Delta_C_vs_A` | Creation - Accessed | Time before first access |
-| `Delta_Event_vs_M` | Event Timestamp - Modified | Event-to-modification lag |
-| `Delta_Event_vs_MFTM` | Event Timestamp - MFT Modified | Event-to-MFT lag |
-| `Delta_Event_vs_C` | Event Timestamp - Creation | Event-to-creation lag |
-
-**Output:** `data/processed/Phase 2.2 - Feature Engineering/MASTER-TIMELINE-FEATURES-CALCULATED.csv`
-
-**Notebook:** `notebooks/presentation notebooks/Phase 2 - Data Cleaning and Feature Engineering.ipynb`
+**Notebook:**
+- `notebooks/presentation notebooks/Phase 2.1 - Data Merging.ipynb`
 
 ---
 
 ### 📋 Upcoming Phases
 
-#### Phase 3: Additional Feature Engineering (Planned)
+#### Phase 3: Feature Engineering (Next)
+**Objective:** Calculate temporal and contextual features for timestomping detection
+
+**Planned Tasks:**
+- Calculate time delta features:
+  - `Delta_MFTM_vs_M` (MFT Modified vs Modified) - **CRITICAL**
+  - `Delta_M_vs_C` (Modified vs Creation)
+  - `Delta_C_vs_A` (Creation vs Accessed)
+  - Event timestamp deltas
 - Aggregate statistics per file (event count, unique timestamps)
 - File extension categorization
 - Directory depth features
-- File size change tracking
+- Temporal pattern features (hour-of-day, day-of-week)
+
+**Target Output:**
+- `data/processed/Phase 3 - Feature Engineering/Master_Timeline_Features.csv`
+
+---
 
 #### Phase 4: Feature Preprocessing (Planned)
-- Outlier handling
-- Feature scaling/normalization
-- Encoding categorical variables
-- Train/test split preparation
+- Handle outliers in time delta features
+- Feature scaling/normalization (StandardScaler)
+- Encode categorical variables (event types, file attributes)
+- Create train/test split (stratified by case_id)
+- Handle class imbalance (SMOTE or class weights)
+
+---
 
 #### Phase 5: Model Training (Planned)
 - **Algorithm:** Isolation Forest (unsupervised anomaly detection)
-- Hyperparameter tuning
-- Model evaluation metrics
+- Hyperparameter tuning (contamination, n_estimators, max_features)
+- Model evaluation:
+  - Precision, Recall, F1-Score
+  - ROC-AUC curve
+  - Confusion matrix
 - Cross-validation across 12 case datasets
+- Feature importance analysis
+
+---
 
 #### Phase 6: Plugin Development (Planned)
 - Integration with Autopsy framework
 - Real-time forensic artifact parsing
-- Visualization dashboard
-- Export capabilities
+- Visualization dashboard for detected anomalies
+- Export capabilities (CSV, JSON reports)
+- User documentation
 
 ---
 
@@ -170,28 +200,7 @@ The project analyzes **12 forensic case datasets** (01-PE through 12-PE), each c
 
 ## 📁 Project Structure
 
-```
-Digital-Detectives_Thesis/
-├── data/
-│   ├── raw/                          # Original forensic artifacts
-│   │   ├── 01-PE-LogFile.csv         # Case 1 LogFile
-│   │   ├── 01-PE-UsnJrnl.csv         # Case 1 UsnJrnl
-│   │   ├── suspicious/               # Manual suspicious file indicators
-│   │   └── ... (12 cases total)
-│   └── processed/
-│       ├── Phase 1 - Data Labeling/  # Labeled datasets
-│       ├── Phase 2.1 - Data Cleaning/# Cleaned & merged data
-│       └── Phase 2.2 - Feature Engineering/ # Feature-rich datasets
-├── notebooks/
-│   ├── presentation notebooks/       # Clean, documented notebooks
-│   ├── display notebooks/            # Analysis notebooks
-│   └── specific dataset notebooks/   # Per-case notebooks
-├── models/                           # Saved ML models (future)
-├── outputs/                          # Analysis outputs
-├── src/                              # Source code (future plugin)
-├── requirements.txt                  # Python dependencies
-└── README.md                         # This file
-```
+Digital-Detectives_Thesis/ ├── data/ │ ├── raw/ # Original forensic artifacts │ │ ├── 01-PE-LogFile.csv # Case 1 LogFile │ │ ├── 01-PE-UsnJrnl.csv # Case 1 UsnJrnl │ │ ├── suspicious/ # Manual suspicious file indicators │ │ └── ... (12 cases total) │ └── processed/ │ ├── Phase 1 - Data Labeling/ # Labeled datasets │ ├── Phase 2 - Data Cleaning/ # Cleaned LogFile & UsnJrnl │ ├── Phase 2.1 - Data Merging/ # Merged Master Timeline │ └── Phase 3 - Feature Engineering/ # Feature-rich datasets (next) ├── notebooks/ │ ├── presentation notebooks/ # Clean, documented notebooks │ │ ├── Phase 1 - Data Labeling.ipynb │ │ ├── Phase 2 - Data Cleaning.ipynb │ │ └── Phase 2.1 - Data Merging.ipynb │ ├── display notebooks/ # Analysis notebooks │ └── specific dataset notebooks/ # Per-case notebooks ├── models/ # Saved ML models (future) ├── outputs/ # Analysis outputs ├── src/ # Source code (future plugin) ├── requirements.txt # Python dependencies └── README.md # This file
 
 ---
 
@@ -202,48 +211,55 @@ Digital-Detectives_Thesis/
 python3 -m venv .venv
 source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 pip install -r requirements.txt
-```
-
-### Running Notebooks
-```bash
+Running Notebooks
 jupyter lab
 # Navigate to notebooks/presentation notebooks/
-```
-
-### Current Work Session
-**Focus:** Phase 2.2 - Feature Engineering
-**Next Steps:**
-1. Validate calculated time delta features
-2. Explore feature distributions for anomalies
-3. Begin Phase 3: Additional contextual features
-
----
-
-## 📝 Notes for Resuming Work
-
-**Git Status:**
-- Modified: `data/processed/Phase 1 - Data Labeling/01-PE-LogFile_labeled.csv`
-- New files in Phase 2.1 and 2.2 directories (not yet committed)
-
-**Key Files to Check:**
-- Latest feature dataset: `data/processed/Phase 2.2 - Feature Engineering/MASTER-TIMELINE-FEATURES-CALCULATED.csv`
-- Working notebook: `notebooks/presentation notebooks/Phase 2 - Data Cleaning and Feature Engineering.ipynb`
-
-**Known Issues/TODOs:**
-- [ ] Commit Phase 2.2 feature engineering outputs
-- [ ] Validate time delta calculations on known timestomped files
-- [ ] Document data dictionary for all 27 columns in feature dataset
-
----
-
-## 👥 Team
-
-**Project:** Digital Detectives Thesis
-**Institution:** [Your University]
-**Supervisor:** [Supervisor Name]
-
----
-
-## 📄 License
-
+Current Work Session
+Focus: Completed Phase 2.1 - Data Merging Next Steps:
+Begin Phase 3: Feature Engineering
+Calculate time delta features from Master Timeline
+Extract temporal patterns and contextual features
+Prepare feature matrix for ML model training
+📝 Notes for Resuming Work
+Completed:
+✅ Phase 1: Data Labeling (24 labeled datasets)
+✅ Phase 2: Data Cleaning (LogFile + UsnJrnl separately cleaned)
+✅ Phase 2.1: Data Merging (Unified Master Timeline created)
+Current Datasets:
+Master_LogFile_Cleaned.csv: 83,458 records
+Master_UsnJrnl_Cleaned.csv: 2,181,063 records
+Master_Timeline.csv: 2,264,521 records (merged)
+Key Files:
+Latest dataset: data/processed/Phase 2.1 - Data Merging/Master_Timeline.csv
+Working notebook: notebooks/presentation notebooks/Phase 2.1 - Data Merging.ipynb
+Labeled Data Summary:
+Total timestomped events: 252 (across all sources)
+Total suspicious execution events: 16
+Total labeled for training: 268 events
+Next Phase:
+Create Phase 3 notebook for Feature Engineering
+Focus on time delta calculations (critical for timestomping detection)
+Prepare features for Isolation Forest model
+📊 Data Pipeline Summary
+Phase	Input	Output	Records	Status
+Phase 1	Raw CSVs (12 cases)	24 labeled CSVs	3.37M	✅ Complete
+Phase 2	24 labeled CSVs	2 cleaned masters	2.26M	✅ Complete
+Phase 2.1	2 cleaned masters	Unified timeline	2.26M	✅ Complete
+Phase 3	Unified timeline	Feature matrix	TBD	🔜 Next
+Phase 4	Feature matrix	Preprocessed data	TBD	⏳ Planned
+Phase 5	Preprocessed data	Trained model	N/A	⏳ Planned
+👥 Team
+Project: Digital Detectives Thesis Institution: [Your University] Supervisor: [Supervisor Name]
+📄 License
 [Add your license information here]
+
+---
+
+**Key Changes:**
+1. ✅ Updated status to Phase 2.1 Complete
+2. ✅ Documented Phase 2 (LogFile + UsnJrnl cleaning separately)
+3. ✅ Added Phase 2.1 (Data Merging) with full details
+4. ✅ Updated metrics (2.26M final records, 268 labeled events)
+5. ✅ Clarified next steps: Phase 3 Feature Engineering
+6. ✅ Added data pipeline summary table
+7. ✅ Updated project structure and file paths
