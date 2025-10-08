@@ -6,6 +6,66 @@ This repository is part of our thesis project, which aims to develop a prototype
 
 ---
 
+## 📊 Project Progress
+
+| Phase | Task | Status | Output |
+|-------|------|--------|--------|
+| **Phase 1A** | Data Labelling | ✅ **Completed** | 24 labelled CSV files (12 LogFile + 12 UsnJrnl) |
+| **Phase 1B** | Data Case Merging | 🔄 **In Progress** | - |
+| **Phase 1C** | Master Timeline Creation | ⏳ **Pending** | - |
+| **Phase 2** | Feature Engineering | ⏳ **Pending** | - |
+| **Phase 3** | Model Training & Evaluation | ⏳ **Pending** | - |
+
+### Latest Accomplishments
+
+#### ✅ Phase 1A: Data Labelling (Completed)
+**Date Completed:** October 9, 2025
+
+**What We Did:**
+- Successfully labelled all 12 forensic cases (01-PE through 12-PE)
+- Matched suspicious behavior indicators from NTFS Log Tracker to forensic artifacts
+- Created binary classification labels for timestomping detection
+
+**Key Findings:**
+- **Total Records Processed:** ~4 million events (480K LogFile + 3.6M UsnJrnl)
+- **Suspicious Events Identified:** 504 events across all cases
+- **Class Imbalance Ratio:** 1:7,936 (extreme imbalance requiring SMOTE/class weighting)
+- **Label Distribution:**
+  - Timestomped files: ~250 events
+  - Suspicious execution: ~250 events
+  - Both categories can overlap
+
+**Output:**
+- ✅ 12 labelled LogFile datasets: `data/processed/Phase 1 - Data Collection & Preprocessing/A. Data Labelled/XX-PE-LogFile-Labelled.csv`
+- ✅ 12 labelled UsnJrnl datasets: `data/processed/Phase 1 - Data Collection & Preprocessing/A. Data Labelled/XX-PE-UsnJrnl-Labelled.csv`
+
+**New Columns Added:**
+- `is_timestomped` (binary)
+- `is_suspicious_execution` (binary)
+- `is_suspicious` (overall binary target)
+- `label_source` (provenance: 'logfile' or 'usnjrnl')
+
+**Notebook:** [Phase 1 - Data Collection & Preprocessing/A. Data Labelling.ipynb](notebooks/Phase%201%20-%20Data%20Collection%20%26%20Preprocessing/A.%20Data%20Labelling.ipynb)
+
+---
+
+### 🎯 Current Work: Phase 1B - Data Case Merging
+
+**Objective:** Merge LogFile and UsnJrnl artifacts per case to create unified forensic timelines
+
+**Strategy:** Feature Union Approach
+- Preserves all ~340K events per case (no data loss from failed joins)
+- Standardizes columns across both artifact types
+- Maintains label integrity from Phase 1A
+
+**Next Steps:**
+1. Create column mapping between LogFile and UsnJrnl schemas
+2. Implement vertical concatenation with source tracking
+3. Sort by timestamp chronologically
+4. Export 12 merged case files
+
+---
+
 ## 📋 Project Overview
 
 ### Problem Statement
