@@ -47,9 +47,8 @@ The reduction from 504 suspicious indicators to 252 actual labels occurred due t
 - ✅ 12 labelled UsnJrnl datasets: `data/processed/Phase 1 - Data Collection & Preprocessing/A. Data Labelled/XX-PE-UsnJrnl-Labelled.csv`
 
 **New Column Structure:**
-- **Labels (prediction targets):**
-  - `is_timestomped`: Binary flag for actual timestamp manipulation (1 = manipulated)
-  - `is_suspicious`: Same as is_timestomped (primary training target)
+- **Label (prediction target):**
+  - `is_timestomped`: Binary flag for actual timestamp manipulation (1 = manipulated, 0 = benign)
   - `label_source`: Provenance tracking ('logfile' or 'usnjrnl')
 
 - **Features (help predict):**
@@ -60,6 +59,7 @@ The reduction from 504 suspicious indicators to 252 actual labels occurred due t
 - Model learns **timestamp patterns** (actual behavior), not **file name patterns** (tool signatures)
 - Better generalization to detect timestomping with unknown tools
 - Cleaner labels = better model performance
+- Single clear target variable (`is_timestomped`) prevents confusion
 
 **Notebook:** [Phase 1 - Data Collection & Preprocessing/A. Data Labelling.ipynb](notebooks/Phase%201%20-%20Data%20Collection%20%26%20Preprocessing/A.%20Data%20Labelling.ipynb)
 
@@ -85,7 +85,7 @@ After initial exploration, we discovered that simple concatenation creates ~4M r
 3. **Handle New Columns from Phase 1A:**
    - Aggregate `timestomp_tool_executed` (max across grouped events)
    - Aggregate `suspicious_tool_name` (preserve tool names)
-   - `is_suspicious` tracks ONLY actual timestomping (not tool execution)
+   - `is_timestomped` tracks ONLY actual timestomping (not tool execution)
 
 **Expected Results:**
 - Dataset reduction: ~3.4M → ~860K rows (74.5% smaller)
@@ -95,7 +95,7 @@ After initial exploration, we discovered that simple concatenation creates ~4M r
 
 **Next Steps:**
 1. ✅ Update Phase 1B aggregation to handle new feature columns
-2. ✅ Fix merge statistics calculation (currently showing 268 → should show 252)
+2. ✅ Simplified labeling: removed redundant `is_suspicious` column
 3. Re-run merging with corrected Phase 1A labels
 4. Verify: 252 timestomped events, 16 tool executions as features
 
@@ -177,16 +177,18 @@ This work builds upon:
 3. Load suspicious behavior indicators from NTFS Log Tracker (504 indicator records)
 4. Match labels using LSN/USN identifiers
 5. **Critical Design Decision:** Separate labels from features
-   - **Labels (what we predict):**
-     - `is_timestomped`: Actual timestamp manipulation detected
-     - `is_suspicious`: Same as is_timestomped (primary training target)
+   - **Label (what we predict):**
+     - `is_timestomped`: Actual timestamp manipulation detected (PRIMARY TARGET)
      - `label_source`: Provenance tracking (logfile/usnjrnl)
    - **Features (help predict):**
      - `timestomp_tool_executed`: Binary flag for tool execution
      - `suspicious_tool_name`: Tool name (e.g., "NewFileTime.exe")
 
 **Key Insight:**
-Tool execution (e.g., running NewFileTime.exe) is a **feature**, not a **label**. Only actual timestamp manipulation is labeled as suspicious. This prevents model confusion and ensures it learns timestamp patterns, not file name patterns.
+Tool execution (e.g., running NewFileTime.exe) is a **feature**, not a **label**. Only actual timestamp manipulation is labeled. This prevents model confusion and ensures it learns timestamp patterns, not file name patterns.
+
+**Design Simplification:**
+Originally had both `is_timestomped` and `is_suspicious` columns, but they were identical. Removed redundancy to keep only `is_timestomped` as the single, clear target variable.
 
 **Output:**
 - `data/processed/XX-PE-LogFile-Labelled.csv` (252 timestomped events total)
@@ -201,7 +203,7 @@ Tool execution (e.g., running NewFileTime.exe) is a **feature**, not a **label**
 1. **Normalize timestamps** to fix format mismatches (e.g., '0:21:57' vs '00:21:57')
 2. **Aggregate UsnJrnl events** at same timestamp+filepath+filename:
    - Multiple UsnJrnl events (File_Created → Data_Added → File_Closed) → single row
-   - Use max() for suspicious flags to preserve detections
+   - Use max() for timestomped flags to preserve detections
    - Combine event info to show complete event sequence
    - Reduces 3.1M UsnJrnl rows → ~631K aggregated rows
 3. **Prepare LogFile** with 'lf_' column prefix
