@@ -380,13 +380,58 @@ These scripts bridge the gap between trained models and operational forensic wor
 | **B. Data Case Merging** ✅ | Create a unified timeline per case (LogFile + UsnJrnl). | **Solution:** Smart UsnJrnl Aggregation (3.1M → 631K) + Prioritized Outer Join. Preserved 98.0% of labels with zero duplication. | Dataset reduction: 3.4M → 825K rows (75.5% reduction). 12 merged datasets. |
 | **C. Master Timeline Creation** ✅ | Aggregate all 12 cases into a single training dataset. | Vertical concatenation and chronological sorting. LSN/USN uniqueness validated within each case. | Single unified dataset (824,605 events, 247 labels). |
 | **D. Feature Engineering** ✅ | Transform raw timeline into ML-ready features. | **Solution:** Timestamp recovery (69% from lf_creation_time), vectorized event frequency calculations, comprehensive anomaly detection (8 features), categorical encoding (46 cross-artifact features). | 778,692 events, 87 features, 100% label preservation. Class imbalance: 1:3,151. |
-| **E. Model Training** 🔄 | Train ML models for timestomping detection. | Case-based stratified split + SMOTE oversampling + class weights. Random Forest & XGBoost with hyperparameter tuning. | **In Progress** |
+| **E. Model Training** ✅ | Train ML models for timestomping detection. | Minimal SMOTE (1:1000) + case-based stratified split + regularized Random Forest (50 trees, depth=4). Experimental testing of 3 strategies to find optimal balance. | **Precision:** 42.7%, **Recall:** 65.7%, **F1:** 0.517, **AUC-ROC:** 0.999, **AUC-PR:** 0.348. 99.95% investigation reduction. |
+| **F. Demo & Deployment** ✅ | Create production-ready inference scripts. | Two deployment options: (1) Quick demo with pre-engineered features, (2) Full pipeline with raw artifacts. Feature alignment system handles format variations. | Terminal-based Python scripts with automated setup, comprehensive documentation, validated on new test cases. |
 
 ***
 
 ## 🛠️ Project Structure (Updated)
 
-Digital-Detectives_Thesis/ ├── data/ │ ├── raw/ │ │ └── suspicious/ # Ground truth labels │ └── processed/ # Cleaned & engineered data │ ├── Phase 1 - Data Collection & Preprocessing/ │ │ ├── A. Data Labelled/ # ✅ Phase 1A output │ │ │ ├── XX-PE-LogFile-Labelled.csv │ │ │ └── XX-PE-UsnJrnl-Labelled.csv │ │ ├── B. Data Case Merging/ # ✅ Phase 1B output │ │ │ └── XX-PE-Merged.csv # 12 merged case files │ │ └── C. Master Timeline/ # ✅ Phase 1C output │ │ └── master_timeline.csv # Unified dataset (824,605 events) │ └── Phase 2 - Feature Engineering/ # ✅ Phase 2 output │ └── features_engineered.csv # ML-ready dataset (778,692 events, 87 features) ├── notebooks/ │ ├── Phase 1 - Data Collection & Preprocessing/ │ │ ├── A. Data Labelling.ipynb # ✅ Completed │ │ ├── B. Data Case Merging.ipynb # ✅ Completed │ │ └── C. Master Timeline Creation.ipynb # ✅ Completed │ ├── Phase 2 - Feature Engineering/ │ │ └── Feature Engineering.ipynb # ✅ Completed │ └── Phase 3 - Model Training & Evaluation/ # 🔄 In Progress ├── models/ # Trained model artifacts └── outputs/ # Evaluation reports & visualizations
+```
+Digital-Detectives_Thesis/
+├── data/
+│   ├── raw/
+│   │   └── suspicious/                           # Ground truth labels from NTFS Log Tracker
+│   └── processed/
+│       ├── Phase 1 - Data Collection & Preprocessing/
+│       │   ├── A. Data Labelled/                 # ✅ 24 labelled CSV files
+│       │   ├── B. Data Case Merging/             # ✅ 12 merged case files
+│       │   └── C. Master Timeline/               # ✅ master_timeline.csv (824,605 events)
+│       ├── Phase 2 - Feature Engineering/        # ✅ features_engineered.csv (778,692 × 87)
+│       └── Phase 3 - Model Training/
+│           ├── v3_final/                         # ✅ Final production model
+│           │   ├── random_forest_model_final.joblib
+│           │   ├── evaluation_metrics.csv
+│           │   ├── feature_importance.csv
+│           │   ├── test_predictions.csv
+│           │   └── *.png (visualizations)
+│           └── v2_experiments/                   # ✅ Strategy comparison results
+│
+├── notebooks/
+│   ├── Phase 1 - Data Collection & Preprocessing/
+│   │   ├── A. Data Labelling.ipynb              # ✅ Completed
+│   │   ├── B. Data Case Merging.ipynb           # ✅ Completed
+│   │   └── C. Master Timeline Creation.ipynb    # ✅ Completed
+│   ├── Phase 2 - Feature Engineering/
+│   │   └── Feature Engineering.ipynb            # ✅ Completed
+│   └── Phase 3 - Model Training/
+│       ├── Model Training.ipynb                 # ✅ v1 (initial)
+│       ├── Model Training v2.ipynb              # ✅ v2 (experiments)
+│       └── Model Training v3.ipynb              # ✅ v3 (final)
+│
+├── demo/                                         # ✅ Production deployment
+│   ├── predict_timestomping.py                  # Option 1: Quick demo
+│   ├── full_pipeline_demo.py                    # Option 2: Full pipeline
+│   ├── setup.sh                                 # Automated installation
+│   ├── requirements.txt                         # Python dependencies
+│   ├── README.md                                # Complete documentation
+│   ├── QUICKSTART.md                            # 5-minute guide
+│   ├── venv/                                    # Virtual environment
+│   └── test csv/                                # Test data (Case 06-APT)
+│
+├── Chapter_3_Methodology_Documentation.md        # ✅ Thesis Chapter 3
+└── README.md                                     # This file
+```
 
 ***
 
