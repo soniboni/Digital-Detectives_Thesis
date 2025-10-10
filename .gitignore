@@ -25,3 +25,4 @@ outputs/
 # OS-specific files
 .DS_Store
 Thumbs.db
+data/processed/Phase 1 - Data Collection & Preprocessing/C. Master Timeline/master_timeline.csv
