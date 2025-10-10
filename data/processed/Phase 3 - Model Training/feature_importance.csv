@@ -1,0 +1,80 @@
+feature,importance,category
+label_source_nan,0.2166357391427874,Cross-Artifact
+lf_event_encoded,0.10853267433317676,Event
+merge_matched,0.10031579814471411,Cross-Artifact
+label_source_usnjrnl,0.10000370241505814,Cross-Artifact
+has_both_artifacts,0.07271382728509247,Cross-Artifact
+is_temp_path,0.06843595011925749,Path
+has_logfile_data,0.04991484143881764,Cross-Artifact
+merge_usnjrnl_only,0.044515002249859645,Cross-Artifact
+path_depth,0.025270903661494506,Path
+is_off_hours,0.02325196712808332,Temporal
+events_per_minute,0.02316332009682144,Temporal
+usn_event_encoded,0.01904831607146968,Event
+usn_attr_Archive,0.018891191254815955,Cross-Artifact
+filename_entropy,0.016924873675612146,Path
+events_per_file,0.012901604584264936,Temporal
+event_count_per_file,0.009977409814757554,Event
+day_of_month,0.00936246667814623,Temporal
+is_system_path,0.008591369960277317,Path
+day_of_week,0.008163698479688208,Temporal
+is_user_path,0.006271110461629565,Path
+filename_length,0.006180160830919434,Path
+month,0.006062417801106778,Temporal
+year,0.0055376459728492975,Temporal
+time_delta_seconds,0.004806365787145518,Temporal
+label_source_logfile,0.004707069231970419,Cross-Artifact
+missing_eventtime_flag,0.004662497752195287,Other
+merge_logfile_only,0.004384991212547555,Cross-Artifact
+is_executable,0.004299989513567685,Path
+hour_of_day,0.0035992163041425828,Temporal
+path_entropy,0.0034306541238520198,Path
+has_future_timestamp,0.003046601427015122,Anomaly
+usn_attr_nan,0.002031307704247967,Cross-Artifact
+has_usnjrnl_data,0.0019105286618175488,Cross-Artifact
+mac_all_identical,0.0004638757867434046,Anomaly
+is_high_activity,0.0004341886883891057,Flags
+is_consecutive_same_event,0.00029407864099578295,Event
+is_weekend,0.0002548301953362329,Temporal
+modified_year_delta,0.00021232029862134898,Temporal
+usn_attr_Directory,0.00018862709098637118,Cross-Artifact
+creation_after_modification,0.0001348295706127257,Anomaly
+label_source_both,0.00011047306854437651,Cross-Artifact
+usn_attr_Archive / Not_Content_Indexed,0.00011010988204730684,Cross-Artifact
+is_rare_lf_event,7.428420974826106e-05,Event
+is_rare_usn_event,5.9780662151748186e-05,Event
+usn_attr_Archive / Temporary,5.826633335443262e-05,Cross-Artifact
+usn_attr_Archive / Hidden,3.531593468656531e-05,Cross-Artifact
+usn_attr_Archive / Compressed,1.9535323807002833e-05,Cross-Artifact
+usn_attr_Archive / Hidden / System,1.521549483481338e-06,Cross-Artifact
+creation_year_delta,1.448279695757529e-06,Temporal
+usn_attr_Normal,1.1290403801468413e-06,Cross-Artifact
+usn_attr_Not_Content_Indexed,1.5601322131794466e-07,Cross-Artifact
+usn_attr_Archive / Repasre_Point / Sparse,1.5236368542120614e-08,Cross-Artifact
+usn_attr_Archive / System,8.756143545733802e-10,Cross-Artifact
+usn_attr_Directory / Not_Content_Indexed,5.669903091481437e-15,Cross-Artifact
+usn_attr_Archive / Not_Content_Indexed / System,2.155168543050864e-15,Cross-Artifact
+usn_attr_Archive / Not_Content_Indexed / Temporary,9.092023818657927e-16,Cross-Artifact
+usn_attr_Archive / Hidden / Not_Content_Indexed,6.362047111595285e-16,Cross-Artifact
+usn_attr_Archive / Hidden / Not_Content_Indexed / System,3.141690549457655e-16,Cross-Artifact
+usn_attr_Archive / Sparse,2.2226364315367585e-16,Cross-Artifact
+usn_attr_Archive / Directory / Hidden,0.0,Cross-Artifact
+accessed_before_creation,0.0,Anomaly
+usn_attr_Not_Content_Indexed / System,0.0,Cross-Artifact
+usn_attr_Archive / Compressed / Not_Content_Indexed,0.0,Cross-Artifact
+usn_attr_Sparse,0.0,Cross-Artifact
+nanosec_is_zero,0.0,Anomaly
+usn_attr_Archive / Directory,0.0,Cross-Artifact
+usn_attr_Archive / Not_Content_Indexed / Sparse,0.0,Cross-Artifact
+usn_attr_Hidden / System,0.0,Cross-Artifact
+usn_attr_Directory / Hidden / System,0.0,Cross-Artifact
+usn_attr_Directory / Hidden / Not_Content_Indexed / System,0.0,Cross-Artifact
+usn_attr_Directory / Hidden / Not_Content_Indexed / Repasre_Point / System,0.0,Cross-Artifact
+usn_attr_Directory / Hidden / Not_Content_Indexed,0.0,Cross-Artifact
+usn_attr_Archive / Hidden / Temporary,0.0,Cross-Artifact
+usn_attr_Compressed / Not_Content_Indexed,0.0,Cross-Artifact
+usn_attr_Compressed / Directory / Not_Content_Indexed,0.0,Cross-Artifact
+usn_attr_Compressed / Directory,0.0,Cross-Artifact
+usn_attr_Archive / Not_Content_Indexed / Repasre_Point / Sparse,0.0,Cross-Artifact
+usn_attr_Archive / Repasre_Point,0.0,Cross-Artifact
+usn_attr_Directory / ReadOnly,0.0,Cross-Artifact
