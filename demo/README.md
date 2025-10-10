@@ -32,7 +32,36 @@ Timestomping is an anti-forensic technique where attackers manipulate file times
 
 ## 📦 Requirements
 
-### Python Packages
+### Quick Setup (Recommended)
+
+Run the setup script to create a virtual environment and install all dependencies:
+
+```bash
+cd demo
+./setup.sh
+```
+
+Then activate the virtual environment:
+```bash
+source venv/bin/activate
+```
+
+### Manual Setup
+
+If you prefer to set up manually:
+
+1. **Create virtual environment:**
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+2. **Install packages:**
+```bash
+pip install -r requirements.txt
+```
+
+Or install individually:
 ```bash
 pip install pandas numpy scikit-learn joblib imbalanced-learn
 ```
@@ -44,6 +73,9 @@ Both scripts require the trained model:
 ```
 
 Make sure you've completed Phase 3 (Model Training) before running these demos.
+
+### Important: Virtual Environment
+⚠️ **macOS users with Homebrew Python:** Your system requires a virtual environment. The setup script handles this automatically.
 
 ---
 

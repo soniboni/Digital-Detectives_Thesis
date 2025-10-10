@@ -27,3 +27,4 @@ outputs/
 Thumbs.db
 data/processed/Phase 1 - Data Collection & Preprocessing/C. Master Timeline/master_timeline.csv
 data/processed/Phase 2 - Feature Engineering/features_engineered.csv
+demo/test_results/predictions.csv

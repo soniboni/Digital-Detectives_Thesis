@@ -120,7 +120,7 @@ def print_error(text):
 
 def load_raw_artifacts(logfile_path, usnjrnl_path, verbose=False):
     """
-    Load raw $LogFile and $UsnJrnl CSV files
+    Load raw $LogFile and $UsnJrnl CSV files and standardize column names
 
     Args:
         logfile_path: Path to $LogFile CSV
@@ -128,8 +128,8 @@ def load_raw_artifacts(logfile_path, usnjrnl_path, verbose=False):
         verbose: Print detailed information
 
     Returns:
-        lf_df: LogFile DataFrame
-        usn_df: UsnJrnl DataFrame
+        lf_df: LogFile DataFrame with standardized columns
+        usn_df: UsnJrnl DataFrame with standardized columns
     """
     print_info(f"Loading $LogFile: {logfile_path}")
 
@@ -143,6 +143,25 @@ def load_raw_artifacts(logfile_path, usnjrnl_path, verbose=False):
     if verbose:
         print_info(f"   Columns: {', '.join(lf_df.columns[:5].tolist())}... ({len(lf_df.columns)} total)")
 
+    # Standardize LogFile column names
+    lf_column_map = {
+        'LSN': 'lf_lsn',
+        'EventTime(UTC+8)': 'eventtime',
+        'Event': 'lf_event',
+        'Detail': 'lf_detail',
+        'File/Directory Name': 'filename',
+        'Full Path': 'filepath',
+        'CreationTime': 'lf_creation_time',
+        'ModifiedTime': 'lf_modified_time',
+        'MFTModifiedTime': 'lf_mft_modified_time',
+        'AccessedTime': 'lf_accessed_time',
+        'Redo': 'lf_redo',
+        'Target VCN': 'lf_target_vcn',
+        'Cluster Index': 'lf_cluster_index'
+    }
+    lf_df = lf_df.rename(columns=lf_column_map)
+    print_info(f"   Standardized LogFile column names")
+
     print_info(f"Loading $UsnJrnl: {usnjrnl_path}")
 
     if not Path(usnjrnl_path).exists():
@@ -154,6 +173,22 @@ def load_raw_artifacts(logfile_path, usnjrnl_path, verbose=False):
 
     if verbose:
         print_info(f"   Columns: {', '.join(usn_df.columns[:5].tolist())}... ({len(usn_df.columns)} total)")
+
+    # Standardize UsnJrnl column names
+    usn_column_map = {
+        'TimeStamp(UTC+8)': 'eventtime',
+        'USN': 'usn_usn',
+        'File/Directory Name': 'filename',
+        'FullPath': 'filepath',
+        'EventInfo': 'usn_event_info',
+        'SourceInfo': 'usn_source_info',
+        'FileAttribute': 'usn_file_attribute',
+        'Carving Flag': 'usn_carving_flag',
+        'FileReferenceNumber': 'usn_file_reference_number',
+        'ParentFileReferenceNumber': 'usn_parent_file_reference_number'
+    }
+    usn_df = usn_df.rename(columns=usn_column_map)
+    print_info(f"   Standardized UsnJrnl column names")
 
     return lf_df, usn_df
 
@@ -351,14 +386,15 @@ def engineer_features(df, verbose=False):
     else:
         df_processed['mac_all_identical'] = 0
 
-    # Future timestamps
+    # Future timestamps (vectorized approach)
     mac_time_cols = [col for col in ['lf_creation_time_dt', 'lf_modified_time_dt', 'lf_accessed_time_dt']
                      if col in df_processed.columns]
 
     if mac_time_cols:
-        df_processed['has_future_timestamp'] = (
-            df_processed[mac_time_cols].apply(lambda row: any(row > df_processed['eventtime_dt']), axis=1)
-        ).astype(int)
+        # Check if any MAC timestamp is greater than eventtime
+        df_processed['has_future_timestamp'] = 0
+        for col in mac_time_cols:
+            df_processed['has_future_timestamp'] |= (df_processed[col] > df_processed['eventtime_dt']).fillna(False).astype(int)
     else:
         df_processed['has_future_timestamp'] = 0
 
@@ -570,8 +606,32 @@ def make_predictions(df_engineered, model_path, threshold=0.3, verbose=False):
 
     X = X.fillna(0)
 
-    print_info(f"   Feature matrix: {X.shape}")
+    print_info(f"   Feature matrix before alignment: {X.shape}")
     print_info(f"   Model expects: {model.n_features_in_} features")
+
+    # Align features with training data
+    if hasattr(model, 'feature_names_in_'):
+        expected_features = model.feature_names_in_
+
+        # Add missing features (with zeros)
+        missing_features = set(expected_features) - set(X.columns)
+        if missing_features:
+            if verbose:
+                print_info(f"   Adding {len(missing_features)} missing features")
+            for feat in missing_features:
+                X[feat] = 0
+
+        # Remove extra features
+        extra_features = set(X.columns) - set(expected_features)
+        if extra_features:
+            if verbose:
+                print_info(f"   Removing {len(extra_features)} extra features")
+            X = X.drop(columns=list(extra_features))
+
+        # Reorder columns to match training order
+        X = X[expected_features]
+
+        print_info(f"   Feature matrix after alignment: {X.shape}")
 
     # Make predictions
     print_info("Generating predictions...")
