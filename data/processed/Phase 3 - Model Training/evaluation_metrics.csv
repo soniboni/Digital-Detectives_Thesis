@@ -1,2 +1,2 @@
 test_precision,test_recall,test_f1,auc_roc,auc_pr,true_negatives,false_positives,false_negatives,true_positives,test_samples,test_timestomped,train_samples,train_timestomped
-1.0,1.0,1.0,1.0,1.0,231105,0,0,34,231139,34,552813,5473
+0.46445497630331756,0.9607843137254902,0.6261980830670927,0.9997008917398335,0.33786943317244544,295324,113,4,98,295539,102,485423,2415

@@ -1,0 +1,7 @@
+﻿Category,Detail,Source,DetectionLocation (LSN / USN)
+Timestamp Manipulation,"[Suspicious] $SI timestamp of IEXPLORE.EXE"" is changed to the past. => CreationTime : 2023-01-02 21:49:50 -> 2019-12-07 17:03:44, ModifiedTime : 2023-01-02 21:42:06 -> 2019-12-07 17:03:44, AccessedTime : 2023-01-02 21:49:50 -> 2019-12-07 17:03:44""",$LogFile,4413902951
+Deletion of Document File,"test1.docx"" has been deleted.""",$UsnJrnl:$J,754481248
+Deletion of Document File,"test2.xlsx"" has been deleted.""",$UsnJrnl:$J,754481328
+Deletion of Document File,"test3.pptx"" has been deleted.""",$UsnJrnl:$J,754481408
+Manipulation of System Time,The system time reversal has occurred. (2022-12-29 21:20:08 -> 2022-12-29 01:09:37),$UsnJrnl:$J,754746288
+Timestamp Manipulation,"[Suspicious] The timestamp of IEXPLORE.EXE"" may have been manipulated. => ((CreationTime : 2019-12-07 17:03:44) != (Creation Event Time : 2023-01-02 21:49:50))""",$UsnJrnl:$J,769523712

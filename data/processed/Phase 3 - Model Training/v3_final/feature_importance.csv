@@ -1,0 +1,76 @@
+feature,importance,category
+usn_event_encoded,0.10722626562553941,Event
+lf_event_encoded,0.09986800225909091,Event
+is_temp_path,0.09587127617280768,Path
+events_per_minute,0.08802396642586427,Temporal
+has_both_artifacts,0.07402312957682927,Cross-Artifact
+merge_matched,0.06806644376352335,Cross-Artifact
+usn_attr_Archive,0.045132287743619874,Cross-Artifact
+merge_usnjrnl_only,0.04228385527155428,Cross-Artifact
+is_system_path,0.03621127208802072,Path
+day_of_month,0.03496276048742595,Temporal
+path_depth,0.03288355445543769,Path
+path_entropy,0.0306735122718507,Path
+events_per_file,0.029385275746387097,Temporal
+has_usnjrnl_data,0.02722240613090511,Cross-Artifact
+filename_length,0.02500723755825429,Path
+time_delta_seconds,0.0247656323571834,Temporal
+is_weekend,0.02112235516877849,Temporal
+has_logfile_data,0.020984974528150423,Cross-Artifact
+hour_of_day,0.01577657688023512,Temporal
+event_count_per_file,0.013697255305316984,Event
+day_of_week,0.012852010357299175,Temporal
+filename_entropy,0.011608956610474128,Path
+is_user_path,0.010694612198155866,Path
+is_high_activity,0.00725315479839539,Flags
+mac_all_identical,0.006439074435364187,Anomaly
+merge_logfile_only,0.006252158446692579,Cross-Artifact
+usn_attr_nan,0.005549947414676948,Cross-Artifact
+month,0.0017411874292928952,Temporal
+year,0.0012228386153306668,Temporal
+is_rare_usn_event,0.0011982786910771032,Event
+usn_attr_Archive / Not_Content_Indexed,0.0008803118100301315,Cross-Artifact
+is_off_hours,0.0008536021362386973,Temporal
+is_executable,9.367712864523555e-05,Path
+has_future_timestamp,8.83154941086927e-05,Anomaly
+usn_attr_Archive / Compressed,6.786822387454638e-05,Cross-Artifact
+usn_attr_Directory,1.4248453996507117e-05,Cross-Artifact
+modified_year_delta,1.6770930283375908e-06,Temporal
+usn_attr_Normal,4.084654391812128e-08,Cross-Artifact
+usn_attr_Archive / Temporary,0.0,Cross-Artifact
+usn_attr_Directory / Hidden / Not_Content_Indexed / System,0.0,Cross-Artifact
+usn_attr_Compressed / Directory / Not_Content_Indexed,0.0,Cross-Artifact
+usn_attr_Compressed / Not_Content_Indexed,0.0,Cross-Artifact
+usn_attr_Directory / Hidden / Not_Content_Indexed,0.0,Cross-Artifact
+usn_attr_Directory / Hidden / Not_Content_Indexed / Repasre_Point / System,0.0,Cross-Artifact
+usn_attr_Hidden / System,0.0,Cross-Artifact
+usn_attr_Directory / Hidden / System,0.0,Cross-Artifact
+usn_attr_Directory / Not_Content_Indexed,0.0,Cross-Artifact
+usn_attr_Directory / ReadOnly,0.0,Cross-Artifact
+usn_attr_Not_Content_Indexed,0.0,Cross-Artifact
+usn_attr_Not_Content_Indexed / System,0.0,Cross-Artifact
+usn_attr_Sparse,0.0,Cross-Artifact
+usn_attr_Compressed / Directory,0.0,Cross-Artifact
+missing_eventtime_flag,0.0,Other
+usn_attr_Archive / System,0.0,Cross-Artifact
+usn_attr_Archive / Sparse,0.0,Cross-Artifact
+creation_after_modification,0.0,Anomaly
+accessed_before_creation,0.0,Anomaly
+creation_year_delta,0.0,Temporal
+nanosec_is_zero,0.0,Anomaly
+is_rare_lf_event,0.0,Event
+is_consecutive_same_event,0.0,Event
+usn_attr_Archive / Compressed / Not_Content_Indexed,0.0,Cross-Artifact
+usn_attr_Archive / Directory,0.0,Cross-Artifact
+usn_attr_Archive / Hidden,0.0,Cross-Artifact
+usn_attr_Archive / Hidden / Not_Content_Indexed,0.0,Cross-Artifact
+usn_attr_Archive / Hidden / Not_Content_Indexed / System,0.0,Cross-Artifact
+usn_attr_Archive / Hidden / System,0.0,Cross-Artifact
+usn_attr_Archive / Hidden / Temporary,0.0,Cross-Artifact
+usn_attr_Archive / Not_Content_Indexed / Repasre_Point / Sparse,0.0,Cross-Artifact
+usn_attr_Archive / Not_Content_Indexed / Sparse,0.0,Cross-Artifact
+usn_attr_Archive / Not_Content_Indexed / System,0.0,Cross-Artifact
+usn_attr_Archive / Not_Content_Indexed / Temporary,0.0,Cross-Artifact
+usn_attr_Archive / Repasre_Point,0.0,Cross-Artifact
+usn_attr_Archive / Repasre_Point / Sparse,0.0,Cross-Artifact
+usn_attr_Archive / Directory / Hidden,0.0,Cross-Artifact

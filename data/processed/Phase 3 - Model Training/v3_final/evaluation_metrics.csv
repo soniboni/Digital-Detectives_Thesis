@@ -1,0 +1,2 @@
+model_version,smote_strategy,test_precision,test_recall,test_f1,auc_roc,auc_pr,true_negatives,false_positives,false_negatives,true_positives,false_positive_rate,false_negative_rate,test_samples,test_timestomped,train_samples_after_smote,train_timestomped_after_smote,oob_score
+v3_final,1:1000 (Minimal),0.4267515923566879,0.6568627450980392,0.5173745173745173,0.999313745069036,0.3482077866279799,295347,90,35,67,0.0003046334751571401,0.3431372549019608,295539,102,483490,482,0.9993195309106704
