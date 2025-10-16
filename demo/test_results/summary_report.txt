@@ -1,0 +1,29 @@
+================================================================================
+TIMESTOMPING DETECTION - FULL PIPELINE SUMMARY
+================================================================================
+
+Generated: 2025-10-10 17:14:50
+Model: Random Forest (v3 Final - Minimal SMOTE)
+
+INPUT:
+  Total events analyzed: 358,926
+
+PREDICTIONS:
+  Flagged as timestomped: 0.0 (0.00%)
+  Predicted benign: 358,926
+
+RISK BREAKDOWN:
+  HIGH risk (≥70% confidence): 0
+  MEDIUM risk (30-70% confidence): 0
+  LOW risk (<30% confidence): 358,926
+
+FORENSIC TRIAGE VALUE:
+  Files requiring investigation: 0
+  Investigation reduction: 100.00%
+
+OUTPUT FILES:
+  1. predictions.csv - All predictions with confidence scores
+  2. flagged_files.csv - Only timestomped predictions
+  3. summary_report.txt - This report
+
+================================================================================
