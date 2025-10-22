@@ -223,20 +223,32 @@ def create_master_timeline(lf_df, usn_df, case_id=1, verbose=False):
     lf_df_prefixed['merge_type'] = 'logfile_only'
     usn_df_prefixed['merge_type'] = 'usnjrnl_only'
 
-    # Add default labels (unlabeled data)
+    # Add default labels only if they don't already exist (for unlabeled data)
     for df in [lf_df_prefixed, usn_df_prefixed]:
-        df['is_timestomped'] = 0.0
-        df['is_timestomped_lf'] = np.nan
-        df['is_timestomped_usn'] = np.nan
-        df['timestomp_tool_executed'] = np.nan
-        df['timestomp_tool_executed_lf'] = np.nan
-        df['timestomp_tool_executed_usn'] = np.nan
-        df['suspicious_tool_name_lf'] = np.nan
-        df['suspicious_tool_name_usn'] = np.nan
-        df['suspicious_tool_name'] = np.nan
-        df['label_source'] = np.nan
-        df['label_source_lf'] = np.nan
-        df['label_source_usn'] = np.nan
+        if 'is_timestomped' not in df.columns:
+            df['is_timestomped'] = 0.0
+        if 'is_timestomped_lf' not in df.columns:
+            df['is_timestomped_lf'] = np.nan
+        if 'is_timestomped_usn' not in df.columns:
+            df['is_timestomped_usn'] = np.nan
+        if 'timestomp_tool_executed' not in df.columns:
+            df['timestomp_tool_executed'] = np.nan
+        if 'timestomp_tool_executed_lf' not in df.columns:
+            df['timestomp_tool_executed_lf'] = np.nan
+        if 'timestomp_tool_executed_usn' not in df.columns:
+            df['timestomp_tool_executed_usn'] = np.nan
+        if 'suspicious_tool_name_lf' not in df.columns:
+            df['suspicious_tool_name_lf'] = np.nan
+        if 'suspicious_tool_name_usn' not in df.columns:
+            df['suspicious_tool_name_usn'] = np.nan
+        if 'suspicious_tool_name' not in df.columns:
+            df['suspicious_tool_name'] = np.nan
+        if 'label_source' not in df.columns:
+            df['label_source'] = np.nan
+        if 'label_source_lf' not in df.columns:
+            df['label_source_lf'] = np.nan
+        if 'label_source_usn' not in df.columns:
+            df['label_source_usn'] = np.nan
 
     # Simple concatenation (basic merge - can be improved)
     print_info("   Merging LogFile and UsnJrnl...")

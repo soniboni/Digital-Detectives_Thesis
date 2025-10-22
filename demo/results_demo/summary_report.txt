@@ -1,0 +1,56 @@
+================================================================================
+TIMESTOMPING DETECTION - FULL PIPELINE SUMMARY
+================================================================================
+
+Generated: 2025-10-21 10:20:13
+
+INPUT FILES:
+  LogFile: test csv/DEMO-02-LogFile.csv
+  UsnJrnl: test csv/DEMO-02-UsnJrnl.csv
+  Total events: 1,109
+
+PIPELINE STAGES:
+  1. Loaded raw $LogFile and $UsnJrnl CSVs
+  2. Created master timeline (1,109 events)
+  3. Engineered 75 ML features
+  4. Applied Random Forest classifier
+  5. Generated predictions and risk levels
+
+DETECTION RESULTS:
+  Total analyzed: 2,071
+  Flagged as timestomped: 65 (3.14%)
+  Predicted benign: 2,006
+
+RISK BREAKDOWN:
+  HIGH risk (≥70% confidence): 8
+  MEDIUM risk (30-70% confidence): 60
+  LOW risk (<30% confidence): 2,003
+
+ACCURACY METRICS (vs Ground Truth):
+  True Positives: 65
+  False Positives: 0
+  False Negatives: 6
+  True Negatives: 2000
+
+  Precision: 100.00%
+  Recall: 91.55%
+
+TOP 10 HIGHEST CONFIDENCE DETECTIONS:
+--------------------------------------------------------------------------------
+  0.729 | HIGH  
+  0.729 | HIGH  
+  0.729 | HIGH  
+  0.729 | HIGH  
+  0.718 | HIGH  
+  0.718 | HIGH  
+  0.708 | HIGH  
+  0.707 | HIGH  
+  0.694 | MEDIUM
+  0.694 | MEDIUM
+
+OUTPUT FILES:
+  1. predictions.csv - All predictions with confidence scores
+  2. flagged_files.csv - Only timestomped predictions
+  3. summary_report.txt - This report
+
+================================================================================
