@@ -1,0 +1,2 @@
+model_type,n_estimators,contamination,test_precision,test_recall,test_f1,auc_roc,auc_pr,true_negatives,false_positives,false_negatives,true_positives,false_positive_rate,false_negative_rate,test_samples,test_timestomped,train_samples,train_timestomped
+Isolation Forest,100,0.000300111972811925,0.00411522633744856,0.00980392156862745,0.005797101449275362,0.9468487425772139,0.005211872581159837,295195,242,101,1,0.0008191255665336434,0.9901960784313726,295539,102,483153,145
