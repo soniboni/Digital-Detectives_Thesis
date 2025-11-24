@@ -29,3 +29,5 @@ data/processed/Phase 1 - Data Collection & Preprocessing/C. Master Timeline/mast
 data/processed/Phase 2 - Feature Engineering/features_engineered.csv
 demo/test_results/predictions.csv
 model package/test_results/predictions.csv
+data/processed/Phase 0 - Data Cleaning/master_timeline_raw.csv
+data/processed/Phase 0 - Data Cleaning/suspicious_labels.csv
