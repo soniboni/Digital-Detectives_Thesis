@@ -61,12 +61,46 @@ This thesis project aims to:
 - Identified and removed columns with zero ML information value
 - Dataset ready for feature engineering
 
+### ✅ Phase 2: Feature Engineering - **COMPLETED**
+
+**Phase 2A: File-Level & Behavioral Features**
+- ✅ Created 18 features (location, file type, temporal behavioral)
+- ✅ 100% coverage features (work on all timestomped events)
+- ✅ Key features: `in_windows_dir`, `filename_length`, temporal clustering patterns
+- ✅ **Output**: 56 columns (38 + 18 new)
+
+**Phase 2B: Cross-Artifact & Pattern Features**
+- ✅ Created 7 features (cross-artifact correlation, UsnJrnl patterns, event-time comparison)
+- ✅ Research-backed pattern detection: BASIC_INFO_CHANGE + CLOSE signature
+- ✅ Cross-artifact confidence scoring (both artifacts = HIGH confidence)
+- ✅ **Output**: 63 columns (38 + 18 + 7 new)
+
+**Phase 2C: Feature Quality Analysis & Selection**
+- ✅ Fixed path_depth bug (regex issue from Phase 2A)
+- ✅ Analyzed all 25 new features (distribution, correlation, importance)
+- ✅ Trained preliminary Random Forest for feature importance ranking
+- ✅ Selected top 16 features (97.92% cumulative importance)
+- ✅ Removed 9 low-importance/redundant features (<0.5% importance or r>0.95 correlation)
+- ✅ **Output**: Final ML-ready dataset with 16 curated features
+
+**Feature Selection Results:**
+- **Top 3 Features**: `in_temp_dir` (30.02%), `event_frequency_per_file` (20.53%), `events_in_5min_window` (11.30%)
+- **Feature Groups**: 4 location, 3 file type, 6 temporal, 1 cross-artifact, 1 pattern, 0 event-time
+- **Total Features**: 16 (from original 25) representing 97.92% of predictive power
+
+**Key Achievements**:
+- Discovered `in_temp_dir` as dominant signal (30% importance)
+- All 6 temporal features retained (100% - critical for detection)
+- Successfully fixed path_depth bug (now 5.44% importance, ranked #6)
+- Identified and removed 3 highly correlated feature pairs
+- Zero data loss (252 timestomped events preserved throughout all phases)
+
 ### 🔄 Currently Working On:
-- **Phase 2: Feature Engineering** (see detailed plan below)
+- **Phase 3: Baseline Model Training**
 
 ### 📋 Next Steps:
 - Phase 3: Baseline model training (Random Forest)
-- Phase 4: Comparative evaluation of 5 algorithms
+- Phase 4: Comparative evaluation of 5 algorithms (Logistic Regression, XGBoost, LightGBM, Neural Network)
 - Phase 5: Hyperparameter optimization and model selection
 - Phase 6: Autopsy module integration
 
@@ -103,11 +137,53 @@ Human-readable summary including:
 |:------|:------:|:----------|:----------------|
 | **Phase 1A: Smart Merging** | ✅ Complete | Cross-artifact correlation of $LogFile and $UsnJrnl | 154,550 merged records, 252 timestomped events |
 | **Phase 1B: Column Cleanup** | ✅ Complete | Parse text fields, remove useless columns | 38 ML-ready columns with structured features |
-| **Phase 2: Feature Engineering** | 🔄 In Progress | Extract temporal, anomaly, behavioral, and file-level features | ~60-80 ML-ready features |
-| **Phase 3: Baseline Model** | 📋 Planned | Train Random Forest as baseline | Performance benchmarks (precision, recall, F1, AUC) |
+| **Phase 2A: File-Level Features** | ✅ Complete | Extract location, file type, and temporal behavioral features | 18 new features (100% coverage) |
+| **Phase 2B: Cross-Artifact Features** | ✅ Complete | Create cross-artifact correlation and UsnJrnl pattern features | 7 new features (research-backed patterns) |
+| **Phase 2C: Feature Selection** | ✅ Complete | Analyze, select, and optimize feature set | 16 curated features (97.92% importance) |
+| **Phase 3: Baseline Model** | 🔄 In Progress | Train Random Forest as baseline | Performance benchmarks (precision, recall, F1, AUC) |
 | **Phase 4: Algorithm Comparison** | 📋 Planned | Evaluate 5 algorithms on same dataset | Comparative performance metrics, best model selection |
 | **Phase 5: Model Optimization** | 📋 Planned | Hyperparameter tuning, ensemble methods | Optimized production model |
 | **Phase 6: Autopsy Integration** | 📋 Planned | Develop Ingest Module with best model | Deployable Autopsy plugin (LogFile + UsnJrnl only) |
+
+---
+
+## 🎯 Final Feature Set (16 Features)
+
+After rigorous analysis and selection from 25 engineered features, the final ML-ready dataset contains:
+
+### Top 5 Features (73.7% of predictive power):
+1. **in_temp_dir** (30.02%) - Files in temporary directories
+2. **event_frequency_per_file** (20.53%) - Number of modification events per file
+3. **events_in_5min_window** (11.30%) - Event clustering in 5-minute window
+4. **events_in_1min_window** (6.20%) - Event clustering in 1-minute window
+5. **filename_length** (5.65%) - Length of filename (longer = suspicious)
+
+### Complete Feature List by Category:
+
+**Location Features (4):**
+- `in_temp_dir`, `path_depth`, `in_program_files`, `in_windows_dir`
+
+**File Type Features (3):**
+- `filename_length`, `is_archive`, `is_executable`
+
+**Temporal Behavioral Features (6):**
+- `event_frequency_per_file`, `events_in_5min_window`, `events_in_1min_window`
+- `event_frequency_per_case`, `time_until_next_event_seconds`, `time_since_previous_event_seconds`
+
+**Cross-Artifact Features (1):**
+- `has_logfile_evidence`
+
+**Pattern Features (1):**
+- `usn_complete_manipulation_pattern`
+
+**Additional Location Features (1):**
+- `in_users_dir`
+
+**Key Insights:**
+- Temporal features are critical (6/6 retained, 100% retention rate)
+- `in_temp_dir` alone provides 30% of detection power
+- All features have ≥0.5% importance, with top 10 representing 87.68% of total importance
+- No highly correlated redundant features (all r<0.95 for kept features)
 
 ---
 
@@ -125,15 +201,31 @@ Digital-Detectives_Thesis/
 │       │   ├── all_cases_combined.csv       # 154,550 records, 27 columns
 │       │   ├── smart_union_summary.csv      # Phase 1A statistics
 │       │   └── ground_truth_*.csv           # Labeled datasets
-│       └── Phase 1B - Column Cleanup/       # ✅ Complete
-│           └── all_cases_combined_clean.csv # 154,550 records, 38 columns
+│       ├── Phase 1B - Column Cleanup/       # ✅ Complete
+│       │   └── all_cases_combined_clean.csv # 154,550 records, 38 columns
+│       ├── Phase 2A - File Level and Behavioral Features/  # ✅ Complete
+│       │   └── all_cases_combined_with_phase2a_features.csv  # 56 columns
+│       ├── Phase 2B - Cross Artifact and Pattern Features/  # ✅ Complete
+│       │   └── all_cases_combined_with_phase2b_features.csv  # 63 columns
+│       └── Phase 2C - Feature Quality/      # ✅ Complete
+│           ├── all_cases_combined_final_features.csv  # 26 columns (16 features)
+│           ├── feature_importance_rankings.csv
+│           ├── FEATURE_QUALITY_REPORT.md
+│           └── visualizations/              # Distribution, correlation, importance plots
 │
 ├── notebooks/
 │   ├── Phase 1 - Data Cleaning/             # ✅ Complete
 │   │   ├── 01_Smart_Union_Merging.ipynb
 │   │   ├── 01B_Column_Analysis_and_Cleanup.ipynb
 │   │   └── Forensic_Detection_of_Timestamp_Manipulation_for_D.pdf
-│   └── Phase 2 - Feature Engineering/       # 🔄 Next
+│   └── Phase 2 - Feature Engineering/       # ✅ Complete
+│       ├── 02A_File_Level_and_Behavioral_Features.ipynb
+│       ├── 02B_Cross_Artifact_and_Pattern_Features.ipynb
+│       ├── 02C_Feature_Quality_Analysis.ipynb
+│       ├── PHASE_2_PLAN_REVISED.md
+│       ├── PHASE_2A_RESULTS_ANALYSIS.md
+│       ├── PHASE_2B_RESULTS_ANALYSIS.md
+│       └── PHASE_2_STATE_SUMMARY.md
 │
 ├── Autopsy File Ingest Module/              # 📋 Future work
 │   └── (to be developed - LogFile + UsnJrnl only, MFT excluded)
