@@ -31,3 +31,4 @@ demo/test_results/predictions.csv
 model package/test_results/predictions.csv
 data/processed/Phase 0 - Data Cleaning/master_timeline_raw.csv
 data/processed/Phase 0 - Data Cleaning/suspicious_labels.csv
+notebooks/Phase 2 - Feature Engineering/PHASE_2_PLAN.md
