@@ -1,0 +1,24 @@
+{
+  "xgboost": {
+    "subsample": 0.8,
+    "scale_pos_weight": 611.0792079207921,
+    "n_estimators": 200,
+    "min_child_weight": 1,
+    "max_depth": 6,
+    "learning_rate": 0.2,
+    "gamma": 0,
+    "colsample_bytree": 1.0
+  },
+  "random_forest": {
+    "n_estimators": 100,
+    "min_samples_split": 50,
+    "min_samples_leaf": 10,
+    "max_features": null,
+    "max_depth": 25,
+    "class_weight": "balanced"
+  },
+  "cv_scores": {
+    "xgboost_f1": 0.8722230008051464,
+    "random_forest_f1": 0.8508017723840624
+  }
+}

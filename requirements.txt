@@ -113,3 +113,8 @@ webcolors==24.11.1
 webencodings==0.5.1
 websocket-client==1.8.0
 widgetsnbextension==4.0.14
+
+# --- Machine learning libraries ---
+xgboost==1.7.6
+lightgbm==4.4.0
+tensorflow==2.13.0
