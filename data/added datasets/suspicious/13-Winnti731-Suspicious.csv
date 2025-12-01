@@ -1,0 +1,3 @@
+﻿source,lsn/usn,category,detail
+logfile,6293149303,Timestamp Manipulation,"[Malicious] $SI timestamp of _418390281__.tmp"" is changed to the past and is moved. (Zero in changed timestamp's 100-nanoseconds) => CreationTime : 2023-01-05 23:59:48 -> 2005-03-02 00:00:00(Zero in 100-nanoseconds), ModifiedTime : 2023-01-05 23:59:48 -> 2005-03-02 00:00:00(Zero in 100-nanoseconds)"""
+usnjrnl,998144808,Timestamp Manipulation,"[Suspicious] $SI, $FN timestamp of _418390281__.tmp"" have been manipulated. (Zero in CreationTime's 100-nanoseconds) => (Basic_Info_Changed -> File Move), ((CreationTime : 2005-03-02 00:00:00(Zero in 100-nanoseconds)) != (Creation Event Time : 2023-01-05 23:59:48))"""
