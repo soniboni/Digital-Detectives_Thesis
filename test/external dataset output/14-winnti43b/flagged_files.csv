@@ -1,0 +1,5 @@
+filepath,filename,eventtime,source,lf_lsn,usn_usn,lf_event,usn_event_info,probability,prediction,confidence_level
+\Program Files\Microsoft OneDrive\OneDrive.VisualElementsManifest.xml,OneDrive.VisualElementsManifest.xml,,logfile_only,6282866417.0,,Time Reversal Event,,0.98977673,1,HIGH
+\Program Files\Microsoft OneDrive\OneDriveStandaloneUpdater.exe,OneDriveStandaloneUpdater.exe,,logfile_only,6282871581.0,,Time Reversal Event,,0.9432082,1,HIGH
+\Program Files\Microsoft OneDrive\OneDrive.exe,OneDrive.exe,,logfile_only,6282819444.0,,Time Reversal Event,,0.9344889,1,HIGH
+\Program Files\Microsoft OneDrive\Resources.pri,Resources.pri,,logfile_only,6282861853.0,,Time Reversal Event,,0.54685277,1,MEDIUM

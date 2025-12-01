@@ -1,0 +1,47 @@
+
+======================================================================
+          TIMESTAMP MANIPULATION DETECTION REPORT
+======================================================================
+
+Analysis Date: 2025-12-01 20:09:24
+
+======================================================================
+                     SUMMARY STATISTICS
+======================================================================
+
+Total Events Analyzed:          17,446
+
+Confidence Level Breakdown:
+  HIGH (≥0.7):                  3 (0.02%)
+  MEDIUM (0.5-0.7):             1 (0.01%)
+  LOW (<0.5):                   17,442 (99.98%)
+
+Total Flagged:                  4 (0.02%)
+
+Average Probability:            0.0009
+Maximum Probability:            0.9846
+
+======================================================================
+                  TOP 10 FLAGGED FILES
+======================================================================
+
+1. \Program Files\Microsoft OneDrive\OneDrive.VisualElementsManifest.xml
+   Probability: 0.9846 | Confidence: HIGH
+   Source: logfile_only
+
+2. \Program Files\Microsoft OneDrive\OneDriveStandaloneUpdater.exe
+   Probability: 0.9380 | Confidence: HIGH
+   Source: logfile_only
+
+3. \Program Files\Microsoft OneDrive\OneDrive.exe
+   Probability: 0.9285 | Confidence: HIGH
+   Source: logfile_only
+
+4. \Program Files\Microsoft OneDrive\Resources.pri
+   Probability: 0.5236 | Confidence: MEDIUM
+   Source: logfile_only
+
+
+======================================================================
+                        END OF REPORT
+======================================================================
