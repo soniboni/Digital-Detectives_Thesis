@@ -1,0 +1,13 @@
+case,total_events,total_labeled_timestomped,true_timestomping_events,true_timestomping_detected_high,true_timestomping_detected_medium,true_timestomping_detected_low,true_timestomping_missed,tunneling_events,tunneling_detected_high,tunneling_detected_medium,tunneling_detected_low,tunneling_missed,high_confidence_detections,medium_confidence_detections,low_confidence_detections,true_timestomping_recall,true_timestomping_high_conf_rate,tunneling_recall
+1,24204,2,1,1,0,0,0,1,0,0,0,1,1,0,1,1.0,1.0,0.0
+2,16968,1,1,1,0,0,0,0,0,0,0,0,7,0,0,1.0,1.0,0.0
+3,16889,2,1,1,0,0,0,1,0,1,0,0,3,4,3,1.0,1.0,1.0
+4,4952,58,1,1,0,0,0,1,1,0,0,0,3,0,0,1.0,1.0,1.0
+5,5311,1,1,1,0,0,0,0,0,0,0,0,3,0,0,1.0,1.0,0.0
+6,5307,72,2,2,0,0,0,69,69,0,0,0,170,4,0,1.0,1.0,1.0
+7,17459,2,2,0,0,1,1,0,0,0,0,0,0,0,1,0.5,0.0,0.0
+8,17469,33,2,2,0,0,0,30,0,0,0,30,2,3,37,1.0,1.0,0.0
+9,17666,36,2,2,0,0,0,34,23,10,1,0,55,38,43,1.0,1.0,1.0
+10,17678,31,0,0,0,0,0,31,0,0,0,31,1,0,18,0.0,0.0,0.0
+11,5289,91,2,0,0,1,1,0,0,0,0,0,0,0,1,0.5,0.0,0.0
+12,5358,159,4,3,0,0,1,66,0,0,0,66,5,0,0,0.75,0.75,0.0
