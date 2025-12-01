@@ -1,0 +1,6 @@
+filepath,filename,eventtime,source,lf_lsn,usn_usn,lf_event,usn_event_info,probability,prediction,confidence_level
+\Program Files\Windows Mail\nTimestomp_SI_M_Manipulation.dll,nTimestomp_SI_M_Manipulation.dll,12/26/23 22:51:39,both,10056237725.0,1717497496.0,Time Reversal Event,Basic_Info_Changed,0.9995945,1,HIGH
+\Program Files\Windows Mail\nTimestomp_SI_M_Manipulation.dll,nTimestomp_SI_M_Manipulation.dll,12/26/23 22:51:39,usnjrnl_only,,1717497624.0,,Basic_Info_Changed / File_Closed,0.99900335,1,HIGH
+\Windows\Logs\WindowsUpdate\WindowsUpdate.20231226.235553.904.1.etl,WindowsUpdate.20231226.235553.904.1.etl,12/26/23 22:55:53,usnjrnl_only,,1717559440.0,,File_Created / Basic_Info_Changed / Content_Indexed_Attr_Changed,0.6677458,1,MEDIUM
+\Windows\Logs\WindowsUpdate\WindowsUpdate.20231226.235553.904.1.etl,WindowsUpdate.20231226.235553.904.1.etl,12/26/23 22:55:53,usnjrnl_only,,1717559584.0,,File_Created / Basic_Info_Changed / Data_Added / Content_Indexed_Attr_Changed,0.6677458,1,MEDIUM
+,Microsoft.CodeAnalysis.CSharp.dll,12/25/23 17:24:27,usnjrnl_only,,1707261016.0,,File_Created / Basic_Info_Changed / Data_Added / Data_Overwritten / Named_Data_Stream_Added / Reparse_Point_Changed / Named_Stream_Changed,0.56791824,1,MEDIUM

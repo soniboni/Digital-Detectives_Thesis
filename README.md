@@ -8,7 +8,7 @@ This repository contains the complete thesis project focused on developing and e
 
 ## 🏆 Key Accomplishments
 
-This thesis successfully developed a **complete end-to-end machine learning pipeline** for detecting timestamp manipulation in NTFS filesystems:
+This thesis aims to develop a **complete end-to-end machine learning pipeline** for detecting timestamp manipulation in NTFS filesystems:
 
 ### **✅ Methodology Achievements**
 
@@ -288,117 +288,16 @@ This thesis project aims to:
 **Root Cause**: Model learned location-based patterns (e.g., "files in `\Windows\Temp\` are suspicious") instead of general timestamp manipulation patterns. Case 11-APT timestomped files are in `\Windows\SysWOW64\`, causing model to miss them entirely.
 
 **What This Means**:
-- ✅ **Model works perfectly on Cases 01-PE to 12-PE** (same dataset distribution)
+- ✅ **Model works on Cases 01-PE to 12-PE** (same dataset distribution)
 - ❌ **Model does NOT work on external datasets** (different file locations, patterns, tools)
 - ⚠️ **NOT production-ready** - requires retraining with diverse data
 
-**For Full Details, See**:
-- [CRITICAL_FINDINGS.md](CRITICAL_FINDINGS.md) - Comprehensive analysis of overfitting issue
-- [EXTERNAL_VALIDATION_REPORT.md](EXTERNAL_VALIDATION_REPORT.md) - Case 11-APT test results
 
 ### 📋 Next Steps:
 - **Option 1**: Retrain with diverse external datasets (Cases 11-APT + additional APT cases)
 - **Option 2**: Re-engineer features to be location-agnostic (remove `in_temp_dir`, add timestamp anomaly features)
 - **Option 3**: Document as limitation in thesis (academically rigorous approach)
 - Phase 6: Autopsy module integration (ONLY after addressing overfitting)
-
----
-
-## 🔧 Detection Tools - Usage Guide
-
-This repository includes two detection tools for timestamp manipulation detection. **Choose the right tool for your use case**:
-
-### **1. `detect_processed.py` - Testing on Processed Data** ⭐ **RECOMMENDED FOR VALIDATION**
-
-**Use this when**:
-- Testing model performance on Cases 01-PE to 12-PE (training/validation data)
-- You have already processed data from Phase 2C (with engineered features)
-- Quick validation without reprocessing raw files
-
-**Input**: CSV file from `data/processed/Phase 2C - Feature Quality/all_cases_combined_final_features.csv`
-
-**Performance on Case 12**:
-- ✅ **Works perfectly** (98.57% recall, 84.15% precision)
-- ✅ Detects 69/70 timestomped files
-- ✅ Only 10 false positives
-
-**How to run**:
-```bash
-source .venv/bin/activate
-python detect_processed.py
-# Input file: data/processed/Phase 2C - Feature Quality/all_cases_combined_final_features.csv
-# Threshold: 0.5 (recommended)
-# Output directory: test_outputs/validation
-```
-
-**Best for**:
-- ✅ Validating model works correctly
-- ✅ Testing on Cases 01-PE to 12-PE
-- ✅ Quick performance checks
-- ✅ Thesis evaluation and documentation
-
----
-
-### **2. `detect_complete.py` - Complete Pipeline on Raw Data** ⚠️ **USE WITH CAUTION**
-
-**Use this when**:
-- Processing completely new forensic data (raw LogFile + UsnJrnl CSV files)
-- Running full pipeline (Phase 1 + Phase 2 + Phase 3)
-- Testing on external datasets
-
-**Input**: Raw LogFile CSV + UsnJrnl CSV (from forensic tools like Autopsy, FTK, Eric Zimmerman's tools)
-
-**Performance**:
-- ✅ **Works on Cases 01-PE to 12-PE** (98.57% recall, 84.15% precision)
-- ❌ **FAILS on Case 11-APT** (0% recall, 0/3 timestomped files detected)
-- ⚠️ **NOT recommended for external datasets** (overfitting issue)
-
-**How to run**:
-```bash
-source .venv/bin/activate
-python detect_complete.py
-# LogFile CSV: data/raw/logfile/12-PE-LogFile.csv
-# UsnJrnl CSV: data/raw/usnjrnl/12-PE-UsnJrnl.csv
-# Threshold: 0.5
-# Output directory: test_outputs/complete_pipeline_test
-```
-
-**Best for**:
-- ✅ Testing complete pipeline end-to-end
-- ✅ Processing Cases 01-PE to 12-PE from scratch
-- ⚠️ NOT for external datasets (will fail)
-
----
-
-### **Tool Comparison**
-
-| Feature | `detect_processed.py` | `detect_complete.py` |
-|---------|----------------------|----------------------|
-| **Input** | Processed CSV (Phase 2C) | Raw LogFile + UsnJrnl CSV |
-| **Processing** | Phase 3 only (prediction) | Phase 1 + 2 + 3 (full pipeline) |
-| **Speed** | Fast (~30 seconds) | Slower (~5-15 minutes for large datasets) |
-| **Works on Cases 01-PE to 12-PE** | ✅ Yes (98.57% recall) | ✅ Yes (98.57% recall) |
-| **Works on Case 11-APT** | ❌ No (0% recall) | ❌ No (0% recall) |
-| **Use Case** | Validation, thesis documentation | Testing complete pipeline |
-| **Recommended for** | **Model evaluation** ⭐ | **Pipeline testing** |
-
----
-
-### **Which Tool Should You Use?**
-
-**For thesis documentation and model evaluation**:
-- ✅ **Use `detect_processed.py`** on Cases 01-PE to 12-PE
-- ✅ Shows model works perfectly on training distribution
-- ✅ Fast and reliable for validation
-
-**For testing new forensic data**:
-- ⚠️ **Both tools will FAIL on external datasets** due to overfitting
-- ⚠️ Do NOT use for production until model is retrained with diverse data
-- ⚠️ See [CRITICAL_FINDINGS.md](CRITICAL_FINDINGS.md) for details
-
-**For documentation**:
-- See [COMPLETE_PIPELINE_GUIDE.md](COMPLETE_PIPELINE_GUIDE.md) for `detect_complete.py` usage
-- See tool output for sample reports and CSV files
 
 ---
 
@@ -659,12 +558,4 @@ IEEE Access, DOI: 10.1109/ACCESS.2024.10517044
 ```
 
 ---
-
-## 📧 Contact & Support
-
-For questions or issues:
-- Review documentation in this repository
-- Check [CRITICAL_FINDINGS.md](CRITICAL_FINDINGS.md) for known limitations
-- See individual phase reports in `data/processed/` directories
-
 **This is a thesis research project. Model is NOT production-ready without retraining on diverse data.**
