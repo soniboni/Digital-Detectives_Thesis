@@ -35,3 +35,13 @@ notebooks/Phase 2 - Feature Engineering/PHASE_2_PLAN.md
 notebooks/Phase 2 - Feature Engineering/PHASE_2_STATE_SUMMARY.md
 notebooks/Phase 2 - Feature Engineering/PHASE_2A_RESULTS_ANALYSIS.md
 notebooks/Phase 2 - Feature Engineering/PHASE_2B_RESULTS_ANALYSIS.md
+create_phase2a_v2_notebook.py
+analyze_external_datasets.py
+count_unique_timestomped_files.py
+V2_DATASET_ORGANIZATION.md
+UNIQUE_FILES_COUNT_CORRECTED.md
+PHASE_1_V2_NOTEBOOK_SUMMARY.md
+PHASE_0_V2_CHECKLIST.md
+notebooks/Phase 2A - V2 Location Agnostic Features/README.md
+notebooks/Phase 2A - V2 Location Agnostic Features/EXECUTION_GUIDE.md
+data/processed/Phase 1 - V2 Data Cleaning/all_cases_combined_v2.csv

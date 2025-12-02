@@ -1,0 +1,5 @@
+﻿source,lsn/usn,category,detail
+logfile,6281363035,Timestamp Manipulation,"[Suspicious] $SI timestamp of sqlmgr.dll"" is changed to the past.  => CreationTime : 2023-01-05 22:03:10 -> 2022-12-20 21:29:23(same as d3server.exe), ModifiedTime : 2023-01-05 22:03:10 -> 2022-12-20 21:29:23(same as d3server.exe), AccessedTime : 2023-01-05 22:03:10 -> 2023-01-05 22:02:25(same as d3server.exe)"""
+logfile,6281398901,Timestamp Manipulation,"[Suspicious] $SI timestamp of d3server.exe"" is changed to the past.  => CreationTime : 2023-01-05 22:03:11 -> 2022-12-20 21:29:23(same as sqlmgr.dll), ModifiedTime : 2023-01-05 22:03:11 -> 2022-12-20 21:29:23(same as sqlmgr.dll), AccessedTime : 2023-01-05 22:03:11 -> 2023-01-05 22:02:25(same as sqlmgr.dll)"""
+usnjrnl,997003840,Timestamp Manipulation,"[Suspicious] The timestamp of sqlmgr.dll"" may have been manipulated. => ((CreationTime : 2022-12-20 21:29:23) != (Creation Event Time : 2023-01-05 22:03:10))"""
+usnjrnl,996998416,Timestamp Manipulation,"[Suspicious] The timestamp of d3server.exe"" may have been manipulated. => ((CreationTime : 2022-12-20 21:29:23) != (Creation Event Time : 2023-01-05 22:03:11))"""

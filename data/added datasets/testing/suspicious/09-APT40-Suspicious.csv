@@ -1,0 +1,4 @@
+﻿source,lsn/usn,category,detail
+logfile,4402479570,Timestamp Manipulation,"[Malicious] $SI timestamp of 618031_tep.dll"" is changed to the past and is moved. (Zero in changed timestamp's 100-nanoseconds) => CreationTime : 2023-01-03 01:16:55 -> 2004-08-17 19:00:00(Zero in 100-nanoseconds), ModifiedTime : 2023-01-03 01:16:55 -> 2004-08-17 19:00:00(Zero in 100-nanoseconds)"""
+usnjrnl,754746288,Manipulation of System Time,The system time reversal has occurred. (2022-12-29 21:20:08 -> 2022-12-29 01:09:37)
+usnjrnl,768292280,Timestamp Manipulation,"[Suspicious] $SI, $FN timestamp of 618031_tep.dll"" have been manipulated. (Zero in CreationTime's 100-nanoseconds) => (Basic_Info_Changed -> File Move), ((CreationTime : 2004-08-17 19:00:00(Zero in 100-nanoseconds)) != (Creation Event Time : 2023-01-03 01:16:55))"""

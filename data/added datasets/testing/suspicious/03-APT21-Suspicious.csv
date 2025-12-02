@@ -1,0 +1,4 @@
+﻿source,lsn/usn,category,detail
+logfile,4400574880,Timestamp Manipulation,"[Suspicious] $SI timestamp of FastUserSwitchingCompatibility32.dll"" is changed to the past. (Zero in changed timestamp's 100-nanoseconds) => CreationTime : 2023-01-02 02:17:03 -> 2004-08-17 19:00:00(Zero in 100-nanoseconds), ModifiedTime : 2023-01-02 02:17:03 -> 2004-08-17 19:00:00(Zero in 100-nanoseconds)"""
+usnjrnl,754746288,Manipulation of System Time,The system time reversal has occurred. (2022-12-29 21:20:08 -> 2022-12-29 01:09:37)
+usnjrnl,767537424,Timestamp Manipulation,"[Suspicious] The timestamp of FastUserSwitchingCompatibility32.dll"" may have been manipulated. (Zero in CreationTime's 100-nanoseconds) => ((CreationTime : 2004-08-17 19:00:00(Zero in 100-nanoseconds)) != (Creation Event Time : 2023-01-02 02:17:03))"""

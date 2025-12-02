@@ -1,0 +1,4 @@
+﻿source,lsn/usn,category,detail
+logfile,4413902951,Timestamp Manipulation,"[Suspicious] $SI timestamp of IEXPLORE.EXE"" is changed to the past. => CreationTime : 2023-01-02 21:49:50 -> 2019-12-07 17:03:44, ModifiedTime : 2023-01-02 21:42:06 -> 2019-12-07 17:03:44, AccessedTime : 2023-01-02 21:49:50 -> 2019-12-07 17:03:44"""
+usnjrnl,754746288,Manipulation of System Time,The system time reversal has occurred. (2022-12-29 21:20:08 -> 2022-12-29 01:09:37)
+usnjrnl,769523712,Timestamp Manipulation,"[Suspicious] The timestamp of IEXPLORE.EXE"" may have been manipulated. => ((CreationTime : 2019-12-07 17:03:44) != (Creation Event Time : 2023-01-02 21:49:50))"""

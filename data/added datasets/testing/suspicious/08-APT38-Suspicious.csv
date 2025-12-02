@@ -1,0 +1,4 @@
+﻿source,lsn/usn,category,detail
+logfile,4400053713,Timestamp Manipulation,"[Malicious] $SI timestamp of UDPTrcSvc.dll"" is changed to the past. (Using another normal file's timestamp) => CreationTime : 2023-01-03 00:01:13 -> 2022-09-08 11:07:38(same as hid.dll, runonce.exe), ModifiedTime : 2023-01-03 00:01:13 -> 2022-09-08 11:07:38(same as hid.dll, runonce.exe), AccessedTime : 2023-01-03 00:01:13 -> 2022-09-08 11:07:38(same as hid.dll)"""
+usnjrnl,754746288,Manipulation of System Time,The system time reversal has occurred. (2022-12-29 21:20:08 -> 2022-12-29 01:09:37)
+usnjrnl,767433872,Timestamp Manipulation,"[Malicious] The timestamp of UDPTrcSvc.dll"" may have been manipulated. (Using another normal file's timestamp) => ((CreationTime : 2022-09-08 11:07:38) != (Creation Event Time : 2023-01-03 00:01:13)), (CreationTime(2022-09-08 11:07:38) and ModifiedTime(2022-09-08 11:07:38) are same as hid.dll)"""

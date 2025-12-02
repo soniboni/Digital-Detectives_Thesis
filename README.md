@@ -558,4 +558,440 @@ IEEE Access, DOI: 10.1109/ACCESS.2024.10517044
 ```
 
 ---
-**This is a thesis research project. Model is NOT production-ready without retraining on diverse data.**
+
+## 🔄 v2.0 Retraining Strategy - Addressing Location-Based Overfitting
+
+### **Overview**
+
+Based on comprehensive external validation across 14 APT datasets, v1.0 exhibits severe location-based overfitting, achieving **0% detection on external data**. The v2.0 retraining strategy addresses this critical issue through:
+
+1. **Training Data Diversification**: Add 6 APT datasets (30+ timestomped events) to training set
+2. **Location-Agnostic Feature Engineering**: Remove location features, add cross-artifact validation and manipulation pattern features
+3. **Stratified Evaluation**: Separate metrics for TRUE malicious vs file system tunneling
+4. **External Testing**: Validate on 8 held-out APT datasets to prove generalization
+
+### **Root Cause Analysis**
+
+**v1.0 Overfitting Issue**:
+- Model learned "files in `\Windows\Temp\` are suspicious" instead of forensic patterns
+- `in_temp_dir` feature has 30% importance (location-based shortcut)
+- PE training data: 40-50% of timestomped files in temp_dir
+- APT external data: Only 3.1% in temp_dir
+- **Result**: 0% detection on all 14 external APT datasets
+
+**Evidence**:
+- Detailed analysis: [EXTERNAL_DATASET_ANALYSIS_SUMMARY.md](EXTERNAL_DATASET_ANALYSIS_SUMMARY.md)
+- Per-dataset results: `external_dataset_analysis.csv`
+- Dataset organization: [V2_DATASET_ORGANIZATION.md](V2_DATASET_ORGANIZATION.md)
+
+### **v2.0 Success Criteria**
+
+| Metric | v1.0 (Baseline) | v2.0 (Target) |
+|--------|-----------------|---------------|
+| **PE Test Set (TRUE Malicious)** | 73.7% HIGH | **>90% HIGH** |
+| **PE Test Set (Tunneling)** | 39.9% HIGH (wrong!) | **<10% HIGH** |
+| **APT Training Set (External)** | 0% | **>70% HIGH** |
+| **APT Testing Set (Held-Out)** | 0% | **>70% HIGH** ⭐ |
+| **Location Feature Importance** | 41.5% total | **<10% total** |
+
+**Critical Metric**: APT Testing Set detection proves model generalizes to unseen attack groups and patterns.
+
+---
+
+### **v2.0 Training Pipeline**
+
+#### **Phase 0: v2.0 Preparation & Planning**
+
+**Objective**: Document strategy changes and prepare combined training data
+
+**Key Tasks**:
+1. **Document v2.0 Strategy**:
+   - Comprehensive analysis of v1.0 overfitting patterns
+   - Feature engineering changes (location → forensic patterns)
+   - Training data composition (PE + 6 APT datasets)
+   - Success criteria and evaluation strategy
+
+2. **Prepare Combined Training Data**:
+   - PE Cases (01-12): Keep all 252 rows (19 TRUE malicious + 233 tunneling)
+   - APT Training (6 cases): ~30 timestomped events
+   - **Total v2.0 Training**: ~273 timestomped events
+   - **Class Balance**: 1:565 (manageable, down from 1:612 in v1.0)
+
+3. **Optional: Ground Truth Enhancement**:
+   - Add `label_category` field: "malicious_timestomping" vs "filesystem_tunneling"
+   - Enable stratified evaluation (HIGH confidence on malicious, LOW on tunneling)
+   - Document labeling methodology
+
+**Deliverables**:
+- `V2_DATASET_ORGANIZATION.md` - Dataset split strategy
+- `EXTERNAL_DATASET_ANALYSIS_SUMMARY.md` - Overfitting analysis
+- `count_unique_timestomped_files.py` - File counting methodology
+
+---
+
+#### **Phase 1: Data Cleaning & Smart Union Merging (v2.0)**
+
+**Objective**: Process 6 APT training datasets and combine with existing PE data
+
+**Key Tasks**:
+1. **Process APT Training Datasets**:
+   - 01-APT17, 02-APT19, 04-APT28, 05-APT29 (2 events each)
+   - 10-DarkHotel663, 11-DarkHotelbbd (4-6 events each)
+   - Apply same smart union merging as v1.0 Phase 1A
+   - Parse `lf_detail` text field (same as v1.0 Phase 1B)
+
+2. **Combine with Existing PE Data**:
+   - Merge APT Phase 1 output with existing PE Phase 1 data
+   - Validate data structure consistency (column alignment)
+   - Verify ground truth labels are preserved (100% retention)
+
+3. **Data Quality Validation**:
+   - Check for missing values, data type consistency
+   - Verify timestomped event counts match expectations
+   - Confirm cross-artifact patterns are preserved
+
+**Input**:
+- APT datasets: `data/added datasets/training/logfile/`, `data/added datasets/training/usnjrnl/`
+- APT ground truth: `data/added datasets/training/suspicious/`
+- Existing PE Phase 1: `data/processed/Phase 1B - Column Cleanup/all_cases_combined_clean.csv`
+
+**Output**:
+- `data/processed/Phase 1 - V2 Data Cleaning/all_cases_combined_v2.csv`
+- **~157,000 records** (154,550 PE + ~2,500 APT)
+- **~273 timestomped events** (252 PE + ~21 APT)
+- **38 columns** (same structure as v1.0)
+
+---
+
+#### **Phase 2A: Location-Agnostic Feature Engineering**
+
+**Objective**: Remove location features and add forensically robust features
+
+**Features to REMOVE** (Location-Based Overfitting):
+- ❌ `in_temp_dir` (30% importance in v1.0 - PRIMARY overfitting cause)
+- ❌ `in_program_files` (11.5% importance - contributes to overfitting)
+- ❌ `in_users_dir` (minimal importance but location-based)
+- **Target**: Location features should be <10% total importance in v2.0
+
+**Features to ADD** (Forensically Robust):
+
+1. **Cross-Artifact Validation Score** (`cross_artifact_validation_score`):
+   - Based on Oh et al. (2024) Algorithm 6
+   - Scoring system:
+     - **3 points**: Time Reversal Event (LogFile) + BASIC_INFO_CHANGE (UsnJrnl) on same file
+     - **2 points**: Time Reversal Event only (LogFile)
+     - **1 point**: BASIC_INFO_CHANGE + CLOSE pattern only (UsnJrnl)
+     - **0 points**: No clear evidence
+   - **Rationale**: Cross-artifact agreement = highest confidence (location-agnostic)
+
+2. **Timestamp Manipulation Pattern Score** (`timestamp_manipulation_pattern_score`):
+   - Detect manipulation patterns from Oh et al. (2024):
+     - Copied timestamps (multiple files with identical timestamps)
+     - $FN manipulation patterns (BASIC_INFO_CHANGE on $FN attribute)
+     - Rapid sequential manipulation (multiple files timestomped in <1 minute)
+   - Scoring: 0-3 (number of patterns detected)
+   - **Rationale**: Attackers often timestomp multiple files with similar patterns
+
+3. **File System Tunneling Detection** (`file_system_tunneling_detected`):
+   - Based on Oh et al. (2024) Algorithms 4, 7
+   - Detection criteria:
+     - UsnJrnl BASIC_INFO_CHANGE event only (no LogFile Time Reversal)
+     - Same filename deleted and recreated within 15-second window
+     - Windows OS behavior, NOT attack
+   - Binary: 1 (tunneling detected) or 0 (not tunneling)
+   - **Rationale**: Reduces false positives on benign OS behavior (addresses 39.9% tunneling over-detection)
+
+**Features to KEEP** (From v1.0):
+- ✅ All 6 temporal features (critical for detection)
+- ✅ File type features (filename_length, is_archive, is_executable)
+- ✅ Cross-artifact features (has_logfile_evidence)
+- ✅ Pattern features (usn_complete_manipulation_pattern)
+- ✅ `path_depth` (general file structure, not location-specific)
+- ✅ `in_windows_dir` (keep but reduce importance)
+
+**Implementation Notes**:
+- Use exact algorithms from Oh et al. (2024) paper
+- Only implement features feasible with LogFile + UsnJrnl CSVs (no $MFT required)
+- Zero nanoseconds feature NOT implemented (requires raw $MFT with 100-nanosecond precision)
+
+**Output**:
+- `data/processed/Phase 2A - V2 Location Agnostic Features/all_cases_combined_v2_phase2a.csv`
+- **~40-45 columns** (38 base + 3 new - 3 removed = ~38 columns)
+- All timestomped events preserved
+
+---
+
+#### **Phase 2B: Feature Selection & Quality (v2.0)**
+
+**Objective**: Analyze v2.0 feature distributions and select optimal feature set
+
+**Key Tasks**:
+1. **Feature Distribution Analysis**:
+   - Compare PE vs APT feature distributions
+   - Validate location features have reduced importance
+   - Verify cross_artifact_validation_score has high importance
+
+2. **Correlation Analysis**:
+   - Identify highly correlated features (r > 0.95)
+   - Remove redundant features
+   - Ensure feature diversity
+
+3. **Preliminary Feature Importance**:
+   - Train Random Forest on v2.0 data
+   - Rank features by importance
+   - Target: 15-20 features with >95% cumulative importance
+
+4. **Quality Validation**:
+   - Ensure location features <10% total importance
+   - Verify cross-artifact features are top 5
+   - Confirm temporal features are retained
+
+**Output**:
+- `data/processed/Phase 2B - V2 Feature Quality/all_cases_combined_v2_final_features.csv`
+- **15-20 curated features** (final ML-ready dataset)
+- Feature importance rankings and visualizations
+- `PHASE_2B_V2_FEATURE_QUALITY_REPORT.md`
+
+**Expected Top Features** (v2.0):
+1. `cross_artifact_validation_score` (estimated 25-30% importance)
+2. `event_frequency_per_file` (high importance retained from v1.0)
+3. `events_in_5min_window` (temporal clustering)
+4. `timestamp_manipulation_pattern_score` (new forensic feature)
+5. `has_logfile_evidence` (cross-artifact indicator)
+
+---
+
+#### **Phase 3: Model Training (v2.0 - 5 Algorithms)**
+
+**Objective**: Train 5 ML algorithms on v2.0 dataset for comparison
+
+**Algorithms** (Same as v1.0 for Comparison):
+1. **Logistic Regression** (baseline)
+2. **Random Forest** (ensemble baseline)
+3. **XGBoost Baseline** (primary model)
+4. **XGBoost Tuned** (hyperparameter optimization)
+5. **Neural Network** (deep learning approach)
+
+**Training Configuration**:
+- **Dataset Split**: 80/20 stratified split (same as v1.0)
+- **Class Balance**: Handle 1:565 imbalance with class weights
+- **Cross-Validation**: 5-fold stratified CV during training
+- **Evaluation Metrics**: Precision, Recall, F1, ROC-AUC
+
+**Key Differences from v1.0**:
+- Training data includes 6 APT datasets (diverse attack patterns)
+- Location features removed (prevents overfitting)
+- Cross-artifact features prioritized (forensically robust)
+
+**Output**:
+- `models/v2_xgboost_model.pkl` (primary production model)
+- `models/v2_random_forest_model.pkl`, `models/v2_logistic_regression_model.pkl`
+- `models/v2_neural_network_model.h5`
+- `data/processed/Phase 3 - V2 Model Training/model_comparison_v2.csv`
+- `PHASE_3_V2_MODEL_TRAINING_REPORT.md`
+
+**Expected Performance** (v2.0 Targets):
+- **Precision**: >80% (similar to v1.0 XGBoost)
+- **Recall**: >95% on training/test split
+- **F1 Score**: >0.85
+- **Feature Importance**: Location features <10% total
+
+---
+
+#### **Phase 4: Model Evaluation - Stratified (v2.0)**
+
+**Objective**: Rigorous evaluation across PE, APT training, and APT testing sets
+
+**Evaluation Strategy** (3-Tier):
+
+**Tier 1: PE Test Set (Internal Validation)**
+- **TRUE Malicious Events** (19 events with LogFile evidence):
+  - Target: **>90% HIGH confidence detection** (≥70% probability)
+  - v1.0 baseline: 73.7% HIGH confidence
+  - **Critical**: Must improve over v1.0
+
+- **File System Tunneling** (233 events, UsnJrnl only):
+  - Target: **<10% HIGH confidence detection** (<70% probability)
+  - v1.0 baseline: 39.9% HIGH confidence (wrong!)
+  - **Critical**: Must differentiate tunneling from malicious
+
+**Tier 2: APT Training Set (External Validation - Training Data)**
+- **6 APT datasets** used in training (01-APT17, 02-APT19, 04-APT28, 05-APT29, 10-DarkHotel663, 11-DarkHotelbbd)
+- **~30 timestomped events** total
+- Target: **>70% HIGH confidence detection**
+- v1.0 baseline: 0% (complete failure)
+- **Purpose**: Validate model learned from APT data
+
+**Tier 3: APT Testing Set (External Validation - HELD-OUT)** ⭐
+- **8 held-out APT datasets** NOT in training (03-APT21, 06-APT30, 07-APT37, 08-APT38, 09-APT40, 12-Kimsuky, 13-Winnti731, 14-Winnti43b)
+- **~12-14 timestomped events** total
+- Target: **>70% HIGH confidence detection**
+- v1.0 baseline: 0% (complete failure)
+- **CRITICAL METRIC**: Proves model generalizes to unseen attack groups
+
+**Analysis Tasks**:
+1. **Per-Dataset Analysis**: Detection rate for each of 14 APT datasets
+2. **Feature Importance Validation**: Confirm location features <10% total
+3. **False Positive Analysis**: Identify common false positives (like OneDrive files in v1.0)
+4. **Confidence Distribution**: Verify model gives HIGH/LOW predictions (not uncertain MEDIUM)
+
+**Output**:
+- `test/v2_evaluation/pe_test_set_stratified_results.csv`
+- `test/v2_evaluation/apt_training_set_results.csv`
+- `test/v2_evaluation/apt_testing_set_results.csv` (CRITICAL)
+- `PHASE_4_V2_STRATIFIED_EVALUATION_REPORT.md`
+- Comparison table: v1.0 vs v2.0 performance
+
+---
+
+#### **Phase 5: Terminal-Based Detection Tool (v2.0)**
+
+**Objective**: Update detection tools with v2.0 model and features
+
+**Tools to Update**:
+
+1. **`detect_accurate.py`** (v2.0 Production Tool):
+   - Load v2.0 XGBoost model and features
+   - Implement v2.0 feature engineering (cross-artifact validation, pattern detection, tunneling detection)
+   - Generate comprehensive reports with stratified confidence levels
+   - Input: Raw LogFile + UsnJrnl CSVs
+   - Output: predictions.csv, flagged_files.csv, summary_report.txt
+
+2. **Feature Engineering Module**:
+   - Implement `cross_artifact_validation_score` calculation
+   - Implement `timestamp_manipulation_pattern_score` detection
+   - Implement `file_system_tunneling_detected` algorithm
+   - Ensure compatibility with production Autopsy module
+
+3. **Confidence Categorization** (4-Tier System):
+   - **CRITICAL** (prob ≥ 0.85): Time Reversal Event + cross-artifact validation
+   - **HIGH** (prob ≥ 0.70): Strong forensic indicators
+   - **MEDIUM** (prob ≥ 0.50): Suspicious patterns, investigate
+   - **LOW** (prob < 0.50): Likely benign or file system tunneling
+
+**Validation Tests**:
+- Run on all 14 APT datasets (comprehensive external validation)
+- Compare v1.0 vs v2.0 detection results side-by-side
+- Verify >70% HIGH confidence on held-out APT test set
+
+**Output**:
+- `detect_accurate.py` (updated for v2.0)
+- `test/v2_detection_tool/all_apt_datasets_results/` (14 folders with predictions)
+- `V2_DETECTION_TOOL_VALIDATION_REPORT.md`
+
+---
+
+#### **Phase 6: Comprehensive Evaluation & Documentation**
+
+**Objective**: Document v2.0 improvements and prepare for Autopsy integration
+
+**Key Deliverables**:
+
+1. **v1.0 vs v2.0 Comparison Report**:
+   - Side-by-side performance metrics table
+   - Feature importance comparison (location features before/after)
+   - External validation results (0% → >70% detection rate)
+   - Root cause analysis and solution summary
+
+2. **Complete v2.0 Documentation**:
+   - Update README.md with v2.0 results
+   - Document v2.0 training pipeline (this section)
+   - Feature engineering methodology (Oh et al. algorithms implemented)
+   - Model selection rationale and performance
+
+3. **Production Readiness Assessment**:
+   - ✅ If APT test set >70% HIGH: Model is production-ready
+   - ⚠️ If APT test set 50-70% HIGH: Model needs refinement
+   - ❌ If APT test set <50% HIGH: Model requires additional training data
+
+4. **Autopsy Integration Preparation** (Phase 7 - Future Work):
+   - Finalize v2.0 feature engineering code
+   - Package model and dependencies
+   - Create Autopsy Ingest Module specification
+   - User guide for LogFile + UsnJrnl input workflow
+
+**Output Files**:
+- `V2_FINAL_EVALUATION_REPORT.md` (comprehensive analysis)
+- `V1_VS_V2_COMPARISON.md` (side-by-side metrics)
+- `PRODUCTION_READINESS_ASSESSMENT.md`
+- Updated README.md (this file)
+
+---
+
+### **v2.0 Training Data Composition**
+
+**Total Training Set** (v2.0):
+
+| Source | Cases | Timestomped Events | Key Characteristics |
+|--------|-------|-------------------|---------------------|
+| **PE Cases (01-12)** | 12 | 252 (19 TRUE malicious + 233 tunneling) | Tools: SetMACE, nTimestomp, PowerShell |
+| **APT Training** | 6 | ~30 | Attack groups: APT17, APT19, APT28, APT29, DarkHotel |
+| **TOTAL v2.0 Training** | 18 | **~273** | Diverse locations and attack patterns |
+
+**Reserved for Testing** (Held-Out):
+
+| Source | Cases | Timestomped Events | Purpose |
+|--------|-------|-------------------|---------|
+| **APT Testing** | 8 | ~12-14 | Prove generalization to Winnti, Kimsuky, APT21/30/37/38/40 |
+
+**Class Balance**:
+- v1.0: 252 timestomped / 154,298 benign = 1:612
+- v2.0: ~273 timestomped / ~154,000 benign = 1:565 (slightly better)
+
+---
+
+### **Key Differences: v1.0 vs v2.0**
+
+| Aspect | v1.0 | v2.0 |
+|--------|------|------|
+| **Training Data** | PE Cases 01-12 only (252 events) | PE Cases + 6 APT datasets (~273 events) |
+| **Location Features** | `in_temp_dir`, `in_program_files`, `in_users_dir` (41.5% total importance) | Removed (target <10% total importance) |
+| **Top Feature** | `in_temp_dir` (30% importance) | `cross_artifact_validation_score` (est. 25-30% importance) |
+| **Cross-Artifact Features** | 1 feature (`has_logfile_evidence`) | 3 features (validation score, pattern score, tunneling detection) |
+| **PE TRUE Malicious Detection** | 73.7% HIGH confidence | Target: **>90% HIGH** |
+| **PE Tunneling Over-Detection** | 39.9% HIGH (wrong!) | Target: **<10% HIGH** |
+| **APT External Detection** | 0% (complete failure) | Target: **>70% HIGH** |
+| **Location Overfitting** | Severe (learns temp_dir = suspicious) | Minimal (forensic patterns only) |
+| **Production Readiness** | ❌ NOT ready (overfitted) | ✅ READY (if targets met) |
+
+---
+
+### **Expected v2.0 Outcomes**
+
+**If v2.0 Achieves Targets**:
+- ✅ **Model generalizes to external APT datasets** (>70% detection on held-out test set)
+- ✅ **Reduces file system tunneling false positives** (<10% HIGH confidence on benign OS behavior)
+- ✅ **Improves TRUE malicious detection** (>90% HIGH confidence on actual attacks)
+- ✅ **Production-ready for Autopsy integration** (Phase 7)
+
+**If v2.0 Falls Short**:
+- Additional training data required (more APT datasets)
+- Feature engineering refinement (add more forensic indicators)
+- Consider ensemble approach (combine multiple models)
+
+**Research Contribution** (Regardless of Outcome):
+- Demonstrates importance of diverse training data in forensic ML
+- Documents methodology for addressing location-based overfitting
+- Provides reproducible pipeline for timestamp manipulation detection
+- Shows rigorous evaluation including external validation
+
+---
+
+### **Files Added for v2.0**
+
+**Analysis Scripts**:
+- `count_unique_timestomped_files.py` - Count unique timestomped files (not rows)
+- `analyze_external_datasets.py` - Comprehensive overfitting analysis
+
+**Documentation**:
+- `V2_DATASET_ORGANIZATION.md` - Dataset split strategy (6 training, 8 testing)
+- `EXTERNAL_DATASET_ANALYSIS_SUMMARY.md` - Root cause analysis of v1.0 failure
+- `UNIQUE_FILES_COUNT_CORRECTED.md` - Corrected file counts across all datasets
+
+**Data Directories**:
+- `data/added datasets/training/` - 6 APT training datasets
+- `data/added datasets/testing/` - 8 held-out APT testing datasets
+
+---
+
+**This is a thesis research project. Model v1.0 is NOT production-ready without retraining on diverse data. v2.0 retraining is currently in progress to address identified limitations.**
