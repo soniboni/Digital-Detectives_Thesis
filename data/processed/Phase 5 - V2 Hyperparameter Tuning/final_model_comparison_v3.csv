@@ -1,0 +1,4 @@
+Model,F1-Score,Recall,Precision,FNR,FPR,Detected,Missed,False Alarms,Workload,Runtime
+Phase 4 Baseline,0.7347,0.9231,0.6102,0.0769,0.001024,72/78,6,46,0.6389,N/A (baseline)
+Phase 5a GridSearch,0.595,0.9231,0.439,0.0769,0.002048,72/78,6,92,1.2778,~45 minutes
+Phase 5b Threshold Opt,0.7347,0.9231,0.6102,0.0769,0.001024,72/78,6,46,0.6389,<5 minutes
