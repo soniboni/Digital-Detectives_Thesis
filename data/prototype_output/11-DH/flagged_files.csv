@@ -1,0 +1,6 @@
+﻿eventtime,filename,filepath,predicted_timestomped,lf_lsn,lf_cluster_index,usn_usn,confidence_score,confidence_level,classification,source,has_logfile_evidence,has_usnjrnl_evidence,lf_event,usn_event_info,cross_artifact_validation_score,timestamp_manipulation_pattern_score,is_tunneling
+1/5/23 22:09,boof.dll,\Windows\SysWOW64\boof.dll,1,,,996866824.0,0.60059820715067,MEDIUM,Timestomped,usnjrnl_only,False,True,,Basic_Info_Changed / File_Closed,1,3,False
+1/5/23 22:09,boof.exe,\Windows\SysWOW64\boof.exe,1,,,996867224.0,0.5906151598593268,MEDIUM,Timestomped,usnjrnl_only,False,True,,Basic_Info_Changed / File_Closed,1,3,False
+1/5/23 22:09,boof.sys,\Windows\SysWOW64\boof.sys,1,,,996867624.0,0.5509816696726809,MEDIUM,Timestomped,usnjrnl_only,False,True,,Basic_Info_Changed / File_Closed,1,3,False
+1/5/23 22:09,boof.exe,\Windows\SysWOW64\boof.exe,1,6281031128.0,2.0,996867144.0,0.5085476906530687,MEDIUM,Timestomped,both,True,True,Time Reversal Event,Basic_Info_Changed,3,2,False
+1/5/23 22:09,boof.dll,\Windows\SysWOW64\boof.dll,1,6281030353.0,0.0,996866744.0,0.5085341238862744,MEDIUM,Timestomped,both,True,True,Time Reversal Event,Basic_Info_Changed,3,2,False
