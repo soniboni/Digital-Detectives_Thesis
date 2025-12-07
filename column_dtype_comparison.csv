@@ -7,6 +7,7 @@ cross_artifact_validation_score,int64,int64,True,True
 event_frequency_per_case,int64,int64,True,True
 event_frequency_per_file,int64,int64,True,True
 event_vs_modified_after_days,float64,float64,True,True
+events_in_1min_window,int64,int64,True,True
 events_in_5min_window,int64,int64,True,True
 eventtime,object,object,True,True
 eventtime_dt,object,object,True,True

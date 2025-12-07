@@ -35,7 +35,7 @@ is_system_file,228
 is_hidden_file,326
 is_archive,1390
 filename_length,0
-has_suspicious_extension,6633
+has_suspicious_extension,1158
 event_frequency_per_file,0
 event_frequency_per_case,0
 events_in_5min_window,0
