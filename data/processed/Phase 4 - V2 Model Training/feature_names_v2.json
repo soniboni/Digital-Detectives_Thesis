@@ -1,5 +1,6 @@
 [
   "lf_lsn",
+  "lf_target_vcn",
   "lf_cluster_index",
   "usn_usn",
   "usn_event_info",
@@ -23,6 +24,7 @@
   "has_suspicious_extension",
   "event_frequency_per_file",
   "event_frequency_per_case",
+  "events_in_1min_window",
   "events_in_5min_window",
   "time_since_previous_event_seconds",
   "has_logfile_evidence",
