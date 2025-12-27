@@ -1,0 +1,586 @@
+﻿eventtime,filename,filepath,ml_confidence,hybrid_confidence,confidence_boost,ml_classification,hybrid_classification,rule_applied,cross_artifact_validation_score,has_logfile_evidence,zero_in_nanoseconds
+2018-04-06 16:28:00,8efca832.png,\Users\jcloudy\AppData\Local\Microsoft\Windows\Notifications\wpnidm\8efca832.png,0.01,0.9,0.89,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 16:28:00,dd50b1bd.jpg,\Users\jcloudy\AppData\Local\Microsoft\Windows\Notifications\wpnidm\dd50b1bd.jpg,0.01,0.9,0.89,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 16:28:00,2613efa9.jpg,\Users\jcloudy\AppData\Local\Microsoft\Windows\Notifications\wpnidm\2613efa9.jpg,0.01,0.9,0.89,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 16:28:00,40505924.jpg,\Users\jcloudy\AppData\Local\Microsoft\Windows\Notifications\wpnidm\40505924.jpg,0.01,0.9,0.89,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 16:28:00,2b75f1b8.jpg,\Users\jcloudy\AppData\Local\Microsoft\Windows\Notifications\wpnidm\2b75f1b8.jpg,0.01,0.9,0.89,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 16:28:00,22389328.jpg,\Users\jcloudy\AppData\Local\Microsoft\Windows\Notifications\wpnidm\22389328.jpg,0.02,0.9,0.88,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 16:28:00,2b43806f.jpg,\Users\jcloudy\AppData\Local\Microsoft\Windows\Notifications\wpnidm\2b43806f.jpg,0.03,0.9,0.87,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 16:28:00,308a7988.jpg,\Users\jcloudy\AppData\Local\Microsoft\Windows\Notifications\wpnidm\308a7988.jpg,0.03,0.9,0.87,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:34:00,9dd3831d-0cc2-443f-9642-c6aeb0d186d3.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\9dd3831d-0cc2-443f-9642-c6aeb0d186d3.tmp,0.0399,0.9,0.8601,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:34:00,607ef65e-61bb-4057-a72b-cdf110b5f30c.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\607ef65e-61bb-4057-a72b-cdf110b5f30c.tmp,0.0399,0.9,0.8601,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:35:00,9f7412d5-5f84-4017-bee2-1e1a4de74cf4.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\9f7412d5-5f84-4017-bee2-1e1a4de74cf4.tmp,0.04,0.9,0.86,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:38:00,0925241b-f1f1-412a-98a0-45fe5945b479.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\0925241b-f1f1-412a-98a0-45fe5945b479.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:26:00,3a9cdbbc-e7ce-4266-8d83-a42e3b4b6b5d.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\3a9cdbbc-e7ce-4266-8d83-a42e3b4b6b5d.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:26:00,01676e7b-ca03-4faf-8594-f41ad62bcb7e.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\01676e7b-ca03-4faf-8594-f41ad62bcb7e.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:26:00,7f25e97e-5550-4be4-be1c-aced1b00c4d8.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\7f25e97e-5550-4be4-be1c-aced1b00c4d8.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:26:00,e36eb634-065b-4f09-a54f-c861dafaf565.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\e36eb634-065b-4f09-a54f-c861dafaf565.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:26:00,cb6e4abd-796c-4341-8136-ce80685805b7.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\cb6e4abd-796c-4341-8136-ce80685805b7.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:26:00,b43239b0-ca89-497e-b584-9abe19cc8263.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\b43239b0-ca89-497e-b584-9abe19cc8263.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:26:00,7e0e9015-f6df-407d-93c7-fad02aeb670f.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\7e0e9015-f6df-407d-93c7-fad02aeb670f.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:26:00,50bbd708-f3af-47b0-8e2a-9db98312c681.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\50bbd708-f3af-47b0-8e2a-9db98312c681.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:41:00,57a7b4f8-5e11-49cf-9a44-bfb047c38d50.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\57a7b4f8-5e11-49cf-9a44-bfb047c38d50.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:41:00,daa7736d-a369-4ef9-ab6b-c6ec407f00ed.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\daa7736d-a369-4ef9-ab6b-c6ec407f00ed.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:38:00,d5adc0b7-6a55-4db8-86bf-684b6501909b.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\d5adc0b7-6a55-4db8-86bf-684b6501909b.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:36:00,88e75225-4a1c-46a6-b37a-f9f8c21c2375.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\88e75225-4a1c-46a6-b37a-f9f8c21c2375.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:36:00,08471179-f6ea-4f83-8ada-2f741329e7d0.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\08471179-f6ea-4f83-8ada-2f741329e7d0.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:27:00,d7b68c64-76f2-4400-9c68-f815c4049845.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\d7b68c64-76f2-4400-9c68-f815c4049845.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:20:00,20fed698-56af-40fd-8710-37db79f2b53c.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\20fed698-56af-40fd-8710-37db79f2b53c.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:20:00,cdc7a7c2-f3b8-44b9-86dd-340b9b624932.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\cdc7a7c2-f3b8-44b9-86dd-340b9b624932.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:20:00,35bc8604-37ad-46a2-bda7-32f5f704a698.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\35bc8604-37ad-46a2-bda7-32f5f704a698.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:21:00,733ce297-e856-47c4-8f75-6de2e461457d.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\733ce297-e856-47c4-8f75-6de2e461457d.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:21:00,d18f431a-e17a-4853-a700-5b6cff1cd950.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\d18f431a-e17a-4853-a700-5b6cff1cd950.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:21:00,70f61c29-07aa-4f7b-ad06-f8d341c84222.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\70f61c29-07aa-4f7b-ad06-f8d341c84222.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:24:00,64b5a67d-2d68-4409-b79d-63a3a1667adb.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\64b5a67d-2d68-4409-b79d-63a3a1667adb.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:24:00,b1c34a6a-0b91-43e1-a68c-4f9db0fc9e93.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\b1c34a6a-0b91-43e1-a68c-4f9db0fc9e93.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:24:00,ae60157e-0d38-4ad2-bbf0-16004d5db484.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\ae60157e-0d38-4ad2-bbf0-16004d5db484.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:26:00,78310dda-5210-4add-bea6-f7eb50dacca5.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\78310dda-5210-4add-bea6-f7eb50dacca5.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:26:00,ec5495a0-2d8a-4204-a636-9186ad761db5.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\ec5495a0-2d8a-4204-a636-9186ad761db5.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:26:00,5989dcdd-d5db-4dc9-84f0-fb63d55493d2.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\5989dcdd-d5db-4dc9-84f0-fb63d55493d2.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:31:00,40f7289d-328b-4d28-baf0-bee0e111c5c0.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\40f7289d-328b-4d28-baf0-bee0e111c5c0.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:31:00,b706ff8b-9489-431f-a8f6-97e01b5355e1.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\b706ff8b-9489-431f-a8f6-97e01b5355e1.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:31:00,447ea405-7e30-4e88-93d4-57cd5b79da9b.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\447ea405-7e30-4e88-93d4-57cd5b79da9b.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:31:00,c76939c7-34bc-40d4-aa13-e3d665159d82.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\c76939c7-34bc-40d4-aa13-e3d665159d82.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:34:00,cf03a9af-453f-46d9-99a2-4d58d4415bee.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\cf03a9af-453f-46d9-99a2-4d58d4415bee.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:27:00,f78e6e49-5dd1-4018-8833-d26453777abe.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\f78e6e49-5dd1-4018-8833-d26453777abe.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:05:00,9a30f7b8-389c-4cf2-9b40-d0123e980fd5.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\9a30f7b8-389c-4cf2-9b40-d0123e980fd5.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:27:00,79dc6604-8344-4256-b559-cef1a9114fbe.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\79dc6604-8344-4256-b559-cef1a9114fbe.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:36:00,531fc9e8-a004-4a13-b4a6-5f48cf1fcd2a.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\531fc9e8-a004-4a13-b4a6-5f48cf1fcd2a.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:29:00,36ddbb5d-f6bf-4ab8-84e1-9374784f5ba7.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\36ddbb5d-f6bf-4ab8-84e1-9374784f5ba7.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:31:00,a114c9d7-31f1-4797-a887-c887869d0960.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\a114c9d7-31f1-4797-a887-c887869d0960.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:05:00,c8b05115-0844-433f-9d27-d5bad54a48c7.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\c8b05115-0844-433f-9d27-d5bad54a48c7.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:31:00,538e24ed-7734-45d1-8507-7a055503c5da.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\538e24ed-7734-45d1-8507-7a055503c5da.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:34:00,89cef6dd-da9f-4018-9e85-3ed42e3e41f5.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\89cef6dd-da9f-4018-9e85-3ed42e3e41f5.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:36:00,c27a3255-e845-4d38-b8bc-2229625e8e48.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\c27a3255-e845-4d38-b8bc-2229625e8e48.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:39:00,68b9a80d-884b-44b1-8f41-ef10f0fcea81.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\68b9a80d-884b-44b1-8f41-ef10f0fcea81.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:27:00,6522a202-7325-411a-ad87-efc9520d6893.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\6522a202-7325-411a-ad87-efc9520d6893.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:39:00,47a03e3f-e3f0-4454-a74a-9c39198b1134.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\47a03e3f-e3f0-4454-a74a-9c39198b1134.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:39:00,5b093981-2a5d-4529-baec-f379a323046a.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\5b093981-2a5d-4529-baec-f379a323046a.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:45:00,f056d086-f541-4e03-b5e2-0aff71d3ce9b.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\f056d086-f541-4e03-b5e2-0aff71d3ce9b.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:46:00,dc6d0ede-8e73-4720-a80f-64527ff88144.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\dc6d0ede-8e73-4720-a80f-64527ff88144.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:49:00,c22a9712-4d22-4dc4-8603-f35750992a3c.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\c22a9712-4d22-4dc4-8603-f35750992a3c.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:49:00,c1297fa7-2228-45ea-b7d9-e9f33c20c3a6.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\c1297fa7-2228-45ea-b7d9-e9f33c20c3a6.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:27:00,40da1443-b3ea-4be4-a9e9-409ec1fcf2dc.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\40da1443-b3ea-4be4-a9e9-409ec1fcf2dc.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:27:00,6039187b-81f3-4f22-a692-c7da5a14898e.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\6039187b-81f3-4f22-a692-c7da5a14898e.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:27:00,8e3968b3-0dec-4fc4-bf38-f0103dd2bba4.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\8e3968b3-0dec-4fc4-bf38-f0103dd2bba4.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:27:00,5d46c71b-fc78-4b40-b698-e14788d273d5.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\5d46c71b-fc78-4b40-b698-e14788d273d5.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:27:00,3dbecb21-ae4a-4bd0-b197-c9a698665e74.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\3dbecb21-ae4a-4bd0-b197-c9a698665e74.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:34:00,95539e28-6a82-4f5e-beb4-782f3294192c.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\95539e28-6a82-4f5e-beb4-782f3294192c.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:32:00,5049a142-8d77-4973-8dd8-17b5222c62df.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\5049a142-8d77-4973-8dd8-17b5222c62df.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:32:00,c71c9453-f2ba-4c59-bc49-f769af2a4baa.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\c71c9453-f2ba-4c59-bc49-f769af2a4baa.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:32:00,90dd42ca-4382-4ca7-ab02-7121c786f255.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\90dd42ca-4382-4ca7-ab02-7121c786f255.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:30:00,4603f86a-317f-4196-a273-05304877d2b8.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\4603f86a-317f-4196-a273-05304877d2b8.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:30:00,4ddeb532-406a-44e8-9838-5c12297f1d9b.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\4ddeb532-406a-44e8-9838-5c12297f1d9b.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:30:00,98cd128a-4139-4b0f-bc5c-83fda3b49ba1.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\98cd128a-4139-4b0f-bc5c-83fda3b49ba1.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:29:00,69a911b6-1299-466a-980d-571fa4b85170.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\69a911b6-1299-466a-980d-571fa4b85170.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:29:00,81968c34-42ab-4c31-a0b9-3df66090c505.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\81968c34-42ab-4c31-a0b9-3df66090c505.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:28:00,1523bd77.jpg,\Users\jcloudy\AppData\Local\Microsoft\Windows\Notifications\wpnidm\1523bd77.jpg,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 15:20:00,b1f489f9-f8e7-4847-b980-30ef9e9a874e.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\b1f489f9-f8e7-4847-b980-30ef9e9a874e.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:27:00,989529d7-0415-43a1-8d56-2a359f745747.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\989529d7-0415-43a1-8d56-2a359f745747.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:20:00,83e5ac97-9c7a-47b9-a506-774d49e43ab8.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\83e5ac97-9c7a-47b9-a506-774d49e43ab8.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:31:00,5b1c568a-841b-4cc9-aa84-b7adb551092d.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\5b1c568a-841b-4cc9-aa84-b7adb551092d.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:09:00,dca0fb18-f205-47ff-9621-fbf7d53bc2af.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\dca0fb18-f205-47ff-9621-fbf7d53bc2af.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:11:00,8b381826-82df-49ca-a8f6-7b1872e1fd69.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\8b381826-82df-49ca-a8f6-7b1872e1fd69.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:06:00,06d871bc-0eed-4761-8cf4-b037488ea47a.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\06d871bc-0eed-4761-8cf4-b037488ea47a.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:11:00,83b9837c-1571-438b-a882-f021d317c9bc.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\83b9837c-1571-438b-a882-f021d317c9bc.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:11:00,621b9d8a-decd-45f9-a92b-6e4c4aee5b47.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\621b9d8a-decd-45f9-a92b-6e4c4aee5b47.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:11:00,4dbb7ecc-5aa0-4f59-adc1-e16664ee5749.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\4dbb7ecc-5aa0-4f59-adc1-e16664ee5749.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:11:00,bf5b55c8-ab47-499e-b5f7-d9af52ed1ad1.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\bf5b55c8-ab47-499e-b5f7-d9af52ed1ad1.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:12:00,5a1c168d-366f-446d-beac-baebad283362.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\5a1c168d-366f-446d-beac-baebad283362.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:14:00,38acdbb1-157d-4a31-97b4-4e3d11b260e0.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\38acdbb1-157d-4a31-97b4-4e3d11b260e0.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:09:00,dcb67f17-1953-451a-bdce-4a52f8c56519.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\dcb67f17-1953-451a-bdce-4a52f8c56519.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:09:00,5f47f2ad-539b-4949-ba3c-61163a855b11.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\5f47f2ad-539b-4949-ba3c-61163a855b11.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:14:00,637bb6e6-b108-49b7-b38b-793f68d9e0e1.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\637bb6e6-b108-49b7-b38b-793f68d9e0e1.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:14:00,4690b297-e1e5-4af7-ab0c-17dba454a08e.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\4690b297-e1e5-4af7-ab0c-17dba454a08e.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:08:00,e21b0e41-f0fd-4385-8656-5a896ab235f4.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\e21b0e41-f0fd-4385-8656-5a896ab235f4.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:08:00,ec9ec6ce-9202-4324-970e-189bd87bb97b.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\ec9ec6ce-9202-4324-970e-189bd87bb97b.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:15:00,34409f2c-ddae-4d94-bb88-02df4d6dcfc0.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\34409f2c-ddae-4d94-bb88-02df4d6dcfc0.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:15:00,39e811f1-6126-437d-8703-c4b0cc5ef741.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\39e811f1-6126-437d-8703-c4b0cc5ef741.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:12:00,be87960c-66ce-4df9-a750-8748a6f5532b.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\be87960c-66ce-4df9-a750-8748a6f5532b.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:06:00,991638b4-36c2-44f1-a9f4-91958e14dfee.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\991638b4-36c2-44f1-a9f4-91958e14dfee.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:09:00,81981a47-aea2-4dd6-88a1-192eef4be174.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\81981a47-aea2-4dd6-88a1-192eef4be174.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:13:00,6318dcd5-d56d-4cab-af34-6050928f47de.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\6318dcd5-d56d-4cab-af34-6050928f47de.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:12:00,97187b82-9481-4939-a24e-d0dcb06aa9c4.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\97187b82-9481-4939-a24e-d0dcb06aa9c4.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:07:00,1bfdf436-53d4-4f83-b68b-277cb66f960d.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\1bfdf436-53d4-4f83-b68b-277cb66f960d.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:12:00,7f0c8309-dfbf-4a97-b2d1-3fe7ee312176.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\7f0c8309-dfbf-4a97-b2d1-3fe7ee312176.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:12:00,98dd496d-5bdc-4323-868f-343b20950098.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\98dd496d-5bdc-4323-868f-343b20950098.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:12:00,b88e7e16-b9b9-4928-a6a6-85fcb04b47a9.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\b88e7e16-b9b9-4928-a6a6-85fcb04b47a9.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:12:00,e6b3cfe0-ba2d-43d0-b400-3904f7aff533.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\e6b3cfe0-ba2d-43d0-b400-3904f7aff533.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:13:00,264610cc-b826-472a-8ee5-72687b89d1fd.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\264610cc-b826-472a-8ee5-72687b89d1fd.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:12:00,29371f89-c184-492c-a4ea-8b64c91e246e.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\29371f89-c184-492c-a4ea-8b64c91e246e.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:13:00,6d365eb6-87d7-44bc-bc4a-e493d38dadfd.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\6d365eb6-87d7-44bc-bc4a-e493d38dadfd.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:13:00,13c2e00d-86ba-4da8-937e-1621ce196178.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\13c2e00d-86ba-4da8-937e-1621ce196178.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:09:00,bfe7662e-bfcc-4fa7-a022-a0edefcfdd3e.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\bfe7662e-bfcc-4fa7-a022-a0edefcfdd3e.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:14:00,4e364da1-1c56-44ab-853f-f0f6380dfd1a.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\4e364da1-1c56-44ab-853f-f0f6380dfd1a.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:09:00,dbfadc55-48d5-40a9-b5ac-846fbfd733a6.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\dbfadc55-48d5-40a9-b5ac-846fbfd733a6.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:09:00,da837b60-c04d-46fc-bee3-06270febf556.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\da837b60-c04d-46fc-bee3-06270febf556.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:15:00,508f9db1-3c6a-497f-9923-8cd31fe66e39.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\508f9db1-3c6a-497f-9923-8cd31fe66e39.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:12:00,5e630248-2b86-4fe2-9718-a3640ce81dbc.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\5e630248-2b86-4fe2-9718-a3640ce81dbc.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:10:00,e8ccc9b5-5524-423a-88f2-e41f37b87931.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\e8ccc9b5-5524-423a-88f2-e41f37b87931.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:10:00,d258f32c-57dd-4f84-b46f-7f06f6a53a30.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\d258f32c-57dd-4f84-b46f-7f06f6a53a30.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:16:00,a4b4332a-e1d6-4f56-a580-08e807779f6c.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\a4b4332a-e1d6-4f56-a580-08e807779f6c.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:16:00,555ad7f9-786b-441a-93b3-c8166e16e1e3.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\555ad7f9-786b-441a-93b3-c8166e16e1e3.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:08:00,051f92b4-6c35-4884-88fc-689184c51270.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\051f92b4-6c35-4884-88fc-689184c51270.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:10:00,f6bace64-e98e-4147-8b9d-e98923588998.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\f6bace64-e98e-4147-8b9d-e98923588998.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:16:00,2d55a6da-9703-486c-a18c-5e2e38b48990.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\2d55a6da-9703-486c-a18c-5e2e38b48990.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:06:00,a9c22049-e22d-47dd-8335-6d89923b5812.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\a9c22049-e22d-47dd-8335-6d89923b5812.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:08:00,5502a742-4b44-48cc-ab41-025e656be699.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\5502a742-4b44-48cc-ab41-025e656be699.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:08:00,56f901c9-5212-46b5-91b3-2db48e7a7eb8.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\56f901c9-5212-46b5-91b3-2db48e7a7eb8.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:16:00,6d0b2584-f710-4db5-88a1-24febe5b040f.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\6d0b2584-f710-4db5-88a1-24febe5b040f.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:08:00,1b2c28f1-8f3e-455a-bcaf-f304dbd2d2f2.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\1b2c28f1-8f3e-455a-bcaf-f304dbd2d2f2.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:06:00,b120f410-685a-4b53-8447-837a0b4e2f93.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\b120f410-685a-4b53-8447-837a0b4e2f93.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:08:00,4248d2c6-3406-4509-a26e-fb406052a869.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\4248d2c6-3406-4509-a26e-fb406052a869.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:19:00,32a3bd06-492a-4697-a23c-976a3992b28f.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\32a3bd06-492a-4697-a23c-976a3992b28f.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:07:00,499448b3-3d17-48c5-bbc1-f645a31a7652.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\499448b3-3d17-48c5-bbc1-f645a31a7652.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:16:00,62e37d8c-0fae-46a8-9c32-7b071ef56faa.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\62e37d8c-0fae-46a8-9c32-7b071ef56faa.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:10:00,ff60af2c-91f7-4c43-bd44-2b1c3ee0aebb.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\ff60af2c-91f7-4c43-bd44-2b1c3ee0aebb.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:06:00,8e0a14be-fa5c-4915-bfbe-e94eb921198e.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\8e0a14be-fa5c-4915-bfbe-e94eb921198e.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:19:00,b40fb9ab-44b5-40bc-a007-c4e60ce918d5.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\b40fb9ab-44b5-40bc-a007-c4e60ce918d5.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:18:00,0112408b-bcdf-4229-b844-0a1d0cb82bda.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\0112408b-bcdf-4229-b844-0a1d0cb82bda.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:15:00,7b46141d-8534-4a12-9be5-74e25136cee7.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\7b46141d-8534-4a12-9be5-74e25136cee7.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:15:00,7ff6503e-f9bf-4511-bd4b-049669ed0b2b.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\7ff6503e-f9bf-4511-bd4b-049669ed0b2b.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:18:00,e0e6a946-de88-4f1a-bb85-93477badf904.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\e0e6a946-de88-4f1a-bb85-93477badf904.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:06:00,8b35a5d5-fc20-4ac7-82be-e323410d7683.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\8b35a5d5-fc20-4ac7-82be-e323410d7683.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:16:00,072f610d-2192-4b7d-bccf-c989ef4281a0.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\072f610d-2192-4b7d-bccf-c989ef4281a0.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:18:00,1d3817ec-151a-47e2-ad25-f57ffe618f38.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\1d3817ec-151a-47e2-ad25-f57ffe618f38.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:08:00,0bcce398-951d-4f0d-82f5-a4576a0d3152.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\0bcce398-951d-4f0d-82f5-a4576a0d3152.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:10:00,32bb6e81-ad1c-4966-8faf-abe1664beccc.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\32bb6e81-ad1c-4966-8faf-abe1664beccc.tmp,0.0499,0.9,0.8501,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:25:00,d641e322-0343-4de1-a75c-172a2ab6b4a4.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\d641e322-0343-4de1-a75c-172a2ab6b4a4.tmp,0.05,0.9,0.85,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:25:00,4210b319-4147-428b-9186-56ff6448a3c1.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\4210b319-4147-428b-9186-56ff6448a3c1.tmp,0.05,0.9,0.85,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:25:00,2da1da97-bdc6-445b-b155-54e793be808a.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\2da1da97-bdc6-445b-b155-54e793be808a.tmp,0.05,0.9,0.85,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:25:00,1b4ce1a2-3fe9-4f15-9fec-05e785844e7a.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\1b4ce1a2-3fe9-4f15-9fec-05e785844e7a.tmp,0.05,0.9,0.85,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:28:00,fc314ce3-6360-406b-b000-58cd003f44ca.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\fc314ce3-6360-406b-b000-58cd003f44ca.tmp,0.05,0.9,0.85,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:25:00,e5e1d59c-eb9f-40d6-87bc-3e859ea17101.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\e5e1d59c-eb9f-40d6-87bc-3e859ea17101.tmp,0.05,0.9,0.85,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:25:00,f9903c3f-26de-4eaf-bed0-e0d57bb00e24.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\f9903c3f-26de-4eaf-bed0-e0d57bb00e24.tmp,0.05,0.9,0.85,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:25:00,d3f075f4-741b-45c5-8b32-1402eee65f94.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\d3f075f4-741b-45c5-8b32-1402eee65f94.tmp,0.05,0.9,0.85,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:25:00,c016ae70-0a30-4f22-94f6-97f412d5cac7.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\c016ae70-0a30-4f22-94f6-97f412d5cac7.tmp,0.05,0.9,0.85,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:25:00,54ceebeb-7739-4543-89fb-ef3026482077.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\54ceebeb-7739-4543-89fb-ef3026482077.tmp,0.05,0.9,0.85,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:35:00,dropbox-desktop-client_488_0.png,\Users\jcloudy\AppData\Local\Microsoft\Windows\ActionCenterCache\dropbox-desktop-client_488_0.png,0.05,0.9,0.85,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 16:25:00,776c0f61-bafd-466a-887b-b9169f03ded0.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\776c0f61-bafd-466a-887b-b9169f03ded0.tmp,0.05,0.9,0.85,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:26:00,0e1357ed-6966-4957-9586-9a4e926cc147.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\0e1357ed-6966-4957-9586-9a4e926cc147.tmp,0.05,0.9,0.85,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:26:00,cad5a74e-bb07-45df-b986-99ba888480ad.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\cad5a74e-bb07-45df-b986-99ba888480ad.tmp,0.05,0.9,0.85,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:26:00,L1H0D5M9Q72C7SFGA2B2.temp,\Users\jcloudy\AppData\Roaming\Microsoft\Windows\Recent\CustomDestinations\L1H0D5M9Q72C7SFGA2B2.temp,0.05,0.9,0.85,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:28:00,6a2b140d-5b13-47c5-809b-22e454605a94.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\6a2b140d-5b13-47c5-809b-22e454605a94.tmp,0.05,0.9,0.85,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:28:00,b18329ae-7d5a-4df2-86d4-4d66aaa32aa3.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\b18329ae-7d5a-4df2-86d4-4d66aaa32aa3.tmp,0.05,0.9,0.85,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:28:00,23549971-18fd-45f5-af23-d643ae52e7aa.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\23549971-18fd-45f5-af23-d643ae52e7aa.tmp,0.05,0.9,0.85,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:28:00,f7e4d89a-1a02-4f53-a80c-a541534a7efe.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\f7e4d89a-1a02-4f53-a80c-a541534a7efe.tmp,0.05,0.9,0.85,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:28:00,41c335eb-6dd0-4808-9529-568fe56eff82.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\41c335eb-6dd0-4808-9529-568fe56eff82.tmp,0.05,0.9,0.85,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:26:00,a33c201b-e1a8-4b47-8a72-7119ad46dfe4.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\a33c201b-e1a8-4b47-8a72-7119ad46dfe4.tmp,0.05,0.9,0.85,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:28:00,61672605-63bb-4474-a8d6-2287c2f45263.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\61672605-63bb-4474-a8d6-2287c2f45263.tmp,0.05,0.9,0.85,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:26:00,1123d7cb-c0a2-4d63-a637-49ce4ece47ac.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\1123d7cb-c0a2-4d63-a637-49ce4ece47ac.tmp,0.05,0.9,0.85,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:26:00,478b80c3-1b70-4c77-84a0-040c93e5e3b9.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\478b80c3-1b70-4c77-84a0-040c93e5e3b9.tmp,0.05,0.9,0.85,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:26:00,b456dff6-e136-4862-939d-d5a85309b6d6.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\b456dff6-e136-4862-939d-d5a85309b6d6.tmp,0.05,0.9,0.85,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:26:00,81a6dc0e-c0bd-4c75-a5f8-8b4a2372b35b.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\81a6dc0e-c0bd-4c75-a5f8-8b4a2372b35b.tmp,0.05,0.9,0.85,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:24:00,dd4ce7c6-a964-4f1b-a9c2-145cfae0b790.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\dd4ce7c6-a964-4f1b-a9c2-145cfae0b790.tmp,0.05,0.9,0.85,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:24:00,2b97eb98-5885-47ca-944d-578f8a5f5a48.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\2b97eb98-5885-47ca-944d-578f8a5f5a48.tmp,0.05,0.9,0.85,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:24:00,845506aa-e10b-40f9-b1af-6489dcecebf1.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\845506aa-e10b-40f9-b1af-6489dcecebf1.tmp,0.05,0.9,0.85,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:31:00,1c0c18c2-1f3b-4c90-b4a9-7c89f1c968f8.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\1c0c18c2-1f3b-4c90-b4a9-7c89f1c968f8.tmp,0.05,0.9,0.85,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:26:00,97b526e9-ed36-4538-bb86-1c24e07da616.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\97b526e9-ed36-4538-bb86-1c24e07da616.tmp,0.05,0.9,0.85,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:24:00,be4a3c50-0931-4d78-b2ba-42de23865640.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\be4a3c50-0931-4d78-b2ba-42de23865640.tmp,0.05,0.9,0.85,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:26:00,604fe223-e507-44a2-84ec-cd0237d4d7a5.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\604fe223-e507-44a2-84ec-cd0237d4d7a5.tmp,0.05,0.9,0.85,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:25:00,18b51183-4b77-421f-800a-59a3de0dfd74.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\18b51183-4b77-421f-800a-59a3de0dfd74.tmp,0.05,0.9,0.85,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:38:00,fd362199-fedc-4c5b-952e-305d3229fd47.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\fd362199-fedc-4c5b-952e-305d3229fd47.tmp,0.0598,0.9,0.8402,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:43:00,21dd11c2-91eb-4b5e-a332-663f9cfb9800.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\21dd11c2-91eb-4b5e-a332-663f9cfb9800.tmp,0.0598,0.9,0.8402,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:42:00,40bea7ba-f6e4-48c7-b59d-2de314ae0855.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\40bea7ba-f6e4-48c7-b59d-2de314ae0855.tmp,0.0598,0.9,0.8402,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:40:00,7b70fd40-28aa-4b77-882f-67e4f080c232.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\7b70fd40-28aa-4b77-882f-67e4f080c232.tmp,0.0598,0.9,0.8402,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:50:00,12531489-3faf-46f7-8392-7ee867d87f55.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\12531489-3faf-46f7-8392-7ee867d87f55.tmp,0.0598,0.9,0.8402,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:41:00,9bb176de-db95-4595-8acc-0f1925a3c617.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\9bb176de-db95-4595-8acc-0f1925a3c617.tmp,0.0598,0.9,0.8402,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:37:00,32e98c4b-93de-49a0-abe9-d464cd223033.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\32e98c4b-93de-49a0-abe9-d464cd223033.tmp,0.0598,0.9,0.8402,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:40:00,7c065e6d-bc9f-45f4-b263-f70113cd40aa.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\7c065e6d-bc9f-45f4-b263-f70113cd40aa.tmp,0.0598,0.9,0.8402,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:22:00,9cbf3786-96dd-473e-a592-c8f5669103e7.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\9cbf3786-96dd-473e-a592-c8f5669103e7.tmp,0.0598,0.9,0.8402,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:17:00,158f928a-a0be-4bb0-b1c4-3cb15a4d4091.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\158f928a-a0be-4bb0-b1c4-3cb15a4d4091.tmp,0.0598,0.9,0.8402,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:25:00,34729dce-02f5-4daa-8063-1efda726e320.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\34729dce-02f5-4daa-8063-1efda726e320.tmp,0.0598,0.9,0.8402,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:25:00,10039cda-83dd-439e-9ad3-029efa26d31f.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\10039cda-83dd-439e-9ad3-029efa26d31f.tmp,0.0598,0.9,0.8402,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:32:00,d3653baf-5f1f-4111-be3a-b1056269ae92.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\d3653baf-5f1f-4111-be3a-b1056269ae92.tmp,0.0598,0.9,0.8402,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:27:00,08237f1d-dc41-4d46-a290-45c677f135f6.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\08237f1d-dc41-4d46-a290-45c677f135f6.tmp,0.0598,0.9,0.8402,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:27:00,c10c0ce0-0295-4693-8f0f-03c233c51f7b.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\c10c0ce0-0295-4693-8f0f-03c233c51f7b.tmp,0.0598,0.9,0.8402,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:29:00,d0b319cf-8883-4a31-b47a-ee8a6b80132c.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\d0b319cf-8883-4a31-b47a-ee8a6b80132c.tmp,0.0598,0.9,0.8402,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:30:00,1925a6fc-0b55-4eae-8452-5543e213723c.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\1925a6fc-0b55-4eae-8452-5543e213723c.tmp,0.0598,0.9,0.8402,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:33:00,7650023d-72fd-469b-ac55-ff2d875a38ae.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\7650023d-72fd-469b-ac55-ff2d875a38ae.tmp,0.0598,0.9,0.8402,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:30:00,c60254ff-160d-482d-b91b-c44a10d021e5.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\c60254ff-160d-482d-b91b-c44a10d021e5.tmp,0.0598,0.9,0.8402,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:30:00,8054a44b-f4b3-45ca-acf1-25c604605e05.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\8054a44b-f4b3-45ca-acf1-25c604605e05.tmp,0.0598,0.9,0.8402,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:39:00,f7499f38-80e6-4dca-90c1-2983e5cddf47.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\f7499f38-80e6-4dca-90c1-2983e5cddf47.tmp,0.0598,0.9,0.8402,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:47:00,036244a1-8be4-4541-a018-f28ac625af60.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\036244a1-8be4-4541-a018-f28ac625af60.tmp,0.0598,0.9,0.8402,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:42:00,d3ff93e6-866c-42fa-847b-79b2fb847255.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\d3ff93e6-866c-42fa-847b-79b2fb847255.tmp,0.0598,0.9,0.8402,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:45:00,24c864f8-f3a6-48bb-8a75-2e9d9228dfc1.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\24c864f8-f3a6-48bb-8a75-2e9d9228dfc1.tmp,0.0598,0.9,0.8402,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:33:00,0985442c-0236-426d-ac3a-404776d72fd1.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\0985442c-0236-426d-ac3a-404776d72fd1.tmp,0.0598,0.9,0.8402,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:33:00,5f91762c-533f-4f9d-8f9e-e6f99622e5be.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\5f91762c-533f-4f9d-8f9e-e6f99622e5be.tmp,0.0598,0.9,0.8402,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:49:00,85459888-d930-4f5f-bd7d-20cbab87a77a.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\85459888-d930-4f5f-bd7d-20cbab87a77a.tmp,0.0598,0.9,0.8402,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:48:00,dffce2ca-e35c-4c04-a6aa-1349710a27b2.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\dffce2ca-e35c-4c04-a6aa-1349710a27b2.tmp,0.0598,0.9,0.8402,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:46:00,ab76459a-616f-4055-bd4c-a3299175ec8a.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\ab76459a-616f-4055-bd4c-a3299175ec8a.tmp,0.0598,0.9,0.8402,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:46:00,8f3388d4-08e7-469c-8ec5-66d746738b77.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\8f3388d4-08e7-469c-8ec5-66d746738b77.tmp,0.0598,0.9,0.8402,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:44:00,7c8d84c5-0fb9-47e5-8b30-2e1f7a0802df.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\7c8d84c5-0fb9-47e5-8b30-2e1f7a0802df.tmp,0.0598,0.9,0.8402,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:44:00,f1821266-d199-4d7c-a541-f5362dc9816a.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\f1821266-d199-4d7c-a541-f5362dc9816a.tmp,0.0598,0.9,0.8402,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:43:00,0b67910d-c405-4d63-aecb-afe1058c1b1b.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\0b67910d-c405-4d63-aecb-afe1058c1b1b.tmp,0.0598,0.9,0.8402,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:31:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\ScriptCache\index-dir\temp-index,0.0599,0.9,0.8401,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:32:00,8613e9ea-d9db-4cc2-ac6a-bcb59de3a41f.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\8613e9ea-d9db-4cc2-ac6a-bcb59de3a41f.tmp,0.0599,0.9,0.8401,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:34:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\ScriptCache\index-dir\temp-index,0.0599,0.9,0.8401,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:08:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\ScriptCache\index-dir\temp-index,0.0599,0.9,0.8401,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:29:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\ScriptCache\index-dir\temp-index,0.0599,0.9,0.8401,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:32:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\ScriptCache\index-dir\temp-index,0.0599,0.9,0.8401,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:46:00,2815d2f4-a94e-4b5b-b3c4-cac022ee8fa6.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\2815d2f4-a94e-4b5b-b3c4-cac022ee8fa6.tmp,0.0599,0.9,0.8401,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:07:00,30c0a254-2009-4b21-98f7-90d012d6d950.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\30c0a254-2009-4b21-98f7-90d012d6d950.tmp,0.0599,0.9,0.8401,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:19:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\ScriptCache\index-dir\temp-index,0.0599,0.9,0.8401,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:34:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\ScriptCache\index-dir\temp-index,0.0599,0.9,0.8401,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:18:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\ScriptCache\index-dir\temp-index,0.0599,0.9,0.8401,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:26:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\CacheStorage\9b5e89a21995205dc7585fe6313d90e1159c6f57\31ca7ba8-8aa6-403b-8cae-20126ea177d9\index-dir\temp-index,0.0599,0.9,0.8401,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:27:00,78c50060-2376-47eb-82bc-abaa19b5ed81.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\78c50060-2376-47eb-82bc-abaa19b5ed81.tmp,0.0599,0.9,0.8401,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:27:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\ScriptCache\index-dir\temp-index,0.0599,0.9,0.8401,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:26:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\CacheStorage\9b5e89a21995205dc7585fe6313d90e1159c6f57\241ab640-e32e-412d-88d2-f4441da71220\index-dir\temp-index,0.0599,0.9,0.8401,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:12:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\ScriptCache\index-dir\temp-index,0.0599,0.9,0.8401,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:14:00,cb7ccc49-f428-465b-b996-0f8890b3185c.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\cb7ccc49-f428-465b-b996-0f8890b3185c.tmp,0.0599,0.9,0.8401,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:10:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\ScriptCache\index-dir\temp-index,0.0599,0.9,0.8401,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:29:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\ScriptCache\index-dir\temp-index,0.0599,0.9,0.8401,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:14:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\ScriptCache\index-dir\temp-index,0.0599,0.9,0.8401,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:41:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\ScriptCache\index-dir\temp-index,0.0599,0.9,0.8401,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:29:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\ScriptCache\index-dir\temp-index,0.0599,0.9,0.8401,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:38:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\ScriptCache\index-dir\temp-index,0.0599,0.9,0.8401,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:30:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\ScriptCache\index-dir\temp-index,0.0599,0.9,0.8401,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:36:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\ScriptCache\index-dir\temp-index,0.0599,0.9,0.8401,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:16:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\ScriptCache\index-dir\temp-index,0.0599,0.9,0.8401,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:26:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\ScriptCache\index-dir\temp-index,0.0599,0.9,0.8401,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:06:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\ScriptCache\index-dir\temp-index,0.0599,0.9,0.8401,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:49:00,b23ea4a6-d66d-4321-901b-f7c05ffca1d2.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\b23ea4a6-d66d-4321-901b-f7c05ffca1d2.tmp,0.0599,0.9,0.8401,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:24:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\ScriptCache\index-dir\temp-index,0.0599,0.9,0.8401,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:21:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\ScriptCache\index-dir\temp-index,0.0599,0.9,0.8401,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:25:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\ScriptCache\index-dir\temp-index,0.06,0.9,0.84,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:26:00,index.txt.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\CacheStorage\eadf114e35641d8a14aa9648d8e1c01b4b3bb3f0\index.txt.tmp,0.06,0.9,0.84,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:26:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\ScriptCache\index-dir\temp-index,0.06,0.9,0.84,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:24:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\CacheStorage\eadf114e35641d8a14aa9648d8e1c01b4b3bb3f0\db8c7c4b-52c0-4dc8-99ad-2c8201ca713d\index-dir\temp-index,0.06,0.9,0.84,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:25:00,index.txt.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\CacheStorage\9b5e89a21995205dc7585fe6313d90e1159c6f57\index.txt.tmp,0.06,0.9,0.84,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:24:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\CacheStorage\eadf114e35641d8a14aa9648d8e1c01b4b3bb3f0\a42bf8af-ae97-4a9c-a23a-c15cf0b9d992\index-dir\temp-index,0.06,0.9,0.84,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:24:00,index.txt.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\CacheStorage\eadf114e35641d8a14aa9648d8e1c01b4b3bb3f0\index.txt.tmp,0.06,0.9,0.84,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:24:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\ScriptCache\index-dir\temp-index,0.06,0.9,0.84,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:24:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\ScriptCache\index-dir\temp-index,0.06,0.9,0.84,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:25:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\CacheStorage\9b5e89a21995205dc7585fe6313d90e1159c6f57\241ab640-e32e-412d-88d2-f4441da71220\index-dir\temp-index,0.06,0.9,0.84,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:26:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\CacheStorage\eadf114e35641d8a14aa9648d8e1c01b4b3bb3f0\a42bf8af-ae97-4a9c-a23a-c15cf0b9d992\index-dir\temp-index,0.06,0.9,0.84,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:25:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\CacheStorage\9b5e89a21995205dc7585fe6313d90e1159c6f57\4eab9261-5ecc-4476-81ab-14e744b70bfb\index-dir\temp-index,0.06,0.9,0.84,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:26:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\CacheStorage\eadf114e35641d8a14aa9648d8e1c01b4b3bb3f0\db8c7c4b-52c0-4dc8-99ad-2c8201ca713d\index-dir\temp-index,0.06,0.9,0.84,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:25:00,index.txt.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\CacheStorage\9b5e89a21995205dc7585fe6313d90e1159c6f57\index.txt.tmp,0.06,0.9,0.84,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:25:00,index.txt.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\CacheStorage\28da9c56fde4021055a681112c092453f74d8dd8\index.txt.tmp,0.06,0.9,0.84,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:25:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\CacheStorage\28da9c56fde4021055a681112c092453f74d8dd8\4cba2ef7-4bec-43c4-b540-61f651122d32\index-dir\temp-index,0.06,0.9,0.84,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:28:00,8719eff3-a7ee-42ec-ac1c-d3b535c5e51e.tmp,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\8719eff3-a7ee-42ec-ac1c-d3b535c5e51e.tmp,0.0698,0.9,0.8302,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:32:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\ScriptCache\index-dir\temp-index,0.0698,0.9,0.8302,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:30:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\ScriptCache\index-dir\temp-index,0.0698,0.9,0.8302,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:22:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\ScriptCache\index-dir\temp-index,0.0698,0.9,0.8302,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:43:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\ScriptCache\index-dir\temp-index,0.0698,0.9,0.8302,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:45:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\ScriptCache\index-dir\temp-index,0.0698,0.9,0.8302,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:47:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\ScriptCache\index-dir\temp-index,0.0698,0.9,0.8302,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:32:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\ScriptCache\index-dir\temp-index,0.0698,0.9,0.8302,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:49:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\ScriptCache\index-dir\temp-index,0.0698,0.9,0.8302,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:28:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\ScriptCache\index-dir\temp-index,0.0698,0.9,0.8302,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:39:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\ScriptCache\index-dir\temp-index,0.0699,0.9,0.8301,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:45:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\ScriptCache\index-dir\temp-index,0.0699,0.9,0.8301,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:46:00,DP2NTHE5F6PYXEVGLOEQ.temp,\Users\jcloudy\AppData\Roaming\Microsoft\Windows\Recent\CustomDestinations\DP2NTHE5F6PYXEVGLOEQ.temp,0.0699,0.9,0.8301,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:35:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\ScriptCache\index-dir\temp-index,0.0699,0.9,0.8301,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:49:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\ScriptCache\index-dir\temp-index,0.0699,0.9,0.8301,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 16:28:00,5a878701.jpg,\Users\jcloudy\AppData\Local\Microsoft\Windows\Notifications\wpnidm\5a878701.jpg,0.0798,0.9,0.8202,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 16:28:00,af10c3a2.jpg,\Users\jcloudy\AppData\Local\Microsoft\Windows\Notifications\wpnidm\af10c3a2.jpg,0.0798,0.9,0.8202,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:37:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\ScriptCache\index-dir\temp-index,0.0798,0.9,0.8202,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:33:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\ScriptCache\index-dir\temp-index,0.0798,0.9,0.8202,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:47:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\ScriptCache\index-dir\temp-index,0.0798,0.9,0.8202,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:41:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\ScriptCache\index-dir\temp-index,0.0798,0.9,0.8202,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:43:00,temp-index,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\Default\Service Worker\ScriptCache\index-dir\temp-index,0.0798,0.9,0.8202,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:35:00,layers.ccbc92d4047235e1c1a9.js.download,,0.0998,0.9,0.8002,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,m_window_focus_non_hydra.js(1).download,,0.0998,0.9,0.8002,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,4mrRnEPnWo81qWPG8_xcGP85HCscbg1O2YUrIewxQYY.js.download,,0.0998,0.9,0.8002,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,Zuckerberg-Justin-SullivanGetty-Images-200x150.jpg,,0.0998,0.9,0.8002,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,pubads_impl_rendering_191.js.download,,0.0998,0.9,0.8002,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,widget_iframe.4ed13d9ce94e60c41048ece32559b04c.html,,0.0998,0.9,0.8002,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,4mrRnEPnWo81qWPG8_xcGP85HCscbg1O2YUrIewxQYY.js.download,,0.0998,0.9,0.8002,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 15:34:00,Set9A39.tmp,\Users\jcloudy\AppData\Local\Temp\Set9A39.tmp,0.0999,0.9,0.8001,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:34:00,Set9A28.tmp,\Users\jcloudy\AppData\Local\Temp\Set9A28.tmp,0.0999,0.9,0.8001,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 15:34:00,Set9A38.tmp,\Users\jcloudy\AppData\Local\Temp\Set9A38.tmp,0.0999,0.9,0.8001,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:26:00,snapshot.etl,\Windows\System32\WDI\{533a67eb-9fb5-473d-b884-958cf4b9c4a3}\{590eb9fb-76b4-4d7b-a955-36d351de97e5}\snapshot.etl,0.1098,0.9,0.7902,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:35:00,Zuckerberg-Justin-SullivanGetty-Images-200x150.jpg,,0.1098,0.9,0.7902,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,widget_iframe.4ed13d9ce94e60c41048ece32559b04c.html,,0.1098,0.9,0.7902,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 16:24:00,snapshot.etl,\Windows\System32\WDI\{533a67eb-9fb5-473d-b884-958cf4b9c4a3}\{740ceb56-7697-4179-8053-2efa553b39aa}\snapshot.etl,0.1099,0.9,0.7901,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:35:00,tweet.04083550b9eaa7a8845ad19301d3e454.js.download,,0.1197,0.9,0.7803,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,1-desktop-300x250-xz0V2._V500772002_.jpg,,0.1197,0.9,0.7803,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 15:23:00,Appraiser_Data.ini,\Windows\appcompat\appraiser\AltData\Appraiser_Data.ini,0.1296,0.9,0.7704,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,m_window_focus_non_hydra.js.download,,0.1298,0.9,0.7702,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,adsbygoogle.js.download,,0.1298,0.9,0.7702,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,render.v1.js.download,,0.1298,0.9,0.7702,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,connectV5.js.download,,0.1298,0.9,0.7702,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,jquery.min.js.download,,0.1298,0.9,0.7702,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,abg.js(1).download,,0.1298,0.9,0.7702,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,linkid.js.download,,0.1298,0.9,0.7702,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,newsmax-powered-by.png,,0.1298,0.9,0.7702,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,analytics.js.download,,0.1298,0.9,0.7702,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,ca-pub-9229289037503472.js.download,,0.1298,0.9,0.7702,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,integrator.js.download,,0.1298,0.9,0.7702,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,beacon.js.download,,0.1298,0.9,0.7702,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,quant.js.download,,0.1298,0.9,0.7702,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,p-aD1qr93XuF6aC(1).gif,,0.1298,0.9,0.7702,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,glade.js.download,,0.1298,0.9,0.7702,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,132.5e4481b959a26fea51e3.js.download,,0.1298,0.9,0.7702,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,p-aD1qr93XuF6aC.gif,,0.1298,0.9,0.7702,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,extra_26.js.download,,0.1298,0.9,0.7702,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,jquery-ui.min.js.download,,0.1298,0.9,0.7702,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,osd_listener.js.download,,0.1298,0.9,0.7702,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,count-data.js.download,,0.1298,0.9,0.7702,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,fbadnw55.js.download,,0.1298,0.9,0.7702,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,IngrahamHoggs-200x150.jpg,,0.1298,0.9,0.7702,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,fbevents.js.download,,0.1298,0.9,0.7702,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,FdM1l_dpErI(1).html,,0.1298,0.9,0.7702,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,rev2.min.js.download,,0.1298,0.9,0.7702,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 15:23:00,appraiser.sdb,\Windows\appcompat\appraiser\AltData\appraiser.sdb,0.1396,0.9,0.7604,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,saved_resource(7).html,,0.1398,0.9,0.7602,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,_ate.track.config_resp,,0.1398,0.9,0.7602,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,saved_resource(3).html,,0.1398,0.9,0.7602,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,saved_resource(2).html,,0.1398,0.9,0.7602,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,saved_resource(9).html,,0.1398,0.9,0.7602,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,saved_resource(8).html,,0.1398,0.9,0.7602,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,saved_resource(6).html,,0.1398,0.9,0.7602,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,saved_resource(4).html,,0.1398,0.9,0.7602,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,saved_resource.html,,0.1398,0.9,0.7602,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,show_ads_impl.js.download,,0.1398,0.9,0.7602,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,saved_resource(5).html,,0.1398,0.9,0.7602,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,widgets.js.download,,0.1398,0.9,0.7602,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,style-015223891.css,,0.1398,0.9,0.7602,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,ca-pub-8006908682726742.js.download,,0.1497,0.9,0.7503,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,container(1).html,,0.1497,0.9,0.7503,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,container(2).html,,0.1497,0.9,0.7503,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,container(3).html,,0.1497,0.9,0.7503,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,client.js.download,,0.1497,0.9,0.7503,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,mwEmbedLoader.php,,0.1497,0.9,0.7503,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,Screenshot-Anthony-Rizzo-640x480.png,,0.1497,0.9,0.7503,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,LarryKingband1-640x480.jpg,,0.1497,0.9,0.7503,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,3530875791081154935,,0.1497,0.9,0.7503,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,2814338203340048777,,0.1497,0.9,0.7503,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,16816357988193035146,,0.1497,0.9,0.7503,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,16692573782197537271,,0.1497,0.9,0.7503,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,saved_resource(1).html,,0.1497,0.9,0.7503,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,7232629936557074193,,0.1497,0.9,0.7503,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,integrator.js(1).download,,0.1497,0.9,0.7503,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,5600899292274218821,,0.1497,0.9,0.7503,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,ads(1).html,,0.1498,0.9,0.7502,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,ads(4).html,,0.1498,0.9,0.7502,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,ads(3).html,,0.1498,0.9,0.7502,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,ads(2).html,,0.1498,0.9,0.7502,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,container.html,,0.1498,0.9,0.7502,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,fancybox-0.css,,0.1498,0.9,0.7502,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,ad-template.json,,0.1498,0.9,0.7502,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,rev2.min.css,,0.1498,0.9,0.7502,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,atrk.js.download,,0.1498,0.9,0.7502,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,saved_resource,,0.1498,0.9,0.7502,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,saved_resource,,0.1498,0.9,0.7502,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,fancybox-0.css,,0.1498,0.9,0.7502,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,container.html,,0.1498,0.9,0.7502,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,animate.min.css,,0.1498,0.9,0.7502,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,2.96281E+14,,0.1498,0.9,0.7502,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,FdM1l_dpErI.html,,0.1498,0.9,0.7502,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,newsmax.html,,0.1498,0.9,0.7502,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:42:00,UDD9BA7.tmp,\Windows\Temp\UDD9BA7.tmp,0.1598,0.9,0.7402,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,False
+2018-04-06 20:35:00,im(9).gif,,0.1598,0.9,0.7402,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,im(4).gif,,0.1598,0.9,0.7402,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,im(8).gif,,0.1598,0.9,0.7402,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,im(7).gif,,0.1598,0.9,0.7402,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,im(1).gif,,0.1598,0.9,0.7402,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,im(3).gif,,0.1598,0.9,0.7402,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,im(6).gif,,0.1598,0.9,0.7402,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,im(5).gif,,0.1598,0.9,0.7402,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,im(2).gif,,0.1598,0.9,0.7402,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,zrt_lookup.html,,0.1598,0.9,0.7402,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 16:31:00,commands.json,,0.1598,0.9,0.7402,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+,2a1059d6.jpg,\Users\jcloudy\AppData\Local\Microsoft\Windows\Notifications\wpnidm\2a1059d6.jpg,0.0099,0.75,0.7401,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+2018-04-06 20:35:00,d-closed.jpg,,0.1697,0.9,0.7303,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,232_16_16.gif,,0.1697,0.9,0.7303,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,232_138_4.gif,,0.1697,0.9,0.7303,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,redir(1).html,,0.1697,0.9,0.7303,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:26:00,NVI2_29.DLL,\Windows\Temp\NVI2_29.DLL,0.1697,0.9,0.7303,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:26:00,NVI2_29.DLL,\Windows\Temp\NVI2_29.DLL,0.1697,0.9,0.7303,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,redir(2).html,,0.1697,0.9,0.7303,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,cookie_push.html,,0.1697,0.9,0.7303,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:26:00,NVI2_29.DLL,\Windows\Temp\NVI2_29.DLL,0.1797,0.9,0.7203,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:26:00,NVI2_29.DLL,\Windows\Temp\NVI2_29.DLL,0.1797,0.9,0.7203,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 16:31:00,f8,,0.1798,0.9,0.7202,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 16:31:00,f16,,0.1798,0.9,0.7202,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 16:31:00,f15,,0.1798,0.9,0.7202,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 16:31:00,f13,,0.1798,0.9,0.7202,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 16:31:00,f12,,0.1798,0.9,0.7202,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 16:31:00,f11,,0.1798,0.9,0.7202,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 16:31:00,f10,,0.1798,0.9,0.7202,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 16:31:00,f9,,0.1798,0.9,0.7202,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 16:31:00,f7,,0.1798,0.9,0.7202,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 16:31:00,f5,,0.1798,0.9,0.7202,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 16:31:00,f4,,0.1798,0.9,0.7202,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 16:31:00,f3,,0.1798,0.9,0.7202,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 16:31:00,f2,,0.1798,0.9,0.7202,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 16:31:00,f1,,0.1798,0.9,0.7202,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 16:31:00,f17,,0.1798,0.9,0.7202,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 16:31:00,f21,,0.1798,0.9,0.7202,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 16:31:00,f28,,0.1798,0.9,0.7202,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 16:31:00,f27,,0.1798,0.9,0.7202,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 16:31:00,f25,,0.1798,0.9,0.7202,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 16:31:00,f6,,0.1798,0.9,0.7202,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 16:31:00,f14,,0.1798,0.9,0.7202,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,css(2),,0.1798,0.9,0.7202,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,css,,0.1798,0.9,0.7202,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,cm.gif,,0.1798,0.9,0.7202,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,ads.html,,0.1798,0.9,0.7202,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,css(1),,0.1798,0.9,0.7202,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,im.gif,,0.1798,0.9,0.7202,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,js,,0.1798,0.9,0.7202,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,Cubs'' Anthony Rizzo Praises Parkland Kids/ Says ''It''s too Easy to Get a Gun''_files,\Users\jcloudy\Dropbox\Cubs'' Anthony Rizzo Praises Parkland Kids/ Says ''It''s too Easy to Get a Gun''_files,0.0299,0.75,0.7201,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+2018-04-06 16:31:00,68f698f81f6482be3a8ceeb9281d4cfc71515d6793d444d10a67acbb4f4ffbc4.sth,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\CertificateTransparency\712\_platform_specific\all\sths\68f698f81f6482be3a8ceeb9281d4cfc71515d6793d444d10a67acbb4f4ffbc4.sth,0.03,0.75,0.72,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+2018-04-06 16:31:00,7461b4a09cfb3d41d75159575b2e7649a445a8d27709b0cc564a6482b7eb41a3.sth,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\CertificateTransparency\712\_platform_specific\all\sths\7461b4a09cfb3d41d75159575b2e7649a445a8d27709b0cc564a6482b7eb41a3.sth,0.03,0.75,0.72,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+2018-04-06 16:31:00,5614069a2fd7c2ecd3f5e1bd44b23ec74676b9bc99115cc0ef949855d689d0dd.sth,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\CertificateTransparency\712\_platform_specific\all\sths\5614069a2fd7c2ecd3f5e1bd44b23ec74676b9bc99115cc0ef949855d689d0dd.sth,0.03,0.75,0.72,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+2018-04-06 16:31:00,ac3b9aed7fa9674757159e6d7d575672f9d98100941e9bdeffeca1313b75782d.sth,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\CertificateTransparency\712\_platform_specific\all\sths\ac3b9aed7fa9674757159e6d7d575672f9d98100941e9bdeffeca1313b75782d.sth,0.03,0.75,0.72,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+2018-04-06 16:31:00,cdb5179b7fc1c046feea31136a3f8f002e6182faf8896fecc8b2f5b5ab604900.sth,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\CertificateTransparency\712\_platform_specific\all\sths\cdb5179b7fc1c046feea31136a3f8f002e6182faf8896fecc8b2f5b5ab604900.sth,0.03,0.75,0.72,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+2018-04-06 16:30:00,verified_contents.json,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\CertificateRevocation\4383\_metadata\verified_contents.json,0.0399,0.75,0.7101,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+2018-04-06 20:35:00,Larry King_ Time to Repeal the ''Poorly Written'' Second Amendment_files,\Users\jcloudy\Dropbox\Larry King_ Time to Repeal the ''Poorly Written'' Second Amendment_files,0.0399,0.75,0.7101,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+2018-04-06 20:29:00,v32.hash,,0.1997,0.9,0.7003,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 16:31:00,f19,,0.1997,0.9,0.7003,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:29:00,VersionDescriptor.xml,,0.1997,0.9,0.7003,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 16:31:00,f0,,0.1997,0.9,0.7003,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,getad,,0.1997,0.9,0.7003,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,sync,,0.1997,0.9,0.7003,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,imp,,0.1997,0.9,0.7003,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,v2,,0.1997,0.9,0.7003,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,getad(1),,0.1997,0.9,0.7003,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 20:35:00,rtbmr,,0.1997,0.9,0.7003,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 16:31:00,f18,,0.1997,0.9,0.7003,Benign,Timestomped,Rule 1: Cross-artifact validation (LogFile + UsnJrnl),3,True,True
+2018-04-06 16:30:00,manifest.json,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\CertificateRevocation\4383\manifest.json,0.0499,0.75,0.7001,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,Larry King_ Time to Repeal the ''Poorly Written'' Second Amendment.html,\Users\jcloudy\Dropbox\Larry King_ Time to Repeal the ''Poorly Written'' Second Amendment.html,0.0499,0.75,0.7001,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+2018-04-06 16:30:00,crl-set,\Users\jcloudy\AppData\Local\Google\Chrome\User Data\CertificateRevocation\4383\crl-set,0.0499,0.75,0.7001,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,HoldMyTidePod.jpg,\Users\jcloudy\Dropbox\HoldMyTidePod.jpg,0.0599,0.75,0.6901,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,Sheep.jpg,\Users\jcloudy\Dropbox\Sheep.jpg,0.0699,0.75,0.6801,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,BIT8F8E.tmp,,0.0699,0.75,0.6801,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,BITDBB.tmp,,0.0699,0.75,0.6801,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,Huckleberry.png,\Users\jcloudy\Dropbox\Huckleberry.png,0.0699,0.75,0.6801,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,MyTiredHead.jpg,\Users\jcloudy\Dropbox\MyTiredHead.jpg,0.0699,0.75,0.6801,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,RedGuns.jpg,\Users\jcloudy\Dropbox\RedGuns.jpg,0.0699,0.75,0.6801,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,Planning.docx,\Users\jcloudy\Dropbox\Planning.docx,0.0699,0.75,0.6801,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,DemLogic.jpg,\Users\jcloudy\Dropbox\DemLogic.jpg,0.0799,0.75,0.6701,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,DeathToll.jpg,\Users\jcloudy\Dropbox\DeathToll.jpg,0.0799,0.75,0.6701,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,DarkWolf.png,\Users\jcloudy\Dropbox\DarkWolf.png,0.0799,0.75,0.6701,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,AIRPORT INFORMATION.docx,\Users\jcloudy\Dropbox\AIRPORT INFORMATION.docx,0.0799,0.75,0.6701,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,Cubs'' Anthony Rizzo Praises Parkland Kids/ Says ''It''s too Easy to Get a Gun''.html,\Users\jcloudy\Dropbox\Cubs'' Anthony Rizzo Praises Parkland Kids/ Says ''It''s too Easy to Get a Gun''.html,0.0897,0.75,0.6603,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,CubaDearmed.jpg,\Users\jcloudy\Dropbox\CubaDearmed.jpg,0.0899,0.75,0.6601,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,BladeofGrass.jpg,\Users\jcloudy\Dropbox\BladeofGrass.jpg,0.0899,0.75,0.6601,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,Dropbox.lnk,\Users\jcloudy\Dropbox\Dropbox.lnk,0.0999,0.75,0.6501,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,Appraiser_TelemetryRunList.xml,\Windows\appcompat\appraiser\AltData\Appraiser_TelemetryRunList.xml,0.1096,0.75,0.6404,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+2018-04-06 16:31:00,verified_contents.json,,0.1099,0.75,0.6401,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,Google Drive.lnk,\Users\jcloudy\Dropbox\Google Drive.lnk,0.1099,0.75,0.6401,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,Box Sync.lnk,\Users\jcloudy\Dropbox\Box Sync.lnk,0.1099,0.75,0.6401,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,layers.ccbc92d4047235e1c1a9.js.download,,0.1198,0.75,0.6302,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,m_window_focus_non_hydra.js(1).download,,0.1198,0.75,0.6302,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,pubads_impl_rendering_191.js.download,,0.1198,0.75,0.6302,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+2018-04-06 20:35:00,CSMJS~1.GZ,,0.1199,0.75,0.6301,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+2018-04-06 20:35:00,300LO~1.JSO,,0.1199,0.75,0.6301,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+2018-04-06 20:35:00,OSDJS~1.DOW,,0.1199,0.75,0.6301,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+2018-04-06 20:35:00,PUSH~1.HTM,,0.1199,0.75,0.6301,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+2018-04-06 20:35:00,ABGJS~1.DOW,,0.1199,0.75,0.6301,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+2018-04-06 20:35:00,GPTJS~1.DOW,,0.1199,0.75,0.6301,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,style-015223891.css,,0.1398,0.75,0.6102,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,232_4.js.download,,0.1398,0.75,0.6102,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,_ate.track.config_resp,,0.1398,0.75,0.6102,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,saved_resource(3).html,,0.1398,0.75,0.6102,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,p-aD1qr93XuF6aC(1).gif,,0.1398,0.75,0.6102,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,integrator.js.download,,0.1398,0.75,0.6102,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,saved_resource(14).html,,0.1398,0.75,0.6102,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,saved_resource(11).html,,0.1398,0.75,0.6102,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,osd_listener.js.download,,0.1398,0.75,0.6102,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,osd_listener.js(1).download,,0.1398,0.75,0.6102,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,4307260015226175326,,0.1398,0.75,0.6102,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,beacon.js.download,,0.1398,0.75,0.6102,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,6717992355080203730,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,p-aD1qr93XuF6aC.gif,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,analytics.js.download,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,connectV5.js.download,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,FdM1l_dpErI(1).html,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,render.v1.js.download,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,m_qs_click_protection.js.download,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,13505157034889917422,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,12848437829251947730,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,rev2.min.js.download,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,15557629127518732760,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,extra_26.js.download,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,show_ads.js.download,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,saved_resource(8).html,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,fbadnw55.js.download,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,fbevents.js.download,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,saved_resource(9).html,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,rules-p-dcxh5b8qxvs6g.js.download,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,saved_resource(7).html,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,saved_resource(6).html,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,m_js_controller.js.download,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,pubads_impl_191.js.download,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,saved_resource.html,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,IngrahamHoggs-200x150.jpg,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,jquery-ui.min.js.download,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,show_ads_impl.js.download,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,132.5e4481b959a26fea51e3.js.download,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,m_window_focus_non_hydra.js.download,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,adsbygoogle.js.download,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,saved_resource(10).html,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,saved_resource(12).html,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,saved_resource(13).html,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,232_138_16.js.download,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,count-data.js.download,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,jquery.min.js.download,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,newsmax-powered-by.png,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,show_ads_impl.js(1).download,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,saved_resource(4).html,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,saved_resource(5).html,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,saved_resource(2).html,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,im(2).gif,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,widgets.js.download,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,pubads_impl_191.js.download,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,REDIR~1.HTM,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,im(1).gif,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,im(3).gif,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,im(4).gif,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,im(5).gif,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,im(6).gif,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,im(7).gif,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,im(8).gif,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,im(9).gif,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,ads.html,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,load.php,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,cm.gif,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,css(1),,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,css(2),,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,css(3),,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,im.gif,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,421,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,css,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,js,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,232_16.js.download,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,591531.html,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,animate.min.css,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,m_js_controller.js.download,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,abg.js(1).download,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,getads.js.download,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,linkid.js.download,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,glade.js.download,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,quant.js.download,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,saved_resource(1),,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,OSDJS~1.DOW,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,m_qs_click_protection.js.download,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,osd_listener.js(1).download,,0.1498,0.75,0.6002,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,ads(4).html,,0.1598,0.75,0.5902,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,ca-pub-9229289037503472.js.download,,0.1598,0.75,0.5902,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,rules-p-aD1qr93XuF6aC.js.download,,0.1598,0.75,0.5902,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,d-opened.jpg,,0.1598,0.75,0.5902,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,sh.d663e43787b663d5491cf753.html,,0.1598,0.75,0.5902,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,newsmax.html,,0.1598,0.75,0.5902,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,rev2.min.css,,0.1598,0.75,0.5902,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,ads(1).html,,0.1598,0.75,0.5902,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,ad-template.json,,0.1598,0.75,0.5902,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,atrk.js.download,,0.1598,0.75,0.5902,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,FdM1l_dpErI.html,,0.1598,0.75,0.5902,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,2.96281E+14,,0.1598,0.75,0.5902,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,rules-p-dcxh5b8qxvs6g.js.download,,0.1598,0.75,0.5902,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,rules-p-aD1qr93XuF6aC.js.download,,0.1598,0.75,0.5902,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,ABGJS~1.DOW,,0.1598,0.75,0.5902,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,redir(3).html,,0.1598,0.75,0.5902,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,GPTJS~1.DOW,,0.1598,0.75,0.5902,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,ads(2).html,,0.1598,0.75,0.5902,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,zrt_lookup.html,,0.1598,0.75,0.5902,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,ads(3).html,,0.1598,0.75,0.5902,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,300LO~1.JSO,,0.1598,0.75,0.5902,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,232_138_16.gif,,0.1598,0.75,0.5902,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,tmz-logo.png,,0.1698,0.75,0.5802,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True
+,sh.d663e43787b663d5491cf753.html,,0.1698,0.75,0.5802,Benign,Timestomped,Rule 3: Zero nanoseconds pattern detected,2,True,True

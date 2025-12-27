@@ -1,0 +1,8 @@
+filepath,filename,eventtime,source,lf_lsn,usn_usn,lf_event,usn_event_info,probability,prediction,confidence_level
+\Program Files\Windows Mail\NewFileTime_SI_M_Manipulation.dll,NewFileTime_SI_M_Manipulation.dll,,logfile_only,10055543485.0,,Time Reversal Event,,0.9941614,1,HIGH
+\Program Files\Windows Mail\NewFileTime_SI_M_Manipulation.dll,NewFileTime_SI_M_Manipulation.dll,12/26/23 15:24:50,usnjrnl_only,,1717352592.0,,Basic_Info_Changed,0.991723,1,HIGH
+\Program Files\Windows Mail\NewFileTime_SI_M_Manipulation.dll,NewFileTime_SI_M_Manipulation.dll,12/26/23 15:24:50,usnjrnl_only,,1717352464.0,,Basic_Info_Changed / File_Closed,0.8324312,1,HIGH
+\Program Files\Windows Mail\NewFileTime_SI_M_Manipulation.dll,NewFileTime_SI_M_Manipulation.dll,12/26/23 15:24:50,usnjrnl_only,,1717352080.0,,Basic_Info_Changed,0.7240859,1,HIGH
+\Program Files\Windows Mail\NewFileTime_SI_M_Manipulation.dll,NewFileTime_SI_M_Manipulation.dll,12/26/23 15:24:50,usnjrnl_only,,1717352336.0,,Basic_Info_Changed,0.7240859,1,HIGH
+\Program Files\Windows Mail\NewFileTime_SI_M_Manipulation.dll,NewFileTime_SI_M_Manipulation.dll,12/26/23 15:24:50,usnjrnl_only,,1717352720.0,,Basic_Info_Changed / File_Closed,0.7240859,1,HIGH
+\Program Files\Windows Mail\NewFileTime_SI_M_Manipulation.dll,NewFileTime_SI_M_Manipulation.dll,12/26/23 15:24:50,usnjrnl_only,,1717352208.0,,Basic_Info_Changed / File_Closed,0.7240859,1,HIGH

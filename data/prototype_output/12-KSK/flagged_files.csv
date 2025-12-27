@@ -1,2 +1,0 @@
-﻿eventtime,filename,filepath,predicted_timestomped,lf_lsn,lf_cluster_index,usn_usn,confidence_score,confidence_level,classification,source,has_logfile_evidence,has_usnjrnl_evidence,lf_event,usn_event_info,cross_artifact_validation_score,timestamp_manipulation_pattern_score,is_tunneling
-2023-01-05 22:09:00,boof.exe,\Windows\SysWOW64\boof.exe,1,6281031128.0,2.0,996867144.0,0.5088478933024695,MEDIUM,Timestomped,both,True,True,Time Reversal Event,Basic_Info_Changed,3,2,False

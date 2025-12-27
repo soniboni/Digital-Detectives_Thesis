@@ -1,0 +1,4 @@
+filepath,filename,eventtime,source,lf_lsn,usn_usn,lf_event,usn_event_info,probability,prediction,confidence_level
+\Program Files\Windows Mail\PowerShell_SI_M_Manipulation.dll,PowerShell_SI_M_Manipulation.dll,,logfile_only,10589115344.0,,Time Reversal Event,,0.9992478,1,HIGH
+\Program Files\Windows Mail\PowerShell_SI_M_Manipulation.dll,PowerShell_SI_M_Manipulation.dll,12/31/23 0:33:32,usnjrnl_only,,1754742912.0,,Basic_Info_Changed / File_Closed,0.97221464,1,HIGH
+\Program Files\Windows Mail\PowerShell_SI_M_Manipulation.dll,PowerShell_SI_M_Manipulation.dll,12/31/23 0:33:32,usnjrnl_only,,1754742784.0,,Basic_Info_Changed,0.8523794,1,HIGH

@@ -1,0 +1,2 @@
+filepath,filename,eventtime,source,lf_lsn,usn_usn,lf_event,usn_event_info,probability,prediction,confidence_level
+\Program Files\Windows Mail\NewFileTime_SI_C_Manipulation.dll,NewFileTime_SI_C_Manipulation.dll,,logfile_only,8730038250.0,,Time Reversal Event,,0.9756352,1,HIGH
