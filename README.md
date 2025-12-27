@@ -6,7 +6,7 @@ This repository contains a thesis project focused on developing machine learning
 
 ---
 
-## Current Status: Phase 3 - Model Training (Branch: `model-training-soni-4`)
+## Current Status: Phase 5 - Prototype Notebooks (Branch: `model-training-soni-4`)
 
 ### Why Retraining?
 
@@ -22,10 +22,10 @@ This branch implements a complete retraining pipeline with corrected data handli
 
 1. **Phase 1: Data Cleaning & Smart Merging** ✅ COMPLETE
 2. **Phase 2: Feature Engineering** ✅ COMPLETE
-3. **Phase 3: Model Training & Comparison** ← CURRENT PHASE
-4. **Phase 4**: Hyperparameter tuning for best algorithm
-5. **Phase 5**: Create prototype notebooks and validate on Lone Wolf (target: 12/12 detections at ≥70% confidence)
-6. **Phase 6**: Autopsy integration
+3. **Phase 3: Model Training & Comparison** ✅ COMPLETE
+4. **Phase 5: Prototype Notebooks** ← CURRENT PHASE (alternative order: test base model before tuning)
+5. **Phase 4: Hyperparameter Tuning** (moved after Phase 5)
+6. **Phase 6: Autopsy Integration**
 
 ---
 
@@ -193,48 +193,86 @@ The detection system generates four output files:
 
 **Output**: `data/processed/Phase 2 - Features/all_cases_combined_features.csv` (29.91 MB, 45 columns)
 
-### Phase 3: Model Training & Comparison
+### Phase 3: Model Training & Comparison ✅
 
-**Goal**: Train and evaluate 5 ML algorithms
+**Goal**: Train and evaluate 4 ML algorithms and select best base model
 
-**Algorithms**:
+**Algorithms Trained**:
 1. Random Forest (ensemble baseline)
 2. XGBoost (gradient boosting)
 3. LightGBM (fast gradient boosting)
 4. Logistic Regression (linear baseline)
-5. Neural Network (MLP)
 
-**Evaluation Metrics**:
-- Recall ≥ 95% (must detect timestomped files)
-- Precision ≥ 80% (minimize false positives)
-- F1-Score ≥ 0.85
+**Train/Test Split**:
+- Manual stratified split to preserve dataset integrity
+- Training: 14 datasets (192 suspicious, 70,538 benign)
+- Test: 4 datasets (74 suspicious, 17,578 benign)
+- Split prevents data leakage by keeping entire datasets together
 
-**Output**: Model comparison report, best algorithm selected
+**Key Results**:
+- **LightGBM selected** as best base model
+- F1-Score: 0.632 (Recall: 1.0000, Precision: 0.463, FPR: 0.0081)
+- Detection: 74/74 suspicious files caught (100% recall)
+- False positives: 86 benign files flagged (0.49% of benign)
 
-### Phase 4: Hyperparameter Tuning
+**Model Comparison**:
+- LightGBM: 74/74 detected (100.0%)
+- XGBoost: 73/74 detected (98.6%)
+- Random Forest: 72/74 detected (97.3%)
+- Logistic Regression: 73/74 detected (98.6%)
 
-**Goal**: Optimize best algorithm from Phase 3
+**Critical Fixes**:
+- Excluded label-encoding features (ground_truth_label, has_usnjrnl_suspicious)
+- Prevented data leakage through proper feature selection
+- Used class weighting to handle 0.3% class imbalance
+
+**Output**:
+- `data/processed/Phase 3 - Model Training/lightgbm_model.pkl` (selected model)
+- `model_comparison_results.csv` (full performance metrics)
+- `selected_model_info.json` (model metadata)
+
+### Phase 4: Hyperparameter Tuning (After Phase 5)
+
+**Goal**: Optimize LightGBM to improve F1-Score from 0.63 → ≥0.85
+
+**Note**: Moved after Phase 5 to validate base model works before investing tuning effort
 
 **Method**: GridSearchCV with 5-fold cross-validation
+
+**Target Metrics**:
+- Recall ≥ 95% (maintain high detection rate)
+- Precision ≥ 80% (reduce false positives from 46% → 80%)
+- F1-Score ≥ 0.85
 
 **Output**: `models/best_model_tuned.pkl`
 
 ### Phase 5: Prototype Notebooks & Validation
 
-**Goal**: Create production-ready detection notebooks and validate on Lone Wolf
+**Goal**: Create production-ready detection notebooks that work on ANY dataset input
 
-**Prototype Notebooks**:
-1. `01_Load_Data.ipynb` - Load and merge raw CSVs
-2. `02_Feature_Engineering.ipynb` - Extract features
-3. `03_Run_Detection.ipynb` - Run trained model
-4. `04_View_Results.ipynb` - Visualize results
+**Prototype Notebooks** (Generic - Accept Any Input):
+1. `01_Load_Data.ipynb` - Load and merge ANY LogFile + UsnJrnl CSVs
+2. `02_Feature_Engineering.ipynb` - Extract features from ANY merged dataset
+3. `03_Run_Detection.ipynb` - Run LightGBM model on ANY feature dataset
+4. `04_View_Results.ipynb` - Analyze predictions (optional ground truth comparison)
 
-**Critical Validation**: Lone Wolf dataset
-- Target: 12/12 timestomped files detected at ≥70% confidence
-- All 12 files should have `zero_in_nanoseconds = True`
-- False positive rate <5%
+**Design Principles**:
+- User specifies input dataset path (not hardcoded to Lone Wolf)
+- Works without Suspicious CSV (production mode)
+- Supports optional Suspicious CSV for validation mode
+- Generates standard outputs: flagged_files.csv, predictions.csv, summary_report.txt
 
-**Output**: Prototype notebooks + Lone Wolf validation report
+**Validation Test Cases**:
+1. **Lone Wolf**: 12/12 timestomped files detected at ≥70% confidence
+2. **APT Testing Datasets**: Test on 8 held-out APT cases
+3. **Production Simulation**: Run without Suspicious CSV to verify deployment readiness
+
+**Success Criteria**:
+- Lone Wolf: 12/12 detections, <5% false positive rate
+- All features extractable from raw CSVs only
+- If base model fails → debug before Phase 4 tuning
+
+**Output**: 4 production-ready notebooks + validation reports
 
 ### Phase 6: Autopsy Integration
 
@@ -330,7 +368,7 @@ This project demonstrates:
 
 ## Project Status
 
-**Current Phase**: Phase 3 - Model Training & Comparison
+**Current Phase**: Phase 5 - Prototype Notebooks & Validation
 
 **Completed**:
 - ✅ Dataset inventory (18 training, 8 testing, 1 validation)
@@ -349,21 +387,31 @@ This project demonstrates:
   - Strongest features: time_reversal_event (94.4% detection), cross_artifact_validation_score=1.0 (98.5% detection)
   - All features extractable from raw LogFile/UsnJrnl fields only
   - Output: 29.91 MB feature dataset ready for training
+- ✅ **Phase 3: Model Training & Comparison**
+  - Trained 4 algorithms (Random Forest, XGBoost, LightGBM, Logistic Regression)
+  - Manual stratified split: 14 train datasets (192 suspicious) / 4 test datasets (74 suspicious)
+  - LightGBM selected as best base model (F1=0.632, Recall=1.0000, Precision=0.463)
+  - Detection: 74/74 suspicious caught (100% recall), 86 false positives (0.49% FPR)
+  - Fixed data leakage by excluding label-encoding features
+  - Output: lightgbm_model.pkl, model_comparison_results.csv
 
 **In Progress**:
-- Phase 3: Model Training & Comparison
-  - Train 5 ML algorithms (Random Forest, XGBoost, LightGBM, Logistic Regression, Neural Network)
-  - Target metrics: Recall ≥95%, Precision ≥80%, F1-Score ≥0.85
-  - Select best algorithm for hyperparameter tuning
+- Phase 5: Prototype Notebooks & Validation
+  - Create 4 production-ready notebooks (Load, Features, Detect, Results)
+  - Design for ANY input dataset (not hardcoded to Lone Wolf)
+  - Validate base model on Lone Wolf (12/12 target) before Phase 4 tuning
+  - Test on APT datasets to verify generalization
 
 **Next Steps**:
-1. Set up train/test split with stratification (preserve 0.3% suspicious class)
-2. Train all 5 algorithms on Phase 2 feature dataset
-3. Evaluate performance metrics and compare algorithms
-4. Select best algorithm based on recall, precision, and F1-score
-5. Proceed to Phase 4: Hyperparameter Tuning
+1. Create `01_Load_Data.ipynb` - Generic CSV loader with user-specified paths
+2. Create `02_Feature_Engineering.ipynb` - Extract 31 features from ANY dataset
+3. Create `03_Run_Detection.ipynb` - Load lightgbm_model.pkl and predict
+4. Create `04_View_Results.ipynb` - Analyze results with optional ground truth
+5. Validate on Lone Wolf (12/12 detections at ≥70% confidence)
+6. If base model passes → Proceed to Phase 4: Hyperparameter Tuning
+7. If base model fails → Debug before tuning
 
-**Timeline**: 4 phases remaining (3, 4, 5, 6)
+**Timeline**: 3 phases remaining (5, 4, 6) - Alternative order to validate before tuning
 
 ---
 
