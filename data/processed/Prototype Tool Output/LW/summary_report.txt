@@ -1,0 +1,84 @@
+================================================================================
+NTFS TIMESTOMPING DETECTION - SUMMARY REPORT
+================================================================================
+Generated: 2025-12-28 02:50:45
+Model: LightGBM (Oh et al. 2024 Implementation)
+Output Directory: /Users/soni/Github/Digital-Detectives_Thesis/data/processed/Prototype Tool Output/LW
+
+CONFIGURATION
+================================================================================
+Confidence Threshold: 70%
+Ground Truth Available: Yes
+
+DETECTION SUMMARY
+================================================================================
+Total Files Analyzed:          7420
+Files Flagged (>=70%):          24
+Flagged Rate:                  0.32%
+
+VALIDATION AGAINST GROUND TRUTH (FILE-LEVEL)
+================================================================================
+Known Timestomped Files:         13
+True Positives:                  12
+False Negatives:                  1
+False Positives:                 12
+
+Recall:                       92.31%  (TP / Known Timestomped)
+Precision:                    50.00%  (TP / Total Flagged)
+F1 Score:                     64.86%
+
+EXCELLENT RECALL: >90% of timestomped files detected.
+
+CONFIDENCE STATISTICS (FLAGGED FILES)
+================================================================================
+Mean:                         99.13%
+Median:                       99.29%
+Min:                          98.02%
+Max:                          99.84%
+Std Dev:                       0.65%
+
+CONFIDENCE DISTRIBUTION
+================================================================================
+ Very High ( 90-100%):     24 files (100.0%)
+      High ( 80- 90%):      0 files (  0.0%)
+    Medium ( 70- 80%):      0 files (  0.0%)
+       Low ( 60- 70%):      0 files (  0.0%)
+  Very Low (  0- 60%):      0 files (  0.0%)
+
+CROSS-ARTIFACT VALIDATION
+================================================================================
+Cross-Validated:                 24 / 24     (100.0%)
+  -> Evidence from BOTH LogFile AND UsnJrnl
+
+FORENSIC INDICATORS (IN FLAGGED FILES)
+================================================================================
+Zero Nanoseconds:                19 / 24     (79.2%)
+Time Reversal Event:             24 / 24     (100.0%)
+Basic_Info_Changed:              24 / 24     (100.0%)
+
+OUTPUT FILES
+================================================================================
+- flagged_files.csv              - 24 files with full forensic details
+- predictions.csv                - All 7420 files with confidence scores
+- predictions_with_features.csv  - Flagged files with all 33 features
+- confidence_distribution.png    - Visualization of confidence scores
+- detection_breakdown.png        - Validation metrics visualization
+- summary_report.txt             - This report
+
+INVESTIGATION NOTES
+================================================================================
+Files flagged by this model should be manually investigated using:
+1. LogFile LSN and UsnJrnl USN for cross-referencing
+2. Event timeline (usn_event_time, lf_event_time)
+3. Manipulation details in lf_detail field
+4. Forensic indicators (zero nanoseconds, time reversal)
+5. Cross-artifact validation status
+
+Key Forensic Signature:
+- SetFileTime() API sets nanoseconds to exactly 0
+- Legitimate file operations rarely result in zero nanoseconds
+- Time reversal = timestamp changed to earlier value
+
+================================================================================
+END OF REPORT
+================================================================================
