@@ -6,7 +6,7 @@ This repository contains a thesis project focused on developing machine learning
 
 ---
 
-## Current Status: Model Retraining (Branch: `model-training-soni-4`)
+## Current Status: Phase 2 - Feature Engineering (Branch: `model-training-soni-4`)
 
 ### Why Retraining?
 
@@ -20,8 +20,8 @@ Previous ML models failed on external datasets (0% detection on Lone Wolf datase
 
 This branch implements a complete retraining pipeline with corrected data handling:
 
-1. **Phase 1**: Smart merging of LogFile, UsnJrnl, and Suspicious CSVs to preserve ground truth detail fields
-2. **Phase 2**: Fixed feature engineering (extract zero nanoseconds from suspicious_detail for BOTH sources)
+1. **Phase 1: Data Cleaning & Smart Merging** ✅ COMPLETE
+2. **Phase 2: Feature Engineering** ← CURRENT PHASE
 3. **Phase 3**: Train and compare 5 ML algorithms (Random Forest, XGBoost, LightGBM, Logistic Regression, Neural Network)
 4. **Phase 4**: Hyperparameter tuning for best algorithm
 5. **Phase 5**: Create prototype notebooks and validate on Lone Wolf (target: 12/12 detections at ≥70% confidence)
@@ -331,19 +331,34 @@ This project demonstrates:
 
 ## Project Status
 
-**Current Phase**: Planning & Data Structure Discovery (Pre-Phase 1)
+**Current Phase**: Phase 2 - Feature Engineering
 
 **Completed**:
 - ✅ Dataset inventory (18 training, 8 testing, 1 validation)
 - ✅ Critical data structure discovery (Suspicious CSVs)
 - ✅ Comprehensive retraining roadmap created
+- ✅ **Phase 1: Data Cleaning & Smart Merging**
+  - 88,190 files merged (266 suspicious, 87,924 benign)
+  - 98.4% data reduction (5.4M → 88K records)
+  - 100% ground truth preservation (297/297 unique files)
+  - File-level aggregation (Oh et al. 2024 methodology)
+  - Cross-artifact validation tracking implemented
+  - Lone Wolf pre-validation passed (100% survival rate)
+
+**In Progress**:
+- Phase 2: Feature Engineering
+  - Extract production-ready features from raw CSVs
+  - Build 15-20 features without Suspicious CSV dependency
+  - Validate features on training data and Lone Wolf
 
 **Next Steps**:
-1. Begin Phase 1: Implement smart merge with Suspicious CSVs
-2. Validate merge preserves suspicious_detail for both LogFile and UsnJrnl sources
-3. Test zero nanoseconds extraction on Lone Wolf
+1. Extract zero_in_nanoseconds from RAW lf_detail field (production-compatible)
+2. Calculate cross-artifact validation scores
+3. Build temporal and file characteristic features
+4. Validate all features work on Lone Wolf dataset
+5. Proceed to Phase 3: Model Training
 
-**Expected Timeline**: 6 phases to be completed sequentially
+**Timeline**: 5 phases remaining (2, 3, 4, 5, 6)
 
 ---
 
