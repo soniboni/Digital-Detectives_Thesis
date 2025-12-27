@@ -6,7 +6,7 @@ This repository contains a thesis project focused on developing machine learning
 
 ---
 
-## Current Status: Phase 2 - Feature Engineering (Branch: `model-training-soni-4`)
+## Current Status: Phase 3 - Model Training (Branch: `model-training-soni-4`)
 
 ### Why Retraining?
 
@@ -21,8 +21,8 @@ Previous ML models failed on external datasets (0% detection on Lone Wolf datase
 This branch implements a complete retraining pipeline with corrected data handling:
 
 1. **Phase 1: Data Cleaning & Smart Merging** ✅ COMPLETE
-2. **Phase 2: Feature Engineering** ← CURRENT PHASE
-3. **Phase 3**: Train and compare 5 ML algorithms (Random Forest, XGBoost, LightGBM, Logistic Regression, Neural Network)
+2. **Phase 2: Feature Engineering** ✅ COMPLETE
+3. **Phase 3: Model Training & Comparison** ← CURRENT PHASE
 4. **Phase 4**: Hyperparameter tuning for best algorithm
 5. **Phase 5**: Create prototype notebooks and validate on Lone Wolf (target: 12/12 detections at ≥70% confidence)
 6. **Phase 6**: Autopsy integration
@@ -175,24 +175,23 @@ The detection system generates four output files:
 
 **Output**: `data/processed/Phase 1 - Merged Data/all_cases_combined.csv`
 
-### Phase 2: Feature Engineering
+### Phase 2: Feature Engineering ✅
 
-**Goal**: Extract forensic features including fixed zero nanoseconds detection
+**Goal**: Extract production-ready forensic features from Phase 1 merged data
 
-**Features** (~15-20 total):
-- **Forensic patterns**: zero_in_nanoseconds, cross_artifact_validation_score, has_logfile_evidence
-- **Temporal features**: event_frequency_per_file, events_in_1min_window, events_in_5min_window
-- **File characteristics**: is_executable, is_archive, path_depth, filename_length
+**Features Extracted** (30 total):
+- **Forensic patterns** (15): zero_in_nanoseconds (LogFile + combined), time_reversal_event, timestamp_changed_to_past, timestamp modification patterns (Creation/Modified/MFTModified/Accessed), using_another_timestamp, refined detection
+- **Cross-artifact validation** (3): has_logfile_evidence, has_usnjrnl_evidence, cross_artifact_validation_score (0.0, 0.5, 1.0)
+- **File characteristics** (9): file type indicators (executable, archive, document, script, system), path_depth, filename_length, suspicious_location
+- **Timestamp relationships** (2): creation_equals_modified, timestamp_equality
+- **Refined detection** (1): zero_nano_time_reversal (combined pattern)
 
-**Critical Fix**:
-```python
-# Extract zero nanoseconds from suspicious_detail (BOTH LogFile AND UsnJrnl)
-lf_zero_nano = df['suspicious_detail_lf'].str.contains('Zero in 100-nanoseconds')
-usn_zero_nano = df['suspicious_detail_usn'].str.contains('Zero in 100-nanoseconds')
-df['zero_in_nanoseconds'] = lf_zero_nano | usn_zero_nano
-```
+**Key Results**:
+- Training data: 88,190 records (266 suspicious, 87,924 benign)
+- Strongest features: time_reversal_event (94.4% vs 4.4%), cross_artifact_validation_score=1.0 (98.5% vs 4.3%)
+- Production-compatible: All features extracted from raw LogFile/UsnJrnl fields only
 
-**Output**: `data/processed/Phase 2 - Features/all_cases_combined_features.csv`
+**Output**: `data/processed/Phase 2 - Features/all_cases_combined_features.csv` (29.91 MB, 45 columns)
 
 ### Phase 3: Model Training & Comparison
 
@@ -331,7 +330,7 @@ This project demonstrates:
 
 ## Project Status
 
-**Current Phase**: Phase 2 - Feature Engineering
+**Current Phase**: Phase 3 - Model Training & Comparison
 
 **Completed**:
 - ✅ Dataset inventory (18 training, 8 testing, 1 validation)
@@ -341,24 +340,30 @@ This project demonstrates:
   - 88,190 files merged (266 suspicious, 87,924 benign)
   - 98.4% data reduction (5.4M → 88K records)
   - 100% ground truth preservation (297/297 unique files)
-  - File-level aggregation (Oh et al. 2024 methodology)
+  - File-level aggregation (Oh et al. methodology)
   - Cross-artifact validation tracking implemented
   - Lone Wolf pre-validation passed (100% survival rate)
+- ✅ **Phase 2: Feature Engineering**
+  - 30 production-ready features extracted
+  - 88,190 records with 45 columns (15 raw + 30 features)
+  - Strongest features: time_reversal_event (94.4% detection), cross_artifact_validation_score=1.0 (98.5% detection)
+  - All features extractable from raw LogFile/UsnJrnl fields only
+  - Output: 29.91 MB feature dataset ready for training
 
 **In Progress**:
-- Phase 2: Feature Engineering
-  - Extract production-ready features from raw CSVs
-  - Build 15-20 features without Suspicious CSV dependency
-  - Validate features on training data and Lone Wolf
+- Phase 3: Model Training & Comparison
+  - Train 5 ML algorithms (Random Forest, XGBoost, LightGBM, Logistic Regression, Neural Network)
+  - Target metrics: Recall ≥95%, Precision ≥80%, F1-Score ≥0.85
+  - Select best algorithm for hyperparameter tuning
 
 **Next Steps**:
-1. Extract zero_in_nanoseconds from RAW lf_detail field (production-compatible)
-2. Calculate cross-artifact validation scores
-3. Build temporal and file characteristic features
-4. Validate all features work on Lone Wolf dataset
-5. Proceed to Phase 3: Model Training
+1. Set up train/test split with stratification (preserve 0.3% suspicious class)
+2. Train all 5 algorithms on Phase 2 feature dataset
+3. Evaluate performance metrics and compare algorithms
+4. Select best algorithm based on recall, precision, and F1-score
+5. Proceed to Phase 4: Hyperparameter Tuning
 
-**Timeline**: 5 phases remaining (2, 3, 4, 5, 6)
+**Timeline**: 4 phases remaining (3, 4, 5, 6)
 
 ---
 
