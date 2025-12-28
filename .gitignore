@@ -55,3 +55,5 @@ data/archived/processed/Phase 2A - V2 Location Agnostic Features/all_cases_combi
 data/archived/processed/Phase 2B - V2 Column Cleanup/all_cases_combined_v2_phase2b_enhanced.csv
 data/archived/processed/Phase 3 - V2 Feature Selection/all_cases_combined_v2_phase3_final.csv
 Comprehensive Plan.txt
+data/processed/Phase 1 - Data Cleaning/training_events.csv
+data/processed/Phase 2 - Feature Engineering/training_features.csv
