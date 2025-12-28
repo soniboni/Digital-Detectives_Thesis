@@ -1,8 +1,8 @@
 {
-  "selected_model": "LightGBM",
-  "f1_score": 0.6324786324786325,
-  "recall": 1.0,
-  "precision": 0.4625,
-  "fnr": 0.0,
+  "selected_model": "Random Forest",
+  "f1_score": 0.6266094420600858,
+  "recall": 0.9864864864864865,
+  "precision": 0.4591194968553459,
+  "fnr": 0.013513513513513514,
   "fpr": 0.00809487951807229
 }
