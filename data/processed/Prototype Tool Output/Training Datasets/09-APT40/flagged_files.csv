@@ -1,0 +1,18 @@
+filename,full_path,lf_lsn,usn_usn,confidence_pct,zero_in_nanoseconds,zero_in_nanoseconds_lf,time_reversal_event,basic_info_changed,cross_artifact_validation_score,cross_artifact_detected,has_logfile_evidence,has_usnjrnl_evidence
+5539d9e9-45de-4ebb-95fd-0fd3266f48ef.tmp,\Users\blueangel\AppData\Roaming\DropboxElectron\5539d9e9-45de-4ebb-95fd-0fd3266f48ef.tmp,4397774392.0,766412816.0,99.89195448394335,False,False,True,True,1.0,True,True,True
+9addef8e-3037-4e9b-b728-faa43c5cbb92.tmp,\Users\blueangel\AppData\Roaming\Evernote\9addef8e-3037-4e9b-b728-faa43c5cbb92.tmp,4396979488.0,766112160.0,99.89195448394335,False,False,True,True,1.0,True,True,True
+2e7780ff-96a0-4c47-a406-67168432b0ce.tmp,\Users\blueangel\AppData\Roaming\Evernote\2e7780ff-96a0-4c47-a406-67168432b0ce.tmp,4397417770.0,766272648.0,99.89195448394335,False,False,True,True,1.0,True,True,True
+WmiApRpl.ini,\Windows\System32\wbem\Performance\WmiApRpl.ini,4412706701.0,768875152.0,99.88900102588235,False,False,True,True,1.0,True,True,True
+WaasRemediation.002.etl,\Windows\Logs\waasmediccapsule\WaasRemediation.002.etl,4400039083.0,767442832.0,99.88516629511756,False,False,True,True,1.0,True,True,True
+WmiApRpl.h,\Windows\System32\wbem\Performance\WmiApRpl.h,4402156280.0,768874728.0,99.8824939376727,False,False,True,True,1.0,True,True,True
+lsdb2.json.new,\ProgramData\Avast Software\Avast\lsdb2.json.new,4402044687.0,744916808.0,99.83961176815414,False,False,True,True,1.0,True,True,True
+BIT122E.tmp,\Users\blueangel\AppData\Local\Temp\BIT122E.tmp,4399339216.0,767108168.0,99.76288903371022,True,True,True,True,1.0,True,True,True
+BIT125E.tmp,\Users\blueangel\AppData\Local\Temp\BIT125E.tmp,4399511602.0,767184216.0,99.76288903371022,True,True,True,True,1.0,True,True,True
+wctA008.tmp,\Users\blueangel\AppData\Local\Temp\wctA008.tmp,4396144730.0,768520192.0,99.76288903371022,True,True,True,True,1.0,True,True,True
+618031_tep.dll,\Users\blueangel\AppData\Local\Temp\618031_tep.dll,4402479570.0,768292104.0,99.75834437721733,True,True,True,True,1.0,True,True,True
+UDDED31.tmp,\Windows\Temp\UDDED31.tmp,4399221525.0,767087384.0,99.6375919945566,False,False,True,True,1.0,True,True,True
+BIT541C.tmp,\Windows\Temp\BIT541C.tmp,4400051977.0,767449752.0,99.60955014368511,True,True,True,True,1.0,True,True,True
+BIT5AB4.tmp,\Windows\Temp\BIT5AB4.tmp,4400068229.0,767459744.0,99.60955014368511,True,True,True,True,1.0,True,True,True
+BIT21D0.tmp,\Windows\Temp\BIT21D0.tmp,4399570321.0,767215392.0,99.60955014368511,True,True,True,True,1.0,True,True,True
+Get Started with Dropbox.pdf,\Users\blueangel\Dropbox\Get Started with Dropbox.pdf,4399676365.0,767266816.0,99.45742161794226,False,False,True,True,1.0,True,True,True
+126cecc126be1d42f40034b545dd8ac991c6392726ecf4a47dca3b21a9227bba,\Users\blueangel\Desktop\Sample\126cecc126be1d42f40034b545dd8ac991c6392726ecf4a47dca3b21a9227bba,4402413137.0,768267200.0,99.22425653447614,True,True,True,True,1.0,True,True,True

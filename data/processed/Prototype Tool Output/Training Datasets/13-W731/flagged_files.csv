@@ -1,0 +1,58 @@
+filename,full_path,lf_lsn,usn_usn,confidence_pct,zero_in_nanoseconds,zero_in_nanoseconds_lf,time_reversal_event,basic_info_changed,cross_artifact_validation_score,cross_artifact_detected,has_logfile_evidence,has_usnjrnl_evidence
+appraiser.sdb,\Windows\appcompat\appraiser\AltData\appraiser.sdb,6281318382.0,997018136.0,99.84399303673442,True,True,True,True,1.0,True,True,True
+lsdb2.json.new,\ProgramData\Avast Software\Avast\lsdb2.json.new,6291850248.0,981492656.0,99.83961176815414,False,False,True,True,1.0,True,True,True
+Appraiser_TelemetryRunList.xml,\Windows\appcompat\appraiser\AltData\Appraiser_TelemetryRunList.xml,6281326298.0,997021520.0,99.81931806676447,True,True,True,True,1.0,True,True,True
+OneDrive.exe,\Program Files\Microsoft OneDrive\OneDrive.exe,6282752891.0,997040304.0,99.81144802458934,False,False,True,True,1.0,True,True,True
+_418390281__.tmp,\Users\blueangel\AppData\Local\Temp\_418390281__.tmp,6293149303.0,998144712.0,99.80592198932969,True,True,True,True,1.0,True,True,True
+OneDriveStandaloneUpdater.exe,\Program Files\Microsoft OneDrive\OneDriveStandaloneUpdater.exe,6282831306.0,997043096.0,99.77882219870285,False,False,True,True,1.0,True,True,True
+asw35130d1c2be86e0b.tmp,\Windows\Temp\asw35130d1c2be86e0b.tmp,6280373185.0,996702976.0,99.76354554294842,False,False,True,True,1.0,True,True,True
+aswd9520500a967ece8.tmp,\Windows\Temp\aswd9520500a967ece8.tmp,6280378918.0,996705824.0,99.76354554294842,False,False,True,True,1.0,True,True,True
+aswe89ffd4b1c9391f3.tmp,\Windows\Temp\aswe89ffd4b1c9391f3.tmp,6280375036.0,996703872.0,99.76354554294842,False,False,True,True,1.0,True,True,True
+asw6a432a45eda3f7ef.tmp,\Windows\Temp\asw6a432a45eda3f7ef.tmp,6280377580.0,996704928.0,99.76354554294842,False,False,True,True,1.0,True,True,True
+BITA7A3.tmp,\Users\blueangel\AppData\Local\Temp\BITA7A3.tmp,6291580801.0,997733952.0,99.76288903371022,True,True,True,True,1.0,True,True,True
+BIT223B.tmp,\Users\blueangel\AppData\Local\Temp\BIT223B.tmp,6280696963.0,996788728.0,99.76288903371022,True,True,True,True,1.0,True,True,True
+BIT228A.tmp,\Users\blueangel\AppData\Local\Temp\BIT228A.tmp,6280702410.0,996791208.0,99.76288903371022,True,True,True,True,1.0,True,True,True
+BIT5E21.tmp,\Users\blueangel\AppData\Local\Temp\BIT5E21.tmp,6281023593.0,996875328.0,99.76288903371022,True,True,True,True,1.0,True,True,True
+Appraiser_Data.ini,\Windows\appcompat\appraiser\AltData\Appraiser_Data.ini,6281322852.0,997020048.0,99.72101059415132,True,True,True,True,1.0,True,True,True
+Appraiser_Data.ini.bak,\Windows\appcompat\appraiser\AltData\Appraiser_Data.ini.bak,6281324830.0,997020896.0,99.7133843905534,True,True,True,True,1.0,True,True,True
+OneDrive.VisualElementsManifest.xml,\Program Files\Microsoft OneDrive\OneDrive.VisualElementsManifest.xml,6282800456.0,997537768.0,99.66587469439219,False,False,True,True,1.0,True,True,True
+BIT6F5B.tmp,\Windows\Temp\BIT6F5B.tmp,6281285231.0,997004184.0,99.60955014368511,True,True,True,True,1.0,True,True,True
+BIT3809.tmp,\Windows\Temp\BIT3809.tmp,6280872980.0,996843272.0,99.60955014368511,True,True,True,True,1.0,True,True,True
+BIT61FB.tmp,\Windows\Temp\BIT61FB.tmp,6281234043.0,996985528.0,99.60955014368511,True,True,True,True,1.0,True,True,True
+BIT36EF.tmp,\Windows\Temp\BIT36EF.tmp,6280809706.0,996834536.0,99.60955014368511,True,True,True,True,1.0,True,True,True
+BIT3112.tmp,\Windows\Temp\BIT3112.tmp,6280783263.0,996828096.0,99.60955014368511,True,True,True,True,1.0,True,True,True
+BIT5854.tmp,\Windows\Temp\BIT5854.tmp,6280997948.0,996862072.0,99.60955014368511,True,True,True,True,1.0,True,True,True
+BITC1C3.tmp,\Windows\Temp\BITC1C3.tmp,6292026234.0,997940192.0,99.60955014368511,True,True,True,True,1.0,True,True,True
+OneDriveSmallTile.scale-400.png,\Program Files\Microsoft OneDrive\LogoImages\OneDriveSmallTile.scale-400.png,6282790465.0,997532528.0,99.3637207707689,False,False,True,True,1.0,True,True,True
+OneDriveSmallTile.scale-200.png,\Program Files\Microsoft OneDrive\LogoImages\OneDriveSmallTile.scale-200.png,6282788972.0,997531512.0,99.3637207707689,False,False,True,True,1.0,True,True,True
+OneDriveSmallTile.scale-150.png,\Program Files\Microsoft OneDrive\LogoImages\OneDriveSmallTile.scale-150.png,6282787884.0,997530616.0,99.3637207707689,False,False,True,True,1.0,True,True,True
+OneDriveSmallTile.scale-125.png,\Program Files\Microsoft OneDrive\LogoImages\OneDriveSmallTile.scale-125.png,6282786688.0,997529720.0,99.3637207707689,False,False,True,True,1.0,True,True,True
+OneDriveSmallTile.scale-100.png,\Program Files\Microsoft OneDrive\LogoImages\OneDriveSmallTile.scale-100.png,6282785531.0,997528824.0,99.3637207707689,False,False,True,True,1.0,True,True,True
+resources.pri,\Program Files\Microsoft OneDrive\Resources.pri,6282792390.0,997065976.0,99.32853962620511,False,False,True,True,1.0,True,True,True
+OneDriveSmallTile.contrast-white_scale-100.png,\Program Files\Microsoft OneDrive\LogoImages\OneDriveSmallTile.contrast-white_scale-100.png,6282779444.0,997523456.0,99.00939478181405,False,False,True,True,1.0,True,True,True
+OneDriveSmallTile.contrast-black_scale-100.png,\Program Files\Microsoft OneDrive\LogoImages\OneDriveSmallTile.contrast-black_scale-100.png,6282772779.0,997517552.0,99.00939478181405,False,False,True,True,1.0,True,True,True
+OneDriveSmallTile.contrast-black_scale-200.png,\Program Files\Microsoft OneDrive\LogoImages\OneDriveSmallTile.contrast-black_scale-200.png,6282776631.0,997520880.0,99.00939478181405,False,False,True,True,1.0,True,True,True
+OneDriveSmallTile.contrast-black_scale-400.png,\Program Files\Microsoft OneDrive\LogoImages\OneDriveSmallTile.contrast-black_scale-400.png,6282778151.0,997522264.0,99.00939478181405,False,False,True,True,1.0,True,True,True
+OneDriveSmallTile.contrast-white_scale-400.png,\Program Files\Microsoft OneDrive\LogoImages\OneDriveSmallTile.contrast-white_scale-400.png,6282784357.0,997527856.0,99.00939478181405,False,False,True,True,1.0,True,True,True
+OneDriveSmallTile.contrast-white_scale-125.png,\Program Files\Microsoft OneDrive\LogoImages\OneDriveSmallTile.contrast-white_scale-125.png,6282780710.0,997524520.0,99.00939478181405,False,False,True,True,1.0,True,True,True
+OneDriveSmallTile.contrast-white_scale-150.png,\Program Files\Microsoft OneDrive\LogoImages\OneDriveSmallTile.contrast-white_scale-150.png,6282781907.0,997525584.0,99.00939478181405,False,False,True,True,1.0,True,True,True
+OneDriveSmallTile.contrast-white_scale-200.png,\Program Files\Microsoft OneDrive\LogoImages\OneDriveSmallTile.contrast-white_scale-200.png,6282783106.0,997526648.0,99.00939478181405,False,False,True,True,1.0,True,True,True
+OneDriveSmallTile.contrast-black_scale-150.png,\Program Files\Microsoft OneDrive\LogoImages\OneDriveSmallTile.contrast-black_scale-150.png,6282775280.0,997519816.0,99.00939478181405,False,False,True,True,1.0,True,True,True
+OneDriveSmallTile.contrast-black_scale-125.png,\Program Files\Microsoft OneDrive\LogoImages\OneDriveSmallTile.contrast-black_scale-125.png,6282773973.0,997518616.0,99.00939478181405,False,False,True,True,1.0,True,True,True
+OneDriveMedTile.contrast-white_scale-100.png,\Program Files\Microsoft OneDrive\LogoImages\OneDriveMedTile.contrast-white_scale-100.png,6282761284.0,997507832.0,99.00761744518758,False,False,True,True,1.0,True,True,True
+OneDriveMedTile.contrast-white_scale-400.png,\Program Files\Microsoft OneDrive\LogoImages\OneDriveMedTile.contrast-white_scale-400.png,6282766033.0,997512232.0,99.00761744518758,False,False,True,True,1.0,True,True,True
+OneDriveMedTile.contrast-white_scale-200.png,\Program Files\Microsoft OneDrive\LogoImages\OneDriveMedTile.contrast-white_scale-200.png,6282764857.0,997511168.0,99.00761744518758,False,False,True,True,1.0,True,True,True
+OneDriveMedTile.contrast-white_scale-150.png,\Program Files\Microsoft OneDrive\LogoImages\OneDriveMedTile.contrast-white_scale-150.png,6282763724.0,997509960.0,99.00761744518758,False,False,True,True,1.0,True,True,True
+OneDriveMedTile.contrast-white_scale-125.png,\Program Files\Microsoft OneDrive\LogoImages\OneDriveMedTile.contrast-white_scale-125.png,6282762530.0,997508896.0,99.00761744518758,False,False,True,True,1.0,True,True,True
+OneDriveMedTile.contrast-black_scale-400.png,\Program Files\Microsoft OneDrive\LogoImages\OneDriveMedTile.contrast-black_scale-400.png,6282759950.0,997506624.0,99.00761744518758,False,False,True,True,1.0,True,True,True
+OneDriveMedTile.contrast-black_scale-200.png,\Program Files\Microsoft OneDrive\LogoImages\OneDriveMedTile.contrast-black_scale-200.png,6282758822.0,997505560.0,99.00761744518758,False,False,True,True,1.0,True,True,True
+OneDriveMedTile.contrast-black_scale-150.png,\Program Files\Microsoft OneDrive\LogoImages\OneDriveMedTile.contrast-black_scale-150.png,6282757620.0,997504496.0,99.00761744518758,False,False,True,True,1.0,True,True,True
+OneDriveMedTile.contrast-black_scale-125.png,\Program Files\Microsoft OneDrive\LogoImages\OneDriveMedTile.contrast-black_scale-125.png,6282756426.0,997503432.0,99.00761744518758,False,False,True,True,1.0,True,True,True
+OneDriveMedTile.contrast-black_scale-100.png,\Program Files\Microsoft OneDrive\LogoImages\OneDriveMedTile.contrast-black_scale-100.png,6282755178.0,997502280.0,99.00761744518758,False,False,True,True,1.0,True,True,True
+OneDriveMedTile.scale-400.png,\Program Files\Microsoft OneDrive\LogoImages\OneDriveMedTile.scale-400.png,6282771600.0,997516584.0,98.64680877984493,False,False,True,True,1.0,True,True,True
+OneDriveMedTile.scale-200.png,\Program Files\Microsoft OneDrive\LogoImages\OneDriveMedTile.scale-200.png,6282770515.0,997515744.0,98.64680877984493,False,False,True,True,1.0,True,True,True
+OneDriveMedTile.scale-150.png,\Program Files\Microsoft OneDrive\LogoImages\OneDriveMedTile.scale-150.png,6282769375.0,997514848.0,98.64680877984493,False,False,True,True,1.0,True,True,True
+OneDriveMedTile.scale-125.png,\Program Files\Microsoft OneDrive\LogoImages\OneDriveMedTile.scale-125.png,6282768280.0,997514008.0,98.64680877984493,False,False,True,True,1.0,True,True,True
+OneDriveMedTile.scale-100.png,\Program Files\Microsoft OneDrive\LogoImages\OneDriveMedTile.scale-100.png,6282767199.0,997513168.0,98.64680877984493,False,False,True,True,1.0,True,True,True
+{1B86E1E3-F159-4832-8965-B9433AAADDDC}_OneDrive.exe,\Program Files\Microsoft OneDrive\22.238.1114.0002\{1B86E1E3-F159-4832-8965-B9433AAADDDC}_OneDrive.exe,6282750453.0,997499048.0,98.49575735642013,False,False,True,True,1.0,True,True,True
+{28DB188F-7FDE-43D5-87CE-010D04CE85A3}_OneDriveStandaloneUpdater.exe,\Program Files\Microsoft OneDrive\22.238.1114.0002\{28DB188F-7FDE-43D5-87CE-010D04CE85A3}_OneDriveStandaloneUpdater.exe,6282827323.0,997543936.0,98.21127549753925,False,False,True,True,1.0,True,True,True
