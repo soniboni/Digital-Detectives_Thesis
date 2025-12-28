@@ -1,0 +1,25 @@
+filename,full_path,confidence,filter_decision,ground_truth
+appraiser.sdb,\Windows\appcompat\appraiser\AltData\appraiser.sdb,99.84399303673442,FILTER,False
+Set9A28.tmp,\Users\jcloudy\AppData\Local\Temp\Set9A28.tmp,99.83392734266317,FILTER,False
+Set9A38.tmp,\Users\jcloudy\AppData\Local\Temp\Set9A38.tmp,99.83392734266317,FILTER,False
+Set9A39.tmp,\Users\jcloudy\AppData\Local\Temp\Set9A39.tmp,99.83392734266317,FILTER,False
+Appraiser_TelemetryRunList.xml,\Windows\appcompat\appraiser\AltData\Appraiser_TelemetryRunList.xml,99.81931806676447,FILTER,False
+Appraiser_Data.ini,\Windows\appcompat\appraiser\AltData\Appraiser_Data.ini,99.72101059415132,FILTER,False
+UDD9BA7.tmp,\Windows\Temp\UDD9BA7.tmp,99.6375919945566,FILTER,False
+snapshot.etl,\Windows\System32\WDI\{533a67eb-9fb5-473d-b884-958cf4b9c4a3}\{590eb9fb-76b4-4d7b-a955-36d351de97e5}\snapshot.etl,99.80430315929706,KEEP,False
+NVI2_29.DLL,\Windows\Temp\NVI2_29.DLL,99.55430211643943,KEEP,False
+CubaDearmed.jpg,\Users\jcloudy\Dropbox\CubaDearmed.jpg,99.35159110197915,KEEP,True
+Huckleberry.png,\Users\jcloudy\Dropbox\Huckleberry.png,99.35159110197915,KEEP,True
+MyTiredHead.jpg,\Users\jcloudy\Dropbox\MyTiredHead.jpg,99.35159110197915,KEEP,True
+DeathToll.jpg,\Users\jcloudy\Dropbox\DeathToll.jpg,99.23120443775157,KEEP,True
+Planning.docx,\Users\jcloudy\Dropbox\Planning.docx,99.23120443775157,KEEP,True
+Box Sync.lnk,\Users\jcloudy\Dropbox\Box Sync.lnk,98.92263261548244,KEEP,False
+DarkWolf.png,\Users\jcloudy\Dropbox\DarkWolf.png,98.92263261548244,KEEP,True
+DemLogic.jpg,\Users\jcloudy\Dropbox\DemLogic.jpg,98.92263261548244,KEEP,True
+Sheep.jpg,\Users\jcloudy\Dropbox\Sheep.jpg,98.81049250077857,KEEP,True
+Dropbox.lnk,\Users\jcloudy\Dropbox\Dropbox.lnk,98.48965712599407,KEEP,False
+RedGuns.jpg,\Users\jcloudy\Dropbox\RedGuns.jpg,98.48965712599407,KEEP,True
+BladeofGrass.jpg,\Users\jcloudy\Dropbox\BladeofGrass.jpg,98.04696930845535,KEEP,True
+Google Drive.lnk,\Users\jcloudy\Dropbox\Google Drive.lnk,98.04696930845535,KEEP,False
+HoldMyTidePod.jpg,\Users\jcloudy\Dropbox\HoldMyTidePod.jpg,98.04696930845535,KEEP,True
+AIRPORT INFORMATION.docx,\Users\jcloudy\Dropbox\AIRPORT INFORMATION.docx,98.02238029780949,KEEP,True

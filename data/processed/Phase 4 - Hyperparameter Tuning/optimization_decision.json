@@ -1,0 +1,9 @@
+{
+  "decision": "EXTENSIVE_TUNING_NEEDED",
+  "best_config": "Baseline (0.5 threshold)",
+  "training_f1": 0.617169373549884,
+  "training_precision": 0.4463087248322148,
+  "training_recall": 1.0,
+  "targets_met": false,
+  "recommendation": "Consider extensive tuning or accept current performance"
+}

@@ -1,0 +1,41 @@
+{
+  "model_type": "RandomForestClassifier",
+  "features": [
+    "zero_in_nanoseconds_lf",
+    "zero_in_nanoseconds_suspicious",
+    "zero_in_nanoseconds",
+    "time_reversal_event",
+    "basic_info_changed",
+    "using_another_timestamp",
+    "si_timestamp_changed",
+    "update_resident_value",
+    "creation_time_modified",
+    "modified_time_modified",
+    "accessed_time_modified",
+    "mft_time_modified",
+    "timestamp_changed_to_past",
+    "multiple_timestamps_changed",
+    "same_as_another_file",
+    "zero_nano_time_reversal",
+    "has_logfile_evidence",
+    "has_usnjrnl_evidence",
+    "cross_artifact_validation_score",
+    "is_executable",
+    "is_document",
+    "is_archive",
+    "is_image",
+    "path_depth",
+    "filename_length",
+    "in_temp_directory",
+    "in_system_directory",
+    "in_program_files",
+    "has_timestamp_data",
+    "timestamp_source"
+  ],
+  "threshold": 0.5,
+  "training_performance": {
+    "recall": 1.0,
+    "precision": 0.4463087248322148,
+    "f1_score": 0.617169373549884
+  }
+}

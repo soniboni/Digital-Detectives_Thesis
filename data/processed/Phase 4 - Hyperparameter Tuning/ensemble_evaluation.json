@@ -1,0 +1,23 @@
+{
+  "decision": "USE LIGHTGBM (MARGINAL)",
+  "reason": "Ensemble provides negligible improvement (<1%). LightGBM preferred for simplicity.",
+  "lightgbm": {
+    "f1_score": 0.0,
+    "recall": 0.0,
+    "precision": 0.0,
+    "files_flagged": 0
+  },
+  "xgboost": {
+    "f1_score": 0.0,
+    "recall": 0.0,
+    "precision": 0.0,
+    "files_flagged": 0
+  },
+  "ensemble": {
+    "f1_score": 0.0,
+    "recall": 0.0,
+    "precision": 0.0,
+    "files_flagged": 0,
+    "improvement_over_lightgbm": 0.0
+  }
+}

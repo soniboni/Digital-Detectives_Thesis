@@ -1,0 +1,4 @@
+Strategy,Flagged,TP,FP,FN,Precision,Recall,F1
+Baseline (No Rules),24,12,12,0,0.5,1.0,0.6666666666666666
+HIGH Priority Only,12,12,0,0,1.0,1.0,1.0
+HIGH + MEDIUM Priority,15,12,3,0,0.8,1.0,0.8888888888888888
