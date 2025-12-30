@@ -61,3 +61,19 @@ data/validation/mft/LoneWolf-MFT
 data/validation/mft/mft raw/LoneWolf-MFT
 data/archived/recent recent/Phase 1 - Data Cleaning/training_events.csv
 data/archived/recent recent/Phase 2 - Feature Engineering/training_features.csv
+data/training/mft/01-PE-MFT.csv
+data/training/mft/02-PE-MFT.csv
+data/training/mft/03-PE-MFT.csv
+data/training/mft/04-PE-MFT.csv
+data/training/mft/mft raw/01-PE-MFT
+data/training/mft/mft raw/02-PE-MFT
+data/training/mft/mft raw/03-PE-MFT
+data/training/mft/mft raw/04-PE-MFT
+data/training/mft/mft raw/05-PE-MFT
+data/training/mft/mft raw/06-PE-MFT
+data/training/mft/mft raw/07-PE-MFT
+data/training/mft/mft raw/08-PE-MFT
+data/training/mft/mft raw/09-PE-MFT
+data/training/mft/mft raw/10-PE-MFT
+data/training/mft/mft raw/11-PE-MFT
+data/training/mft/mft raw/12-PE-MFT
