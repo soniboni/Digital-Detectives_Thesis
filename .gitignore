@@ -77,3 +77,4 @@ data/training/mft/mft raw/09-PE-MFT
 data/training/mft/mft raw/10-PE-MFT
 data/training/mft/mft raw/11-PE-MFT
 data/training/mft/mft raw/12-PE-MFT
+*.csv
