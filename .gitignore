@@ -58,3 +58,6 @@ Comprehensive Plan.txt
 data/processed/Phase 1 - Data Cleaning/training_events.csv
 data/processed/Phase 2 - Feature Engineering/training_features.csv
 data/validation/mft/LoneWolf-MFT
+data/validation/mft/mft raw/LoneWolf-MFT
+data/archived/recent recent/Phase 1 - Data Cleaning/training_events.csv
+data/archived/recent recent/Phase 2 - Feature Engineering/training_features.csv
