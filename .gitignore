@@ -78,3 +78,19 @@ data/training/mft/mft raw/10-PE-MFT
 data/training/mft/mft raw/11-PE-MFT
 data/training/mft/mft raw/12-PE-MFT
 *.csv
+data/training/mft/mft raw/01-APT17-MFT
+data/training/mft/mft raw/03-APT21-MFT
+data/training/mft/mft raw/04-APT28-MFT
+data/training/mft/mft raw/05-APT29-MFT
+data/training/mft/mft raw/06-APT30-MFT
+data/training/mft/mft raw/07-APT37-MFT
+data/training/mft/mft raw/08-APT38-MFT
+data/training/mft/mft raw/10-DarkHotel663-MFT
+data/training/mft/mft raw/11-DarkHotelbbd-MFT
+data/training/mft/mft raw/14-Winnti53b-MFT
+data/training/mft/mft raw/pe-mft raw.zip
+data/validation/mft/LoneWolf_MFT.csv
+data/validation/mft/mft raw/02-APT19-MFT
+data/validation/mft/mft raw/09-APT40-MFT
+data/validation/mft/mft raw/12-Kimsuky-MFT
+data/validation/mft/mft raw/13-Winnti731-MFT
