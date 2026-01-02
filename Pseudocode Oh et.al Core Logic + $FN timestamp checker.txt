@@ -1,0 +1,291 @@
+Oh et.al Core Logic 
+
+LogFile-1A
+- **Algorithm 1 Extraction of Timestamp Change Events**
+    
+    ```jsx
+    //Psuedocode
+    for record in $LogFile_records[] do 
+    	if record.redo.op == 0x7 then 
+    			if record.record_offset  0x38 then 
+    					if record.attribute_offset >= 0x18 
+    					&& record.attribute_offset <== 30 then 
+    						if record.attribute_offset = 0x18 then 
+    								MEMCPY(before_$SI-C, record.undo_data, 8)
+    								MEMCPY(before_$SI-M, record.undo_data + 0x8, 8)
+    								MEMCPY(before_$SI-E, record.undo_data + 0x10, 8)
+    								MEMCPY(before_$SI-A, record.undo_data + 0x18, 8)
+    								MEMCPY(after_$SI-C, record.redo_data, 8)
+    								MEMCPY(after_$SI-M, record.redo_data + 0x8, 8)
+    								MEMCPY(after_$SI-E, record.redo_data + 0x10, 8)
+    								MEMCPY(after_$SI-A, record.redo_data + 0x18, 8)
+    						else if record.attribute_offset == 0x20 then 
+    								MEMCPY(before_$SI-M, record.undo_data, 8)
+    								MEMCPY(before_$SI-E, record.undo_data + 0x8, 8)
+    								MEMCPY(before_$SI-A, record.undo_data + 0x10, 8)
+    								MEMCPY(after_$SI-M, record.redo_data, 8)
+    								MEMCPY(after_$SI-E, record.redo_data + 0x8, 8)
+    								MEMCPY(after_$SI-A, record.redo_data + 0x10, 8)
+    						else if record.attribute_offset == 0x28 then 	
+    								MEMCPY(before_$SI-E, record.undo_data, 8)
+    								MEMCPY(before_$SI-A, record.undo_data + 0x8, 8)
+    								MEMCPY(after_$SI-E, record.redo_data, 8)
+    								MEMCPY(after_$SI-A, record.redo_data + 0x8, 8)
+    						else if record.attribute_offset == 0x30 then 
+    								MEMCPY(before_$SI-A, record.undo_data, 8)
+    								MEMCPY(after_$SI-A, record.redo_data, 8)
+    						end if 
+    						if before_$SI-C != after_$SI-C || before_$SI-M != after_$SI-M
+    						|| before_$SI-E != after_$SI-E || before_$SI-A != after_$SI-A then 
+    								timestamp_change_event.before_$SI-C <- before_$SI-C
+    								timestamp_change_event.after_$SI-C <- after_$SI-C
+    								timestamp_change_event.before_$SI-M <- before_$SI-M
+    								timestamp_change_event.after_$SI-M <- after_$SI-M
+    								timestamp_change_event.before_$SI-E <- before_$SI-E
+    								timestamp_change_event.after_$SI-E <- after_$SI-E
+    								timestamp_change_event.before_$SI-A <- before_$SI-A
+    								timestamp_change_event.after_$SI-A <- after_$SI-A
+    								timestamp_change_event.target_file <- GetTargetFile(record) 
+    								arr_timestamp_change_events[record] <- timestamp_change_event 
+    							end if 
+    						end if
+    					end if
+    				end if
+    		end for	
+    ```
+    
+- **Algorithm 2: Identification of the Event Target File**
+    
+    ```jsx
+    fucntion GetTargetFile(record) 
+    	if There is a $MFT entry having LSN same as record.LSN then 
+    		file.file_name <- $MFTEntry.file_name
+    		file.file_path <- $MFTEntry.file_path
+    		return file 
+    	end if 
+    	i <- 1 
+    	while file_level_event_count-i >= 0 do 
+    		previous_event <- arr_file_level_events[file_level_event_count-i]
+    		if previous_event.target_vcn == record.target_vcn 
+    		&& previous_event.mft_cluster_index == record.mft_cluster_index then 
+    			if previous.event.event_type == "File Creation" 
+    			|| previous.event.event_type == "Renaming File" 
+    			|| previous.event.event_type = "File Move" then 
+    				file.name <- previous.event.file_name 
+    				file.path <- previous.event.file_path 
+    				return file 
+    			else if previous_event.event_type == "File Deletion" then 
+    				break 
+    			end if 
+    		end if 
+    	end while 
+    	entry_number <- record.target_vcn * 4 
+    	entry_number <- entry_number + (record.mft_cluster_index / 2) 
+    	if There is a $MFT entry located at entry_number then 
+    		if the $MFT entry is not inactive then 
+    			file.name <- $MFTEntry.file_name 
+    			file.path <- $MFTEntry.file_path 
+    			return file 
+    		end if 
+    	end if 
+    	return NULL 
+    end funtion 
+    	
+    ```
+    
+- **Algorithm 3: Checking Timestamp Changes**
+    
+    ```jsx
+    for event in arr_timestamp_change_events[] do 
+    	if there is no creation event just before then 
+    		if event.before_$SI-C != event.after_$SI-C
+    		|| event.before_$SI-M > event.after_$SI-M then 
+    			detection_target <- TRUE 
+    		end if 
+    	else 
+    		if event.before_$SI-C != event.after$SI-C then 
+    			detection_target <- TRUE
+    		end if
+    	end if 
+    	if detection_target = TRUE then 
+    		if event.after_$SI-C.nanosecond == 0 
+    		if event.after_$SI-M.nanosecond == 0 
+    		if event.after_$SI-E.nanosecond == 0 
+    		if event.after_$SI-A.nanosecond == 0 then 
+    			event.additional_detection_factor <- TRUE 
+    			end if 
+    			arr_detection_target_events[] <- event 
+    	end if 
+    end for 
+    ```
+    
+- **Algorithm 4: Identification of File System Tunneling for $LogFile**
+    
+    ```jsx
+    for event in arr_detection_target_events[] do 
+    	if event.before_$SI-C != event.after_$SI-C
+    	&& there are no other timestamp changes then 
+    		target_name <- event.target_file.name 
+    		if file named target_name is deleted within the previous 15 seconds
+    		|| file named target_name is renamed within the previous 15 seconds 
+    		|| file name target_name is moved within the previous 15 seconds then 
+    			if after that, event.target_file is created with target_name 
+    			|| after that, event.target_file is renamed to target_name
+    			|| after that, event.target_file is moved to target_name then 
+    				this event is caused by file system tunneling 
+    				continue 
+    			end if 
+    		end if 
+    		if file name target_name is deleted within the after 1 second
+    		|| file named target_name is renamed within the after 1 second 
+    		|| file named targe_name is moved within the after 1 second then 
+    			if event.target_file is created with target_name within the after 1 second 
+    			|| event.target_fie is renamed to target_name within the after 1 second 
+    			|| event.target_file is moved to target_name within the after 1 second then 
+    				this event is caused by file system tunneling 
+    				continue 
+    			end if 
+    		end if 
+    		arr_timestamp_manipulation_events[] <- event 
+    	else 
+    		arr_timestamp_manipulation_events[] <- event 
+    	end if 
+    end for 
+    ```
+
+**USNJRNL (UsnJrnl-1A)**
+
+- **Algorithm 5: Collecting Information of Files having Basic Detection Pattern**
+    
+    ```jsx
+    for current_record in $UsnJrnl_records[] do
+    	if BASIC_INFO_CHANGE is added to current_record.reason_flag then 
+    		if there is another record that CLOSE is added to reason_flag within
+    		the next second then 
+    			arr_basic_detection_pattern[] <- current_record 
+    		end if 
+    	end if 
+    end for 
+    
+    for record in arr_basic_detection_pattern[] do 
+    	target_file_info <- NULL 
+    	for file_info in arr_target_file_info[] do 
+    		if record.file_reference_number == file_info.file_reference_number then 
+    			find_flag <- TRUE 
+    			target_file_info <- file_info
+    			break 
+    		end if 
+    	end for 
+    	if find_flag == TRUE then 
+    		target_file_info.last_basic_detection_pattern <- record 
+    	else 
+    		new_file_info.file_name <- record.file_name 
+    		new_file_info.file_path <- record.file_path 
+    		new_file_info.file_reference_number <- record.file_reference_number 
+    		new_file_info.last_basic_detection_pattern_time <- record.timestamp 
+    		new_file_info.create_event_time <- NULL 
+    		target_file_reference_number <- record.file_reference_number 
+    		for record2 in $UsnJrnl_records[] do 
+    			if record2.file_reference_number == target_file_reference_number 
+    			&& FILE_CREATE is added to record2.reason_flag then 
+    				new_file_info.create_event_time <- record2.timestamp 
+    				break 
+    			end if 
+    		end for 
+    		arr_target_file_info[] <- new_file_info 
+    	end if 
+    end for 
+    ```
+    
+- **Algorithm 6: Checking Timestamp Status**
+    
+    ```jsx
+    for file_info in arr_target_file_info[] do 
+    	$SI-C <- $SI-C of the same file in $MFT 
+    	$SI-E <- $SI-E of the same file in $MFT 
+    	record <- file_info.last_basic_detection_pattern 
+    	last_basic_detection_pattern_time <- record.timestamp 
+    	if file_info.create_event_time != NULL then 
+    		if file_info.create_event_time != $SI-C then 
+    			this file is a detection target 
+    			arr_detection_target_files[] <- file_info 
+    		else if | last_basic_detection_pattern_time - $SI-E | > 5 seconds then 
+    			this file is a detection target 
+    			arr_detection_target_files[] <- file_info 
+    		end if 
+    	else 
+    		if | last_basic_detection_pattern_time - $SI-E | > 5 seconds then 
+    			this file is a detection target
+    			arr_detection_target_files[] <- file_info 
+    		end if 
+    	end if 
+    end for 
+    ```
+    
+- **Algorithm 7: Identification of File System Tunneling for $UsnJrnl**
+    
+    ```jsx
+    for event in arr_detection_target_events[] do 
+    	if file_info.create_event_time != NULL then 
+    		record <- file_info.last.basic_detection_pattern 
+    		target_name <- record.file_name 
+    		if file named target_name is deleted within the previous 15 seconds
+    		|| file named target_name is renamed within the previous 15 seconds 
+    		|| file name target_name is moved within the previous 15 seconds then 
+    			if after that, records's target file is created with target_name 
+    			|| after that, records's target file is renamed to target_name
+    			|| after that, records's target file is moved to target_name then 
+    				this record is caused by file system tunneling 
+    				continue 
+    			end if 
+    		end if 
+    		if file name target_name is deleted within the after 1 second
+    		|| file named target_name is renamed within the after 1 second 
+    		|| file named targe_name is moved within the after 1 second then 
+    			if record's target file is created with target_name within the after 1 second 
+    			|| record's target file is renamed to target_name within the after 1 second 
+    			|| record's target file is moved to target_name within the after 1 second 
+    			then 
+    				this record is caused by file system tunneling 
+    				continue 
+    			end if 
+    		end if 
+    		arr_timestamp_manipulation_events[] <- record 
+    	else 
+    		arr_timestamp_manipulation_events[] <- record 
+    	end if 
+    end for 
+    ```
+
+    ADDITIONAL DETECTION METHODS 
+    - **Algorithm 10: Detection for Pattern of $FN Timestamp Manipulation in $LogFile  (LogFile-4)**
+    
+    ```jsx
+    for event in arr_timestamp_change_events[] do 
+    	if there is a move of event.target_file to another path after event then 
+    		if after that, there is a timestamp change event of event.target_file then 
+    			this is a pattern_1 of $FN timestamp manipulation 
+    			arr_timesetamp_manipulation_events[] <- event
+    		else
+    			this is a pattern_2 of $FN timestamp manpulation 
+    			arr_timestamp_manipulation_events[] <- event 
+    		end if 
+    	end if 
+    end for 
+    ```
+    
+- **Algorithm 11: Detection for Pattern of $FN Timestamp Manipulation in $UsnJrnl  (UsnJrnl-3)**
+    
+    ```jsx
+    for event in arr_basic_detection_pattern[] do 
+    	if there is a move of record's target to another path before record then 
+    		if after that, there is a basic detection pattern of record's target file then 
+    			this is a pattern_1 of $FN timestamp manipulation 
+    			arr_timesetamp_manipulation_events[] <- event
+    		else
+    			this is a pattern_2 of $FN timestamp manpulation 
+    			arr_timestamp_manipulation_events[] <- event 
+    		end if 
+    	end if 
+    end for 
+    ```

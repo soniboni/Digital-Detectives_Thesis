@@ -1,5 +1,0 @@
-﻿source,lsn/usn,category,detail
-logfile,8729569062,Execution of Suspicious Programs,NewFileTime (Timestamp Manipulation) has been executed.
-logfile,8730038250,Timestamp Manipulation,"[Suspicious] $SI timestamp of NewFileTime_SI_C_Manipulation.dll"" is changed to the past. (Zero in changed timestamp's 100-nanoseconds) => CreationTime : 2023-12-23 00:21:36 -> 2022-12-23 00:21:50(Zero in 100-nanoseconds)"""
-usnjrnl,1327928416,Execution of Suspicious Programs,NewFileTime (Timestamp Manipulation) has been executed.
-usnjrnl,1328063200,Timestamp Manipulation,"[Suspicious] The timestamp of NewFileTime_SI_C_Manipulation.dll"" may have been manipulated. (Zero in CreationTime's 100-nanoseconds) => ((CreationTime : 2022-12-23 00:21:50(Zero in 100-nanoseconds)) != (Creation Event Time : 2023-12-23 00:21:36))"""

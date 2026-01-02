@@ -1,5 +1,0 @@
-﻿source,lsn/usn,category,detail
-logfile,10055827520,Timestamp Manipulation,"[Malicious] After execution of nTimestomp, $SI timestamp of nTimestomp_SI_C_Manipulation.dll"" is changed to the past. => CreationTime : 2023-12-26 22:30:34 -> 2022-12-22 23:19:23"""
-logfile,10055827853,Execution of Suspicious Programs,nTimestomp (Timestamp Manipulation) has been executed.
-usnjrnl,1717468760,Execution of Suspicious Programs,nTimestomp (Timestamp Manipulation) has been executed.
-usnjrnl,1717468360,Timestamp Manipulation,"[Malicious] The timestamp of nTimestomp_SI_C_Manipulation.dll"" may have been manipulated after executing nTimestomp. => ((CreationTime : 2022-12-22 23:19:23) != (Creation Event Time : 2023-12-26 22:30:34))"""

@@ -1,8 +1,0 @@
-{
-  "decision": "LIGHTGBM_ONLY",
-  "perfect_recall_count": 5,
-  "best_algorithm": "LightGBM (base)",
-  "best_f1": 0.6324786324786325,
-  "justification": "Base LightGBM has best F1. Preliminary tuning failed to improve any algorithm, indicating need for extensive search. Focus on best candidate for computational efficiency.",
-  "next_step": "Extensive LightGBM hyperparameter tuning targeting 75-80% precision with 100% recall"
-}
