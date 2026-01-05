@@ -30,8 +30,46 @@
     "event_time_span_seconds",
     "total_events"
   ],
-  "target_column": "flag_potential_timestomp",
-  "training_samples": 762692,
-  "training_samples_balanced": 1519394,
-  "test_samples": 190674
+  "training_samples_original": 776055,
+  "training_samples_balanced": 778332,
+  "test_samples": 194014,
+  "ground_truth_file": "/Users/soni/Github/Digital-Detectives_Thesis/data/Suspicious Files.csv",
+  "total_known_timestomped": 44,
+  "training_datasets": [
+    "01-PE",
+    "02-PE",
+    "03-PE",
+    "04-PE",
+    "05-PE",
+    "06-PE",
+    "07-PE",
+    "08-PE",
+    "09-PE",
+    "10-PE",
+    "11-PE",
+    "12-PE",
+    "01-APT17",
+    "03-APT21",
+    "04-APT28",
+    "05-APT29",
+    "06-APT30",
+    "07-APT37",
+    "08-APT38",
+    "10-DarkHotel663",
+    "11-DarkHotelbbd",
+    "14-Winnti53b"
+  ],
+  "validation_datasets": [
+    "02-APT19",
+    "09-APT40",
+    "12-Kimsuky",
+    "13-Winnti731",
+    "LoneWolf"
+  ],
+  "imbalance_ratio": 33449.65517241379,
+  "class_weights": {
+    "0": 1.0,
+    "1": 183.68593233868083
+  },
+  "recommended_threshold": 0.3
 }
