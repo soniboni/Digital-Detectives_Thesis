@@ -1,0 +1,52 @@
+NTFS Timestomping Module: Data Pipeline & Logic Documentation
+
+1. Environment Overview
+The project operates across two distinct environments to balance Autopsy integration with modern data science capabilities:
+Jython 2.7 (Autopsy Layer): Handles disk image interaction, file extraction, and UI population.
+Python 3.x (External Layer): Handles heavy-duty parsing, data manipulation with Pandas, and Machine Learning inference.
+
+2. Raw Data Parsing ($MFT, $LogFile, $UsnJrnl:$J)
+Environment: Python 3 (External Processor/Parser) Input: Raw binary files exported by raw_files_extractor.py (Jython).
+The raw_files_parser.py utilizes the dfir_ntfs library to translate binary system files into human-readable CSV structures:
+$MFT (Master File Table): Extracts Standard Information ($SI) and File Name ($FN) attributes. Focuses on the 4 critical timestamps (Creation, Modification, MFT Change, Access) for both attributes.
+$LogFile: Parses circular logging of metadata transactions. Used to recover "old" vs "new" timestamp values during a metadata update transaction.
+$UsnJrnl:$J: Parses the Update Sequence Number Journal to track the reason for a file change (e.g., DATA_EXTEND, FILE_CREATE, BASIC_INFO_CHANGE) and the associated timestamp of the event.
+
+Output: Three individual CSV files: mft_parsed.csv, logfile_parsed.csv, and usnjrnl_parsed.csv.
+
+3. Data Pre-processing
+Environment: Python 3 (External Processor/model_package/data_preprocessing.py) Logic: Temporal Alignment and Event Grouping.
+Raw CSVs are indexed by File Reference Number (FRN) and Parent FRN. The pre-processing logic performs the following:
+Normalization: Standardizes timestamp formats across all three sources to UTC.
+Temporal Joining: Aligning entries from the $LogFile and $UsnJrnl to specific $MFT records based on the FRN and the sequence of events.
+Event Grouping: Instead of looking at a file in isolation, this phase groups all forensic "hits" related to a single file into a chronological Event Stream.
+Deduplication: Removal of redundant journal entries that do not reflect metadata changes.
+
+Output: grouped_events.csv (A unified timeline of actions for every file detected in the artifacts).
+
+4. Feature Engineering & Logic-Based Flags
+Environment: Python 3 (External Processor/model_package/feature_engineering.py) Logic: Transforming Event Streams into File-Level ML Features.
+This phase converts the grouped_events.csv into a fixed-width vector for the ML model. It applies forensic logic to "flag" suspicious behavior:
+
+A. Temporal Discrepancy Features
+SI_FN_Mismatch: Calculates the time delta between $SI and $FN timestamps. (Classic timestomping often forgets to update $FN).
+Nano_Zeroing: A boolean flag if the nanosecond component of a timestamp is exactly 000, often a result of certain timestomping tools.
+Backward_Time_Jump: Detects if a file's $SI creation time is later than its $UsnJrnl entry for "File Created".
+
+B. Logical Flags (Rule-Based Indicators)
+Flag: SI_LT_FN: (Standard Info < File Name). If $SI creation is significantly earlier than $FN creation, it indicates the $SI was likely rolled back.
+Flag: Journal_Mismatch: If the $UsnJrnl records a BASIC_INFO_CHANGE but the resulting $MFT time doesn't align with the OS system time at that moment.
+
+C. Dimensionality Reduction
+Aggregates event-level data (multiple journal entries) into a single row per file, containing mean deltas, max deltas, and the total count of metadata changes.
+
+Output: file_features.csv (The final input for the Phase 4 Trained Model).
+
+5. Summary of Data Flow
+Autopsy (Jython): Identifies and exports $MFT, $LogFile, $UsnJrnl.
+Bridge: external_process_invoker.py calls Python 3.
+Parsing (Py3): Binary -> 3 x Raw CSVs.
+Pre-processing (Py3): 3 x Raw CSVs -> 1 x Grouped Event CSV.
+Feature Engineering (Py3): Grouped Events -> 1 x File Features CSV (with logic flags).
+Inference (Py3): File Features -> ML Model -> Predictions.
+Reporting (Jython): Results returned to Autopsy Blackboard and HTML Report.
