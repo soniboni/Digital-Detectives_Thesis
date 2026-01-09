@@ -50,3 +50,28 @@ Pre-processing (Py3): 3 x Raw CSVs -> 1 x Grouped Event CSV.
 Feature Engineering (Py3): Grouped Events -> 1 x File Features CSV (with logic flags).
 Inference (Py3): File Features -> ML Model -> Predictions.
 Reporting (Jython): Results returned to Autopsy Blackboard and HTML Report.
+
+PROJECT STRUCTURE
+NTFS Timestomping Ingest Module/
+|--- ntfs_timestomping_detector.py      # Main Jython Entry Point for Autopsy
+|
+|--- Autopsy Processor/                 ## Jython 2.7 Layer
+|    |----- __init__.py
+|    |----- raw_files_extractor.py 	    # Logic to find and extract $MFT, $LogFile, & $UsnJrnl
+|    |----- external_process_invoker.py # The "bridge" to the external process
+|    |----- artifact_generator.py	    # Logic to read CSV and create Autopsy artifacts
+|    |----- html_report_generator.py    # HTML report generation
+|
+|--- External Processor/		        ## Python 3 Layer
+|    |----- timestomp_detector.py       # Main Python 3 Entry Point (Calls parsers -> ML -> Output)
+|
+|    |----- Parser/
+|	    |----- raw_files_parser.py	    # MFT, LogFile, and UsnrJrnl:J parsing logic
+|
+|           |----- third_party/ 	    # Third party code for parsing
+|                  |----- dfir_ntfs/    # Folder from https://github.com/msuhanov/dfir_ntfs
+|
+|    |----- ModelPackage/
+|           |----- data_preprocessing.py
+|           |----- feature_engineering.py
+|           |----- TrainedModels/
