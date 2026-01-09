@@ -1,0 +1,28 @@
+Total Datasets: 27 
+- PE                = 12 
+- APT Malware       = 14
+- LoneWolf          = 1
+
+Dataset Split: 
+- Training (22): 
+    Used for model training
+    - (12) 01-PE -> 12-PE 
+    - (10) APT Malware 
+        - 01-APT17 
+        - 03-APT21
+        - 04-APT28
+        - 05-APT29
+        - 06-APT30
+        - 07-APT37
+        - 08-APT38
+        - 10-DarkHotel663
+        - 11-DarkHotelbbd
+        - 14-Winnti53b
+
+- Validation (4)
+    Used for model validation 
+    - (3) APT Malware
+        - 09-APT40 
+        - 12-Kimusky 
+        - 13-Winnti731
+    - (1) LoneWolf 
