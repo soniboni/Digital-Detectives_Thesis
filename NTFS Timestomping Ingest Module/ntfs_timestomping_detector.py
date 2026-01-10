@@ -45,6 +45,10 @@ except Exception:
 
 # Import Autopsy Processor utilities
 from AutopsyProcessor.raw_files_extractor import NTFSFileExtractor
+from AutopsyProcessor.external_process_invoker import ExternalProcessInvoker
+
+# Import Path for directory handling
+# from pathlib import Path
 
 
 class TimestompingDetectorDSIngestModuleFactory(IngestModuleFactoryAdapter):
@@ -77,7 +81,10 @@ class TimestompingDetectorDSIngestModule(DataSourceIngestModule):
     def __init__(self):
         self.context = None
         self.exportDirPath = ""
+        self.parsedDirPath = ""
+        self.resultsDirPath = ""
         self.extractor = None
+        self.invoker = None
 
     def startUp(self, context):
         self.context = context
@@ -87,15 +94,16 @@ class TimestompingDetectorDSIngestModule(DataSourceIngestModule):
         try:
             module_output_dir = os.path.join(self.currentCase.getModuleDirectory(), "NTFS Timestomping Detector")
             self.exportDirPath = os.path.join(module_output_dir, "Exported NTFS Files")
+            self.parsedDirPath = os.path.join(module_output_dir, "Parsed Files")
             self.resultsDirPath = os.path.join(module_output_dir, "Detection Results") 
             
-            if not os.path.exists(self.exportDirPath):
-                os.makedirs(self.exportDirPath)
-            if not os.path.exists(self.resultsDirPath):
-                os.makedirs(self.resultsDirPath)
+            for dir_path in [self.exportDirPath, self.parsedDirPath, self.resultsDirPath]:
+                if not os.path.exists(dir_path):
+                    os.makedirs(dir_path)
                 
             self.log(Level.INFO, "Module directories created:")
             self.log(Level.INFO, "Export: " + self.exportDirPath)
+            self.log(Level.INFO, "Parsed: " + self.parsedDirPath)
             self.log(Level.INFO, "Results: " + self.resultsDirPath)
             
         except Exception as e:
@@ -104,6 +112,9 @@ class TimestompingDetectorDSIngestModule(DataSourceIngestModule):
         
         self.extractor = NTFSFileExtractor(self._logger, context)
         self.log(Level.INFO, "NTFS File Extractor initialized")
+        
+        self.invoker = ExternalProcessInvoker(logger_obj=self._logger)
+        self.log(Level.INFO, "External Process Invoker initialized")
 
     def process(self, dataSource, progressBar):
         """Main processing method"""
@@ -133,6 +144,37 @@ class TimestompingDetectorDSIngestModule(DataSourceIngestModule):
         exported_files = extraction_results['exported_files']
         total_exported = extraction_results['total_exported']
         total_failed = extraction_results['total_failed']
+
+        # --- PARSE NTFS SYSTEM FILES ---
+        self.log(Level.INFO, "Starting NTFS system files parsing via external processor")
+        if self.invoker is not None:
+            try:
+                invoke_result = self.invoker.invoke_parsing(self.exportDirPath, self.parsedDirPath)
+                
+                if invoke_result['success']:
+                    self.log(Level.INFO, "External processor completed successfully")
+                    
+                    # Log parsing results
+                    parsing_results = invoke_result['results'].get('parsing', {})
+                    for file_type, result in parsing_results.items():
+                        if result['success']:
+                            log_msg = "{0}: {1} ({2} records)".format(
+                                file_type, 
+                                result['message'], 
+                                result['records']
+                            )
+                            self.log(Level.INFO, log_msg)
+                        else:
+                            error_msg = "{0} error: {1}".format(file_type, result['message'])
+                            self.log(Level.WARNING, error_msg)
+                else:
+                    error_msg = "External processor error: {0}".format(invoke_result['message'])
+                    self.log(Level.WARNING, error_msg)
+                    
+            except Exception as e:
+                self.log(Level.WARNING, "Error invoking external processor: " + str(e))
+        else:
+            self.log(Level.WARNING, "External Process Invoker not available - skipping file parsing")
 
         # --- CREATE ARTIFACTS FOR EXPORTED FILES ---
         progressBar.switchToDeterminate(total_exported)
