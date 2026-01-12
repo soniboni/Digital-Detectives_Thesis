@@ -35,7 +35,6 @@ from org.sleuthkit.autopsy.coreutils import Logger
 from org.sleuthkit.autopsy.casemodule import Case
 from org.sleuthkit.autopsy.casemodule.services import Blackboard
 
-# Ensure this directory is on sys.path so 'Autopsy Processor' package can be imported
 try:
     base_dir = os.path.dirname(__file__)
     if base_dir and base_dir not in sys.path:
@@ -46,9 +45,6 @@ except Exception:
 # Import Autopsy Processor utilities
 from AutopsyProcessor.raw_files_extractor import NTFSFileExtractor
 from AutopsyProcessor.external_process_invoker import ExternalProcessInvoker
-
-# Import Path for directory handling
-# from pathlib import Path
 
 
 class TimestompingDetectorDSIngestModuleFactory(IngestModuleFactoryAdapter):
@@ -80,9 +76,11 @@ class TimestompingDetectorDSIngestModule(DataSourceIngestModule):
 
     def __init__(self):
         self.context = None
-        self.exportDirPath = ""
-        self.parsedDirPath = ""
-        self.resultsDirPath = ""
+        self.export_dir_path = ""
+        self.parsed_dir_path = ""
+        self.grouped_events_dir_path = ""
+        self.file_features_dir_path = ""
+        self.detection_results_dir_path = ""
         self.extractor = None
         self.invoker = None
 
@@ -93,18 +91,23 @@ class TimestompingDetectorDSIngestModule(DataSourceIngestModule):
         # Create module output directories
         try:
             module_output_dir = os.path.join(self.currentCase.getModuleDirectory(), "NTFS Timestomping Detector")
-            self.exportDirPath = os.path.join(module_output_dir, "Exported NTFS Files")
-            self.parsedDirPath = os.path.join(module_output_dir, "Parsed Files")
-            self.resultsDirPath = os.path.join(module_output_dir, "Detection Results") 
+            self.export_dir_path = os.path.join(module_output_dir, "Exported NTFS Files")
+            self.parsed_dir_path = os.path.join(module_output_dir, "Parsed Files")
+            self.grouped_events_dir_path = os.path.join(module_output_dir, "Grouped Events File")
+            self.file_features_dir_path = os.path.join(module_output_dir, "File Features")
+            self.detection_results_dir_path = os.path.join(module_output_dir, "Detection Results") 
             
-            for dir_path in [self.exportDirPath, self.parsedDirPath, self.resultsDirPath]:
+            for dir_path in [self.export_dir_path, self.parsed_dir_path, self.grouped_events_dir_path, 
+                             self.file_features_dir_path, self.detection_results_dir_path]:
                 if not os.path.exists(dir_path):
                     os.makedirs(dir_path)
                 
             self.log(Level.INFO, "Module directories created:")
-            self.log(Level.INFO, "Export: " + self.exportDirPath)
-            self.log(Level.INFO, "Parsed: " + self.parsedDirPath)
-            self.log(Level.INFO, "Results: " + self.resultsDirPath)
+            self.log(Level.INFO, "Export: " + self.export_dir_path)
+            self.log(Level.INFO, "Parsed: " + self.parsed_dir_path)
+            self.log(Level.INFO, "Grouped Events: " + self.grouped_events_dir_path)
+            self.log(Level.INFO, "File Features: " + self.file_features_dir_path)
+            self.log(Level.INFO, "Detection Results: " + self.detection_results_dir_path)
             
         except Exception as e:
             self.log(Level.SEVERE, "Failed to create module output directories: " + str(e))
