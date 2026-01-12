@@ -78,10 +78,11 @@ class MFTParser:
             for attribute in file_record.attributes():
                 if attribute.type_code == MFTParser.STANDARD_INFORMATION:
                     try:
-                        si_timestamps["SI_C"] = MFTParser.mft_format_timestamp(attribute.standard_information.get_creation_time())
-                        si_timestamps["SI_M"] = MFTParser.mft_format_timestamp(attribute.standard_information.get_modification_time())
-                        si_timestamps["SI_E"] = MFTParser.mft_format_timestamp(attribute.standard_information.get_mft_change_time())
-                        si_timestamps["SI_A"] = MFTParser.mft_format_timestamp(attribute.standard_information.get_access_time())
+                        si = attribute.value_decoded()
+                        si_timestamps["SI_C"] = MFTParser.mft_format_timestamp(si.get_ctime())
+                        si_timestamps["SI_M"] = MFTParser.mft_format_timestamp(si.get_mtime())
+                        si_timestamps["SI_E"] = MFTParser.mft_format_timestamp(si.get_etime())
+                        si_timestamps["SI_A"] = MFTParser.mft_format_timestamp(si.get_atime())
                         break
                     except Exception as e:
                         logger.debug(f"Error extracting SI timestamps: {e}")
@@ -114,15 +115,15 @@ class MFTParser:
                         file_name = fn.get_file_name()
                         namespace = fn.get_flags()
                         
-                        if fn_info["FileName"] is not None or namespace in (1,3):
-                            fn_info["FileName"] = attribute.file_name.get_name()
-                            fn_info["ParentFRN"] = attribute.file_name.get_parent_directory_reference() & 0xFFFFFFFFFFFF
-                            fn_info["FN_C"] = MFTParser.mft_format_timestamp(attribute.file_name.get_creation_time())
-                            fn_info["FN_M"] = MFTParser.mft_format_timestamp(attribute.file_name.get_modification_time())
-                            fn_info["FN_E"] = MFTParser.mft_format_timestamp(attribute.file_name.get_mft_change_time())
-                            fn_info["FN_A"] = MFTParser.mft_format_timestamp(attribute.file_name.get_access_time())
+                        if fn_info["FileName"] is None or namespace in (1, 3):
+                            fn_info["FileName"] = file_name
+                            fn_info["ParentFRN"] = fn.get_parent_directory() & 0xFFFFFFFFFFFF
+                            fn_info["FN_C"] = MFTParser.mft_format_timestamp(fn.get_ctime())
+                            fn_info["FN_M"] = MFTParser.mft_format_timestamp(fn.get_mtime())
+                            fn_info["FN_E"] = MFTParser.mft_format_timestamp(fn.get_etime())
+                            fn_info["FN_A"] = MFTParser.mft_format_timestamp(fn.get_atime())
 
-                            if namespace in (1,3):
+                            if namespace in (1, 3):
                                 break
                     except Exception as e:
                         logger.debug(f"Error extracting FN info: {e}")
@@ -165,7 +166,6 @@ class MFTParser:
             
             for file_record in parser.file_records():
                 try:
-                    
                     entry_number = file_record.get_master_file_table_number()
                     is_active = file_record.is_in_use()
                     lsn = file_record.get_logfile_sequence_number()
@@ -188,7 +188,7 @@ class MFTParser:
                         "$FN-C": fn_info["FN_C"],
                         "$FN-M": fn_info["FN_M"],
                         "$FN-E": fn_info["FN_E"],
-                        "$FN-A": fn_info["FN_A"],
+                        "$FN-A": fn_info["FN_A"]
                     }
                     
                     records.append(record)
