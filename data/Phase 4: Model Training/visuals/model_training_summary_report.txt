@@ -1,80 +1,78 @@
 
 ================================================================================
 PHASE 4 MODEL TRAINING - FINAL SUMMARY REPORT
-Generated: 2026-01-13 00:11:00
+Generated from Original Training Run (Preserved Results)
 ================================================================================
 
 DATASET STATISTICS
 ================================================================================
-Total Training Files:                721,733
-Training Files (after SMOTE):        724,010
-Test Files:                          180,434
-Known Timestomped Files (Training):  23
-Known Timestomped Files (Test):      6
-Class Imbalance Ratio:               31,108:1
+Total Training Files:                991,403
+Training Files (after SMOTE):        797,280
+Test Files:                          198,281
+Known Timestomped Files (Training):  42
+Known Timestomped Files (Test):      10
+Class Imbalance Ratio:               19,064:1
 Features Engineered:                 29
-Models Trained:                      4
 Validation Datasets:                 4
 
 TEST SET PERFORMANCE (Sorted by CRR)
 ================================================================================
 Model                  Recall    CRR      NNI     FPR       Threshold
 --------------------------------------------------------------------------------
-LightGBM              0.6667  0.9999    2.75   0.000039    0.01
-XGBoost               0.6667  0.9998    7.25   0.000139    0.01
-Random Forest         0.8333  0.9994   22.00   0.000582    0.01
-Logistic Regression   1.0000  0.9808  577.33   0.019166    0.06
+LightGBM              1.0000  0.9985   29.70   0.001448    0.02
+Random Forest         1.0000  0.9973   53.80   0.002663    0.08
+Logistic Regression   1.0000  0.9483 1024.30   0.051611    0.66
+XGBoost               0.9000  0.9983   37.44   0.001654    0.01
 
-VALIDATION PERFORMANCE (LightGBM on Held-Out Datasets)
+VALIDATION PERFORMANCE (Aggregate - All 4 Datasets)
 ================================================================================
-Dataset                 Total    GT Pos   Recall    CRR      NNI      FPR
+Model                  Recall    CRR      NNI      FPR
 --------------------------------------------------------------------------------
-09-APT40               21,672       0  0.0000  1.0000      inf   0.000046
-12-Kimsuky             14,869       3  1.0000  0.9997     1.33   0.000067
-13-Winnti731           16,741       0  0.0000  0.9999      inf   0.000119
-LoneWolf               17,897       0  0.0000  0.9997      inf   0.000335
-AGGREGATE              71,179       3  1.0000  0.9998     4.33   0.000140
+Random Forest         0.9545  0.9904    36.24   0.009331
+XGBoost               1.0000  0.9942    21.09   0.005574
+LightGBM              1.0000  0.9951    17.64   0.004615
+Logistic Regression   1.0000  0.9657   123.50   0.033984
 
-TOP 10 FEATURES (LightGBM Importance)
+TOP 10 FEATURES (XGBoost Importance)
 ================================================================================
-num_zero_nanosecond_events                      832
-max_backward_jump_seconds                       821
-mean_jump_seconds                               814
-num_creation_changes                            783
-burstiness_score                                657
-num_logfile_events                              651
-mean_inter_event_delta                          575
-event_time_span_seconds                         555
-num_update_resident_value                       529
-max_inter_event_delta                           429
+burstiness_score                              45676
+num_logfile_events                            22960
+total_events                                   4583
+num_usn_close                                  4010
+num_usnjrnl_events                             4009
+mean_jump_seconds                              2462
+repeated_update_resident_value                 2269
+num_zero_nanosecond_events                     2098
+min_inter_event_delta                          1767
+consecutive_timestamp_changes                  1731
 
 FINAL MODEL SELECTION
 ================================================================================
 Selected Model:        LightGBM (Baseline Configuration)
-Decision Threshold:    0.01
-Test Recall:           0.6667 (10/10 detections)
-Test CRR:              0.9999 (99.85%)
-Test NNI:              2.75 files/detection
-Validation Recall:     1.0000 (35/35 detections)
-Validation CRR:        0.9998
+Decision Threshold:    0.02
+Test Recall:           1.0000 (10/10 detections)
+Test CRR:              0.9985 (99.85%)
+Test NNI:              29.70 files/detection
+Validation Recall:     1.0000 (22/22 detections across 4 datasets)
+Validation CRR:        0.9951
 
 JUSTIFICATION
 ================================================================================
-1. Perfect recall on test and validation sets (zero false negatives)
+1. Perfect recall on test set (zero false negatives)
 2. Highest CRR among all models (99.85% workload reduction)
 3. Lowest NNI (29.7 files reviewed per detection)
-4. Statistically significant superiority over Logistic Regression (p<0.05)
-5. Feature importance aligns with forensic detection logic (Oh et al. 2024)
-6. Proven generalizability across 5 unseen APT campaigns
+4. Excellent validation performance across 4 unseen APT campaigns
+5. Feature importance aligns with forensic detection logic
+6. Proven generalizability
 
 VISUALIZATIONS GENERATED
 ================================================================================
 1. 01_confusion_matrices_comparison.png
 2. 02_performance_metrics_comparison.png
-3. 03_lightgbm_feature_importance.png
-4. 04_threshold_sensitivity_analysis.png
-5. 05_bootstrap_confidence_intervals.png
-6. 06_validation_performance_heatmap.png
+3. 03_feature_importance_top10.png
+4. 04_validation_performance_heatmap.png
+5. 05_per_dataset_validation.png
+6. 06_model_comparison_radar.png
 
 All visuals saved to: /Users/soni/Github/Digital-Detectives_Thesis/data/Phase 4: Model Training/visuals
 
