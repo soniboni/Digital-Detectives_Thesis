@@ -28,7 +28,7 @@ from typing import Dict, Optional, Tuple
 # Third-party imports
 from Parser.ThirdParty.dfir_ntfs import MFT
 from Parser.ThirdParty.dfir_ntfs.USN import ChangeJournalParser, ResolveReasonCodes
-from Parser.ThirdParty.dfir_ntfs.LogFile import LogFileParser
+from Parser.ThirdParty.dfir_ntfs.LogFile import LogFileParser as DFIRLogFileParser
 
 
 # Configure logging
@@ -502,7 +502,7 @@ class LogFileParser:
         logger.info(f"Parsing LogFile: {logfile_path.name}")
         
         with open(logfile_path, "rb") as logfile:
-            parser = LogFileParser(logfile)
+            parser = DFIRLogFileParser(logfile)
             parser.collect_lsns()
             
             timestamp_change_count = 0
@@ -511,7 +511,7 @@ class LogFileParser:
             for record in parser.parse_ntfs_records():
                 try:
 
-                    lsn = record.get_lsn()
+                    lsn = record.lsn
                     redo_op = record.get_redo_operation()
                     undo_op = record.get_undo_operation()
                     redo_op_name = cls.logfile_get_operation_name(redo_op)
@@ -629,16 +629,33 @@ class RawFilesParser:
         exported_files_dir = Path(exported_files_dir)
         output_dir = Path(output_dir)
         
-        # Define expected file paths
-        mft_path = exported_files_dir / "$MFT"
-        logfile_path = exported_files_dir / "$LogFile"
-        usnjrnl_path = exported_files_dir / "$UsnJrnl_$J"
+        # Search for exported files using glob patterns (dynamic naming from raw_files_extractor.py)
+        # Files are named as: {volume_name}_vid_{volume_id}_datasource_{datasource_id}_file_{file_id}_{file_name}
+        mft_files = list(exported_files_dir.glob("*_$MFT"))
+        logfile_files = list(exported_files_dir.glob("*_$LogFile"))
+        usnjrnl_files = list(exported_files_dir.glob("*_$UsnJrnl_$J"))
         
-        #Verify input files exist
+        # Select the first match for each file type
+        mft_path = mft_files[0] if mft_files else None
+        logfile_path = logfile_files[0] if logfile_files else None
+        usnjrnl_path = usnjrnl_files[0] if usnjrnl_files else None
+        
+        # Verify input files exist
         missing_files = []
-        for file_path in [mft_path, logfile_path, usnjrnl_path]:
-            if not file_path.is_file():
-                missing_files.append(file_path.name)
+        if mft_path is None:
+            missing_files.append("$MFT")
+        elif not mft_path.is_file():
+            missing_files.append(mft_path.name)
+        
+        if logfile_path is None:
+            missing_files.append("$LogFile")
+        elif not logfile_path.is_file():
+            missing_files.append(logfile_path.name)
+        
+        if usnjrnl_path is None:
+            missing_files.append("$UsnJrnl:$J")
+        elif not usnjrnl_path.is_file():
+            missing_files.append(usnjrnl_path.name)
 
         if missing_files:
             self.logger.error(f"Missing input files: {', '.join(missing_files)}")
@@ -680,7 +697,7 @@ class RawFilesParser:
         self.logger.info("Parsing $UsnJrnl:$J...")
         try:
             df_usnjrnl = USNJournalParser.parse_usnjrnl(usnjrnl_path)
-            output_file = output_dir / "UsnJrnl:$J_parsed.csv"
+            output_file = output_dir / "UsnJrnl_parsed.csv"
             df_usnjrnl.to_csv(output_file, index=False, encoding="utf-8")
             self.logger.info(f"UsnJrnl saved to: {output_file}")
             results['usnjrnl'] = (True, f"Successfully parsed {len(df_usnjrnl)} UsnJrnl records", df_usnjrnl)

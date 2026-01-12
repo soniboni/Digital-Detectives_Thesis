@@ -245,7 +245,7 @@ class NTFSFileExtractor:
                 
                 if success:
                     results['total_exported'] += 1
-                    results['exported_files'].append({
+                    results['exported_files'].append({ 
                         'file_object': file_obj,
                         'file_type': file_type,
                         'volume_name': volume_name,
