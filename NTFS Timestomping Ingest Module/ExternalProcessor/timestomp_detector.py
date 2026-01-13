@@ -91,6 +91,8 @@ def main():
         logger.info("Exported files directory: {}".format(exported_files_dir))
         logger.info("Parsed files directory: {}".format(parsed_files_dir))
         logger.info("Grouped events directory: {}".format(grouped_events_dir))
+        logger.info("File features directory: {}".format(features_dir))
+        logger.info("Detection results directory: {}".format(results_dir))
         
         # Validate input directory
         if not exported_files_dir.exists():
