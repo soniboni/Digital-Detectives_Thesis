@@ -114,20 +114,30 @@ class ExternalProcessInvoker:
             self.log(Level.SEVERE, error_msg)
             raise RuntimeError(error_msg)
     
-    def invoke_parsing(self, exported_files_dir, parsed_output_dir):
+    def invoke_parsing(self, exported_files_dir, module_output_dir):
         """
-        Invoke the Python 3 timestomp_detector for file parsing.
+        Invoke the Python 3 external processor pipeline for parsing, preprocessing, and feature engineering.
+        
+        This method invokes the complete processing pipeline:
+        - Stage 1: Raw file parsing ($MFT, $LogFile, $UsnJrnl → CSV files)
+        - Stage 2: Data preprocessing (CSV files → grouped_events.csv)
+        - Stage 3: Feature engineering (grouped_events.csv → file_features.csv)
         
         Args:
             exported_files_dir: Path to directory containing exported $MFT, $LogFile, $UsnJrnl
-            parsed_output_dir: Path to directory where parsed CSV files will be saved
+            module_output_dir: Path to module output root directory
+                              (contains "Parsed Files", "Grouped Events File", etc.)
             
         Returns:
             dict: Result dictionary with keys:
                 - 'success': bool - whether the process succeeded
                 - 'message': str - status message
-                - 'results': dict - parsed results if successful, None otherwise
-                  Format: {'parsing': {'mft': {...}, 'logfile': {...}, 'usnjrnl': {...}}}
+                - 'results': dict - processing results if successful, None otherwise
+                  Format: {
+                    'parsing': {mft, logfile, usnjrnl results},
+                    'preprocessing': {grouped_events results},
+                    'feature_engineering': {file_features results}
+                  }
         """
         try:
             # Verify Python 3 executable exists
@@ -158,18 +168,18 @@ class ExternalProcessInvoker:
                 }
             
             # Prepare arguments for subprocess
+            # --output-dir is the MODULE ROOT containing all subdirectories
             args = [
                 self.python3_executable,
                 timestomp_detector_path,
                 '--exported-dir', str(exported_files_dir),
-                '--output-dir', str(parsed_output_dir)
+                '--output-dir', str(module_output_dir)
             ]
             
-            self.log(Level.INFO, "Invoking bundled Python 3 external processor")
+            self.log(Level.INFO, "Invoking Python 3 external processor pipeline")
             self.log(Level.INFO, "Command: " + " ".join(args))
             
             # Spawn subprocess
-            # Note: We don't set environment variables as the bundled Python is self-contained
             process = subprocess.Popen(
                 args,
                 stdout=subprocess.PIPE,
@@ -183,26 +193,21 @@ class ExternalProcessInvoker:
             
             # Log stderr if present (for debugging)
             if stderr:
-                # Only log as warning if there's actual error content
-                # (Some libraries write info messages to stderr)
                 stderr_lines = stderr.strip().split('\n')
                 for line in stderr_lines:
                     if line.strip():
-                        self.log(Level.WARNING, "External processor stderr: " + line)
+                        self.log(Level.INFO, "External processor: " + line)
             
             # Check return code
             if process.returncode != 0:
                 error_msg = "External processor failed with return code {}".format(process.returncode)
                 if stderr:
-                    error_msg += ": " + stderr
-                else:
-                    error_msg += ": No error message available"
+                    error_msg += ": " + stderr[:500]
                     
                 self.log(Level.SEVERE, error_msg)
                 
-                # Also log stdout in case there's useful info there
                 if stdout:
-                    self.log(Level.SEVERE, "External processor stdout: " + stdout[:1000])
+                    self.log(Level.SEVERE, "Stdout: " + stdout[:1000])
                 
                 return {
                     'success': False,
@@ -223,23 +228,43 @@ class ExternalProcessInvoker:
                 
                 # Validate the results structure
                 if 'parsing' not in results:
-                    self.log(Level.WARNING, "Results missing 'parsing' key. Output: " + stdout[:500])
+                    self.log(Level.WARNING, "Results missing 'parsing' key")
                     return {
                         'success': False,
-                        'message': "Invalid results format: missing 'parsing' key",
+                        'message': "Invalid results: missing 'parsing' section",
                         'results': None
                     }
                 
+                # Check if preprocessing was performed
+                has_preprocessing = 'preprocessing' in results and results['preprocessing']
+                has_feature_engineering = 'feature_engineering' in results and results['feature_engineering']
+                
+                # Determine overall success
+                parsing_results = results.get('parsing', {})
+                preprocessing_results = results.get('preprocessing', {})
+                feature_engineering_results = results.get('feature_engineering', {})
+                
+                # Log each stage
+                parsing_success = any(r.get('success') for r in parsing_results.values() if isinstance(r, dict))
+                preprocessing_success = preprocessing_results.get('success', False) if has_preprocessing else None
+                feature_success = feature_engineering_results.get('success', False) if has_feature_engineering else None
+                
+                self.log(Level.INFO, "Parsing stage completed - results received")
+                if has_preprocessing:
+                    self.log(Level.INFO, "Preprocessing stage completed - results received")
+                if has_feature_engineering:
+                    self.log(Level.INFO, "Feature engineering stage completed - results received")
+                
                 return {
                     'success': True,
-                    'message': "Successfully completed NTFS file parsing",
+                    'message': "Successfully completed processing pipeline (parsing + preprocessing + feature engineering)",
                     'results': results
                 }
                 
             except json.JSONDecodeError as e:
                 error_msg = "Failed to parse process output as JSON: " + str(e)
                 self.log(Level.SEVERE, error_msg)
-                self.log(Level.SEVERE, "Output was: " + stdout[:1000])
+                self.log(Level.SEVERE, "Output: " + stdout[:1000])
                 return {
                     'success': False,
                     'message': error_msg,
@@ -247,7 +272,6 @@ class ExternalProcessInvoker:
                 }
         
         except RuntimeError as e:
-            # This catches the bundled Python not found error
             error_msg = "Runtime error: " + str(e)
             self.log(Level.SEVERE, error_msg)
             return {
@@ -260,7 +284,6 @@ class ExternalProcessInvoker:
             error_msg = "Error invoking external processor: " + str(e)
             self.log(Level.SEVERE, error_msg)
             
-            # Try to get traceback for debugging
             try:
                 import traceback
                 tb = traceback.format_exc()
@@ -268,6 +291,182 @@ class ExternalProcessInvoker:
             except:
                 pass
             
+            return {
+                'success': False,
+                'message': error_msg,
+                'results': None
+            }
+    
+    def invoke_preprocessing(self, module_output_dir):
+        """
+        Invoke just the preprocessing stage (requires parsed CSV files to exist).
+        
+        This method can be used to re-run preprocessing without re-parsing if the
+        parsed CSV files ($MFT_parsed.csv, LogFile_parsed.csv, UsnJrnl_parsed.csv)
+        already exist in the "Parsed Files" directory.
+        
+        Args:
+            module_output_dir: Path to module output root directory
+        
+        Returns:
+            dict: Result dictionary with keys:
+                - 'success': bool
+                - 'message': str
+                - 'results': dict with 'preprocessing' section or None
+        """
+        try:
+            if not self.python3_executable or not os.path.exists(self.python3_executable):
+                return {
+                    'success': False,
+                    'message': "Python 3 runtime not available",
+                    'results': None
+                }
+            
+            module_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            
+            # Path to preprocessing module
+            preproc_script = os.path.join(module_dir, "ExternalProcessor", "ModelPackage", "data_preprocessing.py")
+            parsed_files_dir = os.path.join(str(module_output_dir), "Parsed Files")
+            grouped_events_dir = os.path.join(str(module_output_dir), "Grouped Events File")
+            
+            if not os.path.exists(preproc_script):
+                return {
+                    'success': False,
+                    'message': "data_preprocessing.py not found",
+                    'results': None
+                }
+            
+            args = [
+                self.python3_executable,
+                preproc_script,
+                str(parsed_files_dir),
+                str(grouped_events_dir)
+            ]
+            
+            self.log(Level.INFO, "Invoking preprocessing module")
+            
+            process = subprocess.Popen(
+                args,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                universal_newlines=True,
+                cwd=module_dir
+            )
+            
+            stdout, stderr = process.communicate()
+            
+            if stderr:
+                stderr_lines = stderr.strip().split('\n')
+                for line in stderr_lines:
+                    if line.strip():
+                        self.log(Level.INFO, "Preprocessing: " + line)
+            
+            if process.returncode != 0:
+                error_msg = "Preprocessing failed with code {}".format(process.returncode)
+                self.log(Level.SEVERE, error_msg)
+                return {
+                    'success': False,
+                    'message': error_msg,
+                    'results': None
+                }
+            
+            return {
+                'success': True,
+                'message': "Preprocessing completed successfully",
+                'results': {'preprocessing': {'success': True, 'message': stdout}}
+            }
+        
+        except Exception as e:
+            error_msg = "Preprocessing error: " + str(e)
+            self.log(Level.SEVERE, error_msg)
+            return {
+                'success': False,
+                'message': error_msg,
+                'results': None
+            }
+    
+    def invoke_feature_engineering(self, module_output_dir):
+        """
+        Invoke just the feature engineering stage (requires grouped_events.csv to exist).
+        
+        This method can be used to re-run feature engineering without re-parsing or 
+        re-preprocessing if the grouped_events.csv already exists in the 
+        "Grouped Events File" directory.
+        
+        Args:
+            module_output_dir: Path to module output root directory
+        
+        Returns:
+            dict: Result dictionary with keys:
+                - 'success': bool
+                - 'message': str
+                - 'results': dict with 'feature_engineering' section or None
+        """
+        try:
+            if not self.python3_executable or not os.path.exists(self.python3_executable):
+                return {
+                    'success': False,
+                    'message': "Python 3 runtime not available",
+                    'results': None
+                }
+            
+            module_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            
+            # Path to feature engineering module
+            feature_script = os.path.join(module_dir, "ExternalProcessor", "ModelPackage", "feature_engineering.py")
+            grouped_events_dir = os.path.join(str(module_output_dir), "Grouped Events File")
+            features_dir = os.path.join(str(module_output_dir), "File Features")
+            
+            if not os.path.exists(feature_script):
+                return {
+                    'success': False,
+                    'message': "feature_engineering.py not found",
+                    'results': None
+                }
+            
+            args = [
+                self.python3_executable,
+                feature_script,
+                str(grouped_events_dir),
+                str(features_dir)
+            ]
+            
+            self.log(Level.INFO, "Invoking feature engineering module")
+            
+            process = subprocess.Popen(
+                args,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                universal_newlines=True,
+                cwd=module_dir
+            )
+            
+            stdout, stderr = process.communicate()
+            
+            if stderr:
+                stderr_lines = stderr.strip().split('\n')
+                for line in stderr_lines:
+                    if line.strip():
+                        self.log(Level.INFO, "Feature Engineering: " + line)
+            
+            if process.returncode != 0:
+                error_msg = "Feature engineering failed with code {}".format(process.returncode)
+                self.log(Level.SEVERE, error_msg)
+                return {
+                    'success': False,
+                    'message': error_msg,
+                    'results': None
+                }
+            
+            return {
+                'success': True,
+                'message': "Feature engineering completed successfully",
+                'results': {'feature_engineering': {'success': True, 'message': stdout}}
+            }
+        
+        except Exception as e:
+            error_msg = "Feature engineering error: " + str(e)
+            self.log(Level.SEVERE, error_msg)
             return {
                 'success': False,
                 'message': error_msg,

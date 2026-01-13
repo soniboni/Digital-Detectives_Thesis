@@ -130,7 +130,7 @@ class TimestompingDetectorDSIngestModule(DataSourceIngestModule):
 
         # --- EXTRACT ALL FILES USING THE EXTRACTOR ---
         try:
-            extraction_results = self.extractor.extract_all_files(fileManager, dataSource, self.exportDirPath)
+            extraction_results = self.extractor.extract_all_files(fileManager, dataSource, self.export_dir_path)
         except Exception as e:
             self.log(Level.SEVERE, "Fatal error during file extraction: " + str(e))
             return IngestModule.ProcessResult.ERROR
@@ -152,7 +152,10 @@ class TimestompingDetectorDSIngestModule(DataSourceIngestModule):
         self.log(Level.INFO, "Starting NTFS system files parsing via external processor")
         if self.invoker is not None:
             try:
-                invoke_result = self.invoker.invoke_parsing(self.exportDirPath, self.parsedDirPath)
+                # Get module root directory (parent of subdirectories)
+                module_output_dir = os.path.dirname(self.parsed_dir_path)
+                
+                invoke_result = self.invoker.invoke_parsing(self.export_dir_path, module_output_dir)
                 
                 if invoke_result['success']:
                     self.log(Level.INFO, "External processor completed successfully")
@@ -170,6 +173,30 @@ class TimestompingDetectorDSIngestModule(DataSourceIngestModule):
                         else:
                             error_msg = "{0} error: {1}".format(file_type, result['message'])
                             self.log(Level.WARNING, error_msg)
+                    
+                    # Log preprocessing results
+                    preproc_results = invoke_result['results'].get('preprocessing', {})
+                    if preproc_results.get('success'):
+                        log_msg = "Preprocessing: {0} ({1} events)".format(
+                            preproc_results.get('message', 'Success'),
+                            preproc_results.get('event_count', 0)
+                        )
+                        self.log(Level.INFO, log_msg)
+                    else:
+                        error_msg = "Data Preprocessing: {0}".format(preproc_results.get('message', 'Unknown error'))
+                        self.log(Level.WARNING, error_msg)
+                    
+                    # Log feature engineering results
+                    feature_results = invoke_result['results'].get('feature_engineering', {})
+                    if feature_results.get('success'):
+                        log_msg = "Feature Engineering: {0} ({1} files analyzed)".format(
+                            feature_results.get('message', 'Success'),
+                            feature_results.get('file_count', 0)
+                        )
+                        self.log(Level.INFO, log_msg)
+                    else:
+                        error_msg = "Feature Engineering: {0}".format(feature_results.get('message', 'Unknown error'))
+                        self.log(Level.WARNING, error_msg)
                 else:
                     error_msg = "External processor error: {0}".format(invoke_result['message'])
                     self.log(Level.WARNING, error_msg)
@@ -247,7 +274,7 @@ class TimestompingDetectorDSIngestModule(DataSourceIngestModule):
         message_text = ("Successfully processed " + str(extraction_results['complete_volumes']) + " complete volume(s). " +
                        "Exported " + str(total_exported) + " file(s) (" + str(total_failed) + " failed). " +
                        "Created " + str(artifact_success) + " artifact(s). " +
-                       "Files exported to: " + self.exportDirPath)
+                       "Files exported to: " + self.export_dir_path)
         
         message = IngestMessage.createMessage(IngestMessage.MessageType.DATA, TimestompingDetectorDSIngestModuleFactory.moduleName, message_text)
         IngestServices.getInstance().postMessage(message)
