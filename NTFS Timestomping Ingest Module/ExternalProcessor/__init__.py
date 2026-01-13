@@ -9,5 +9,6 @@ Python 3 layer for heavy-duty data processing, feature engineering, and ML infer
 __version__ = "1.0"
 __all__ = [
     'timestomp_detector',
-    'Parser'
+    'Parser', 
+    'Model Package'
 ]
