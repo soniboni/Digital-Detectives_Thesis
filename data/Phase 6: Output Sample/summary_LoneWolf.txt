@@ -2,63 +2,118 @@
 NTFS TIMESTOMPING DETECTION REPORT
 ================================================================================
 
-Analysis Date:      2026-01-13 08:29:09
+Analysis Date:      2026-01-13 08:44:37
 Dataset Analyzed:   LoneWolf
 Model Used:         LightGBM (Phase 4 Baseline)
 Threshold:          0.02
 
 --------------------------------------------------------------------------------
-SUMMARY
+EXECUTIVE SUMMARY
 --------------------------------------------------------------------------------
 Total Files Analyzed:       17,897
 Files Flagged:              331 (1.85%)
-High Confidence (>0.5):     320
-Medium Confidence (0.1-0.5): 1
-Low Confidence (0.02-0.1):  10
 
-Candidate Reduction Rate:   98.15% (analyst reviews 331 instead of 17,897)
+Confidence Breakdown:
+  High Confidence (>0.5):     320
+  Medium Confidence (0.1-0.5): 1
+  Low Confidence (0.02-0.1):  10
+
+Severity Breakdown:
+  HIGH Severity:   320 (requires immediate investigation)
+  MEDIUM Severity: 1 (manual review recommended)
+  LOW Severity:    10 (consider in context)
+
+Candidate Reduction Rate:   98.15%
+  (Analyst reviews 331 files instead of 17,897)
+
 Number Needed to Investigate: ~27.6 files per expected true positive
 
 --------------------------------------------------------------------------------
 TOP 10 MOST SUSPICIOUS FILES
 --------------------------------------------------------------------------------
-Rank  Confidence  FileName
-----  ----------  --------
-1     0.999999    DeathToll.jpg
-2     0.999999    DemLogic.jpg
-3     0.999999    BladeofGrass.jpg
-4     0.999999    DarkWolf.png
-5     0.999997    Planning.docx
-6     0.999996    Huckleberry.png
-7     0.999994    CubaDearmed.jpg
-8     0.999983    RedGuns.jpg
-9     0.999981    LOG.old
-10    0.999978    Sheep.jpg
+Rank  Confidence  Severity  Indicators  FileName
+----  ----------  --------  ----------  --------
+1     0.999999  HIGH      4           DeathToll.jpg
+2     0.999999  HIGH      4           DemLogic.jpg
+3     0.999999  HIGH      4           BladeofGrass.jpg
+4     0.999999  HIGH      4           DarkWolf.png
+5     0.999997  HIGH      4           Planning.docx
+6     0.999996  HIGH      4           Huckleberry.png
+7     0.999994  HIGH      4           CubaDearmed.jpg
+8     0.999983  HIGH      4           RedGuns.jpg
+9     0.999981  HIGH      3           LOG.old
+10    0.999978  HIGH      4           Sheep.jpg
 
 --------------------------------------------------------------------------------
-DETECTION PATTERN SUMMARY
+DETECTION INDICATOR SUMMARY
 --------------------------------------------------------------------------------
-Files with backward timestamp jumps:     309
-Files with zero nanosecond timestamps:   308
-Files with SI-only modifications:        132
-Files with LogFile/USN mismatch:         1,557
+The following indicators were detected across all analyzed files:
+
+Indicator Type                    Count    Description
+------------------------------    -----    -----------
+Backward Timestamp Jumps          309      Files where timestamps moved backwards
+Zero Nanosecond Precision         308      Files with suspiciously round timestamps
+SI-Only Modifications             132      $STANDARD_INFORMATION modified, $FILE_NAME unchanged
+LogFile/USN Mismatch              1557     Journal artifacts inconsistent with $MFT
+High Burstiness (>0.5)            14091    Rapid successive timestamp modifications
+
+--------------------------------------------------------------------------------
+INDICATOR EXPLANATIONS
+--------------------------------------------------------------------------------
+
+BACKWARD_TIMESTAMP (HIGH Severity when >1 day)
+  Timestamps that move backwards in time cannot occur through normal file
+  operations. This definitively indicates deliberate manipulation to make
+  files appear older than they actually are.
+
+ZERO_NANOSECONDS (MEDIUM Severity)
+  NTFS stores 100-nanosecond precision. Legitimate operations produce non-zero
+  values. Zero nanoseconds indicates programmatic timestamp setting, typically
+  via timestomping tools that don't populate sub-second precision.
+
+SI_ONLY_MODIFICATION (HIGH Severity)
+  Normal operations update both $STANDARD_INFORMATION and $FILE_NAME attributes.
+  When only $SI is modified, it indicates tools that bypass the file system.
+  The $FILE_NAME attribute retains the original timestamp.
+
+ARTIFACT_MISMATCH (HIGH Severity)
+  $LogFile and $UsnJrnl independently record operations. Inconsistency with
+  $MFT timestamps indicates post-operation modification. Journal entries are
+  difficult to modify without detection.
+
+HIGH_BURSTINESS (MEDIUM-HIGH Severity)
+  Multiple timestamp changes in rapid succession suggest automated or scripted
+  manipulation. Normal file usage produces distributed timestamp changes.
+
+--------------------------------------------------------------------------------
+RECOMMENDED NEXT STEPS
+--------------------------------------------------------------------------------
+1. Review HIGH severity files immediately - these show strong manipulation signs
+2. For BACKWARD_TIMESTAMP findings, compare $SI and $FN timestamps manually
+3. Cross-reference flagged files with case timeline
+4. Consider context: system restore, VM snapshots may cause false positives
+5. Export detailed findings from detection_details_LoneWolf.txt
 
 --------------------------------------------------------------------------------
 METHODOLOGY
 --------------------------------------------------------------------------------
 This analysis uses machine learning (LightGBM) trained on 22 datasets with
-52 known timestomped files. The model achieves 100% recall on validation
-datasets, ensuring no known timestomped files are missed.
+52 known timestomped files from real APT campaigns. The model achieves 100%
+recall on validation datasets, ensuring no known timestomped files are missed.
 
 Features analyzed: 29 (timestamp patterns, artifact consistency, temporal behavior)
+Training data: APT17, APT19, APT21, APT28, APT29, APT30, APT37, APT38, APT40,
+               DarkHotel, Kimsuky, Winnti, and controlled timestomping experiments
+
 Based on: Oh et al. (2024) NTFS timestomping detection methodology
 
 --------------------------------------------------------------------------------
-OUTPUT FILES
+OUTPUT FILES GENERATED
 --------------------------------------------------------------------------------
-1. detected_files_LoneWolf.csv    - 331 flagged files with explanations
-2. files_with_features_LoneWolf.csv - 17,897 files with all features
-3. summary_LoneWolf.txt           - This report
+1. detected_files_LoneWolf.csv      - 331 flagged files with explanations
+2. files_with_features_LoneWolf.csv - 17,897 files with all features  
+3. detection_details_LoneWolf.txt   - Detailed forensic analysis per file
+4. summary_LoneWolf.txt             - This report
 
 ================================================================================
 Generated by Digital Detectives Timestomping Detector v1.0
