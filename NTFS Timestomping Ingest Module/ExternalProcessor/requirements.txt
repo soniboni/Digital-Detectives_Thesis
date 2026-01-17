@@ -7,3 +7,6 @@ git+https://github.com/bamonskiy-kaban/dfir_ntfs.git
 # Data processing
 numpy==2.3.3
 pandas==2.3.2
+
+# For Model Training
+joblib==1.5.2

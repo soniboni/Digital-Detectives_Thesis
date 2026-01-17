@@ -197,6 +197,31 @@ class TimestompingDetectorDSIngestModule(DataSourceIngestModule):
                     else:
                         error_msg = "Feature Engineering: {0}".format(feature_results.get('message', 'Unknown error'))
                         self.log(Level.WARNING, error_msg)
+                    
+                    # Log model integration results
+                    model_results = invoke_result['results'].get('model_integration', {})
+                    if model_results.get('success'):
+                        log_msg = "Model Integration: {0} ({1} files analyzed, {2} flagged at {3:.2f}%)".format(
+                            model_results.get('message', 'Success'),
+                            model_results.get('total_files', 0),
+                            model_results.get('flagged_files', 0),
+                            model_results.get('flag_rate', 0) * 100
+                        )
+                        self.log(Level.INFO, log_msg)
+                        
+                        # Log output files
+                        output_files = model_results.get('output_files', {})
+                        if output_files:
+                            self.log(Level.INFO, "Detection output files generated:")
+                            if 'detected_files' in output_files:
+                                self.log(Level.INFO, "  - Detected Files: " + output_files['detected_files'])
+                            if 'files_with_features' in output_files:
+                                self.log(Level.INFO, "  - Files with Features: " + output_files['files_with_features'])
+                            if 'summary' in output_files:
+                                self.log(Level.INFO, "  - Summary Report: " + output_files['summary'])
+                    else:
+                        warning_msg = "Model Integration: {0}".format(model_results.get('message', 'Unknown error'))
+                        self.log(Level.WARNING, warning_msg)
                 else:
                     error_msg = "External processor error: {0}".format(invoke_result['message'])
                     self.log(Level.WARNING, error_msg)

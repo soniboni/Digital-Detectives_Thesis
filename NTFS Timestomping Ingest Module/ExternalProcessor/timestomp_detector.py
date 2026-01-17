@@ -23,6 +23,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 from Parser.raw_files_parser import RawFilesParser
 from ModelPackage.data_preprocessing import DataPreprocessor
 from ModelPackage.feature_engineering import FeatureEngineer
+from ModelPackage.model_integration import run_model_integration
 
 
 def setup_logging():
@@ -110,7 +111,8 @@ def main():
         results = {
             'parsing': {},
             'preprocessing': {},
-            'feature_engineering': {}
+            'feature_engineering': {},
+            'model_integration': {}
         }
         
         # --- STAGE 1: RAW FILE PARSING ---
@@ -204,8 +206,67 @@ def main():
                     'file_count': 0
                 }
         
+        # --- STAGE 4: ML MODEL INFERENCE ---
+        logger.info("\n" + "=" * 80)
+        logger.info("STAGE 4: ML MODEL INFERENCE")
+        logger.info("=" * 80)
+        
+        try:
+            # Get paths to model and features
+            model_training_dir = Path(__file__).parent / "ModelPackage" / "ModelTraining"
+            
+            # Only perform inference if feature engineering succeeded
+            if results['feature_engineering'].get('success'):
+                inference_result = run_model_integration(
+                    str(model_training_dir),
+                    str(features_dir),
+                    str(results_dir),
+                    logger_obj=logger
+                )
+                
+                results['model_integration'] = {
+                    'success': inference_result['success'],
+                    'message': inference_result['message'],
+                    'total_files': inference_result.get('total_files', 0),
+                    'flagged_files': inference_result.get('flagged_files', 0),
+                    'flag_rate': inference_result.get('flag_rate', 0) / max(inference_result.get('file_count', 1), 1),
+                    'output_files': inference_result.get('output_files', {})
+                }
+                
+                if inference_result['success']:
+                    logger.info("✓ Model Inference: {}".format(inference_result['message']))
+                    logger.info("  - Total files: {}".format(inference_result.get('file_count', 0)))
+                    logger.info("  - Flagged files: {} ({:.2f}%)".format(
+                        inference_result.get('flagged_count', 0),
+                        results['model_integration']['flag_rate'] * 100
+                    ))
+                    logger.info("  - Output files: {}".format(len(inference_result.get('output_files', {}))))
+                else:
+                    logger.warning("✗ Model Inference: {}".format(inference_result['message']))
+            else:
+                logger.warning("Skipping model inference due to feature engineering errors")
+                results['model_integration'] = {
+                    'success': False,
+                    'message': 'Skipped due to feature engineering errors',
+                    'total_files': 0,
+                    'flagged_files': 0,
+                    'flag_rate': 0,
+                    'output_files': {}
+                }
+        
+        except Exception as e:
+            error_msg = "Model inference error: {}".format(str(e))
+            logger.error(error_msg, exc_info=True)
+            results['model_integration'] = {
+                'success': False,
+                'message': error_msg,
+                'total_files': 0,
+                'flagged_files': 0,
+                'flag_rate': 0,
+                'output_files': {}
+            }
+        
         # --- FUTURE STAGES ---
-        # STAGE 4: ML Model Inference
         # STAGE 5: Report Generation
         
         logger.info("\n" + "=" * 80)
@@ -213,7 +274,7 @@ def main():
         logger.info("=" * 80)
         
         # Output results as JSON to stdout (for the Jython invoker to parse)
-        print(json.dumps(results, indent=2))
+        print(json.dumps(results, indent=2, default=str))
         
         return 0
         
@@ -224,9 +285,11 @@ def main():
         error_result = {
             'parsing': {},
             'preprocessing': {},
+            'feature_engineering': {},
+            'model_integration': {},
             'error': str(e)
         }
-        print(json.dumps(error_result, indent=2))
+        print(json.dumps(error_result, indent=2, default=str))
         
         return 1
 

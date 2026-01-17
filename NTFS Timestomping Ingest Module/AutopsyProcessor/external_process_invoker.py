@@ -116,17 +116,18 @@ class ExternalProcessInvoker:
     
     def invoke_parsing(self, exported_files_dir, module_output_dir):
         """
-        Invoke the Python 3 external processor pipeline for parsing, preprocessing, and feature engineering.
+        Invoke the Python 3 external processor pipeline for parsing, preprocessing, feature engineering, and model integration.
         
         This method invokes the complete processing pipeline:
         - Stage 1: Raw file parsing ($MFT, $LogFile, $UsnJrnl → CSV files)
         - Stage 2: Data preprocessing (CSV files → grouped_events.csv)
         - Stage 3: Feature engineering (grouped_events.csv → file_features.csv)
+        - Stage 4: Model integration (file_features.csv → detection results)
         
         Args:
             exported_files_dir: Path to directory containing exported $MFT, $LogFile, $UsnJrnl
             module_output_dir: Path to module output root directory
-                              (contains "Parsed Files", "Grouped Events File", etc.)
+                              (contains "Parsed Files", "Grouped Events File", "File Features", "Detection Results" subdirectories)
             
         Returns:
             dict: Result dictionary with keys:
@@ -137,6 +138,7 @@ class ExternalProcessInvoker:
                     'parsing': {mft, logfile, usnjrnl results},
                     'preprocessing': {grouped_events results},
                     'feature_engineering': {file_features results}
+                    'model_integration': {detection results}
                   }
         """
         try:
@@ -238,30 +240,35 @@ class ExternalProcessInvoker:
                 # Check if preprocessing was performed
                 has_preprocessing = 'preprocessing' in results and results['preprocessing']
                 has_feature_engineering = 'feature_engineering' in results and results['feature_engineering']
+                has_model_integration = 'model_integration' in results and results['model_integration']
                 
                 # Determine overall success
                 parsing_results = results.get('parsing', {})
                 preprocessing_results = results.get('preprocessing', {})
                 feature_engineering_results = results.get('feature_engineering', {})
+                model_integration_results = results.get('model_integration', {})
                 
                 # Log each stage
                 parsing_success = any(r.get('success') for r in parsing_results.values() if isinstance(r, dict))
                 preprocessing_success = preprocessing_results.get('success', False) if has_preprocessing else None
                 feature_success = feature_engineering_results.get('success', False) if has_feature_engineering else None
+                model_success = model_integration_results.get('success', False) if has_model_integration else None
                 
                 self.log(Level.INFO, "Parsing stage completed - results received")
                 if has_preprocessing:
                     self.log(Level.INFO, "Preprocessing stage completed - results received")
                 if has_feature_engineering:
                     self.log(Level.INFO, "Feature engineering stage completed - results received")
+                if has_model_integration:
+                    self.log(Level.INFO, "Model integratiion stage completed - results received")
                 
                 return {
                     'success': True,
-                    'message': "Successfully completed processing pipeline (parsing + preprocessing + feature engineering)",
+                    'message': "Successfully completed processing pipeline (parsing + preprocessing + feature engineering + model integration)",
                     'results': results
                 }
                 
-            except json.JSONDecodeError as e:
+            except Exception as e:
                 error_msg = "Failed to parse process output as JSON: " + str(e)
                 self.log(Level.SEVERE, error_msg)
                 self.log(Level.SEVERE, "Output: " + stdout[:1000])
@@ -466,6 +473,102 @@ class ExternalProcessInvoker:
         
         except Exception as e:
             error_msg = "Feature engineering error: " + str(e)
+            self.log(Level.SEVERE, error_msg)
+            return {
+                'success': False,
+                'message': error_msg,
+                'results': None
+            }
+    
+    def invoke_model_integration(self, module_output_dir):
+        """
+        Invoke the model integration stage for ML inference.
+        
+        Note: This is called automatically by invoke_parsing() as STAGE 4.
+        This method is provided for flexibility if re-running inference separately.
+        
+        Args:
+            module_output_dir: Path to module output root directory
+        
+        Returns:
+            dict: Result dictionary with keys:
+                - 'success': bool
+                - 'message': str
+                - 'results': dict with 'model_integration' section or None
+        """
+        try:
+            if not self.python3_executable or not os.path.exists(self.python3_executable):
+                return {
+                    'success': False,
+                    'message': "Python 3 runtime not available",
+                    'results': None
+                }
+            
+            module_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            
+            # Path to model integration module
+            model_integration_script = os.path.join(module_dir, "ExternalProcessor", "ModelPackage", "model_integration.py")
+            features_dir = os.path.join(str(module_output_dir), "File Features")
+            detection_dir = os.path.join(str(module_output_dir), "Detection Results")
+            
+            if not os.path.exists(model_integration_script):
+                return {
+                    'success': False,
+                    'message': "model_integration.py not found",
+                    'results': None
+                }
+            
+            args = [
+                self.python3_executable,
+                model_integration_script,
+                str(features_dir),
+                str(detection_dir)
+            ]
+            
+            self.log(Level.INFO, "Invoking model integration module")
+            
+            process = subprocess.Popen(
+                args,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                universal_newlines=True,
+                cwd=module_dir
+            )
+            
+            stdout, stderr = process.communicate()
+            
+            if stderr:
+                stderr_lines = stderr.strip().split('\n')
+                for line in stderr_lines:
+                    if line.strip():
+                        self.log(Level.INFO, "Model integration: " + line)
+            
+            if process.returncode != 0:
+                error_msg = "Model integration failed with code {}".format(process.returncode)
+                self.log(Level.SEVERE, error_msg)
+                return {
+                    'success': False,
+                    'message': error_msg,
+                    'results': None
+                }
+            
+            return {
+                'success': True,
+                'message': "Model integration completed successfully",
+                'results': {'model_integration': {'success': True, 'message': stdout}}
+            }
+        
+        except Exception as e:
+            error_msg = "Model integration error: " + str(e)
+            self.log(Level.SEVERE, error_msg)
+            return {
+                'success': False,
+                'message': error_msg,
+                'results': None
+            }
+        
+        except Exception as e:
+            error_msg = "Model integration setup error: " + str(e)
             self.log(Level.SEVERE, error_msg)
             return {
                 'success': False,
