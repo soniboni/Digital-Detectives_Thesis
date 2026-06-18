@@ -45,6 +45,8 @@ except Exception:
 # Import Autopsy Processor utilities
 from AutopsyProcessor.raw_files_extractor import NTFSFileExtractor
 from AutopsyProcessor.external_process_invoker import ExternalProcessInvoker
+from AutopsyProcessor.artifact_generator import ArtifactGenerator
+from AutopsyProcessor.html_report_generator import HTMLReportGenerator
 
 
 class TimestompingDetectorDSIngestModuleFactory(IngestModuleFactoryAdapter):
@@ -76,13 +78,13 @@ class TimestompingDetectorDSIngestModule(DataSourceIngestModule):
 
     def __init__(self):
         self.context = None
+        self.extractor = None
+        self.invoker = None
         self.export_dir_path = ""
         self.parsed_dir_path = ""
         self.grouped_events_dir_path = ""
         self.file_features_dir_path = ""
         self.detection_results_dir_path = ""
-        self.extractor = None
-        self.invoker = None
 
     def startUp(self, context):
         self.context = context
@@ -90,12 +92,12 @@ class TimestompingDetectorDSIngestModule(DataSourceIngestModule):
 
         # Create module output directories
         try:
-            module_output_dir = os.path.join(self.currentCase.getModuleDirectory(), "NTFS Timestomping Detector")
-            self.export_dir_path = os.path.join(module_output_dir, "Exported NTFS Files")
-            self.parsed_dir_path = os.path.join(module_output_dir, "Parsed Files")
-            self.grouped_events_dir_path = os.path.join(module_output_dir, "Grouped Events File")
-            self.file_features_dir_path = os.path.join(module_output_dir, "File Features")
-            self.detection_results_dir_path = os.path.join(module_output_dir, "Detection Results") 
+            self.module_output_dir = os.path.join(self.currentCase.getModuleDirectory(), "NTFS Timestomping Detector")
+            self.export_dir_path = os.path.join(self.module_output_dir, "Exported Raw NTFS Files")
+            self.parsed_dir_path = os.path.join(self.module_output_dir, "Parsed Files")
+            self.grouped_events_dir_path = os.path.join(self.module_output_dir, "Grouped Events File")
+            self.file_features_dir_path = os.path.join(self.module_output_dir, "File Features")
+            self.detection_results_dir_path = os.path.join(self.module_output_dir, "Detection Results") 
             
             for dir_path in [self.export_dir_path, self.parsed_dir_path, self.grouped_events_dir_path, 
                              self.file_features_dir_path, self.detection_results_dir_path]:
@@ -103,9 +105,9 @@ class TimestompingDetectorDSIngestModule(DataSourceIngestModule):
                     os.makedirs(dir_path)
                 
             self.log(Level.INFO, "Module directories created:")
-            self.log(Level.INFO, "Export: " + self.export_dir_path)
-            self.log(Level.INFO, "Parsed: " + self.parsed_dir_path)
-            self.log(Level.INFO, "Grouped Events: " + self.grouped_events_dir_path)
+            self.log(Level.INFO, "Exported Raw NTFS Files: " + self.export_dir_path)
+            self.log(Level.INFO, "Parsed Files: " + self.parsed_dir_path)
+            self.log(Level.INFO, "Grouped Events File: " + self.grouped_events_dir_path)
             self.log(Level.INFO, "File Features: " + self.file_features_dir_path)
             self.log(Level.INFO, "Detection Results: " + self.detection_results_dir_path)
             
@@ -124,7 +126,6 @@ class TimestompingDetectorDSIngestModule(DataSourceIngestModule):
         
         progressBar.switchToIndeterminate()
         fileManager = Case.getCurrentCase().getServices().getFileManager()
-        blackboard = Case.getCurrentCase().getSleuthkitCase().getBlackboard()
 
         self.log(Level.INFO, "Starting NTFS file extraction for data source: " + dataSource.getName())
 
@@ -232,77 +233,69 @@ class TimestompingDetectorDSIngestModule(DataSourceIngestModule):
             self.log(Level.WARNING, "External Process Invoker not available - skipping file parsing")
 
         # --- CREATE ARTIFACTS FOR EXPORTED FILES ---
-        progressBar.switchToDeterminate(total_exported)
-        artifact_count = 0
-        artifact_success = 0
-        artifact_failed = 0
+        # Construct proper path to detected_files.csv from model_integration.py output
+        detected_files_csv = os.path.join(self.detection_results_dir_path, "detected_files.csv")
+        
+        self.log(Level.INFO, "Looking for detected_files.csv at: " + detected_files_csv)
+        
+        if not os.path.exists(detected_files_csv):
+            self.log(Level.WARNING, "detected_files.csv not found at: " + detected_files_csv)
+            self.log(Level.WARNING, "Artifact generation skipped - no detections to process")
+            
+            message_text = ("Processing completed. Exported " + str(total_exported) + " file(s). " +
+                           "No detections found or CSV file not available.")
+            message = IngestMessage.createMessage(IngestMessage.MessageType.DATA, TimestompingDetectorDSIngestModuleFactory.moduleName, message_text)
+            IngestServices.getInstance().postMessage(message)
+            self.log(Level.INFO, "NTFS Timestomping Detector module completed")
+            return IngestModule.ProcessResult.OK
+        
+        # Create artifacts from detected files
+        self.log(Level.INFO, "Creating blackboard artifacts from detected files")
+        case = Case.getCurrentCase()
+        generator = ArtifactGenerator(case, detected_files_csv, self._logger, progressBar, dataSource)
+        
+        success, artifact_created, artifact_errors = generator.process_csv_and_create_artifacts()
+        
+        if not success:
+            self.log(Level.SEVERE, "Artifact generation failed")
+            message_text = ("NTFS Timestomping detection encountered errors during artifact creation.")
+            message = IngestMessage.createMessage(IngestMessage.MessageType.ERROR, TimestompingDetectorDSIngestModuleFactory.moduleName, message_text)
+            IngestServices.getInstance().postMessage(message)
+            return IngestModule.ProcessResult.ERROR
+        
+        # Log success and post completion message
+        self.log(Level.INFO, "Artifact creation complete. Success: " + str(artifact_created) + 
+                ", Failed: " + str(artifact_errors))
 
-        for file_info in exported_files:
-            if self.context.isJobCancelled():
-                self.log(Level.INFO, "Job cancelled by user during artifact creation")
-                return IngestModule.ProcessResult.OK
-
-            artifact_count += 1
-            file_obj = file_info['file_object']
-            volume_name = file_info['volume_name']
-            export_path = file_info['export_path']
-            file_type = file_info['file_type']
-
-            self.log(Level.INFO, "Creating artifact " + str(artifact_count) + "/" + str(total_exported) + " for " + file_obj.getName() + " from " + volume_name)
-
-            try:
-                # Create artifact attributes
-                attrs = Arrays.asList(
-                    BlackboardAttribute(
-                        BlackboardAttribute.Type.TSK_SET_NAME,
-                        TimestompingDetectorDSIngestModuleFactory.moduleName,
-                        "NTFS System Files"
-                    ),
-                    BlackboardAttribute(
-                        BlackboardAttribute.Type.TSK_COMMENT,
-                        TimestompingDetectorDSIngestModuleFactory.moduleName,
-                        "Volume: " + volume_name + " | File Type: " + file_type.upper() + " | Original Path: " + file_obj.getUniquePath() + " | Exported to: " + export_path
-                    )
-                )
-
-                # Create the artifact
-                art = file_obj.newAnalysisResult(
-                    BlackboardArtifact.Type.TSK_INTERESTING_FILE_HIT,
-                    Score.SCORE_LIKELY_NOTABLE,
-                    None,
-                    "NTFS System File",
-                    None,
-                    attrs
-                ).getAnalysisResult()
-
-                # Post the artifact to the blackboard
-                blackboard.postArtifact(art, TimestompingDetectorDSIngestModuleFactory.moduleName, 
-                                       self.context.getJobId())
-                
-                artifact_success += 1
-                self.log(Level.INFO, "Successfully created artifact for " + file_obj.getName())
-
-            except Blackboard.BlackboardException as e:
-                artifact_failed += 1
-                self.log(Level.SEVERE, "Blackboard error creating artifact for " + file_obj.getName() + ": " + str(e))
-            except Exception as e:
-                artifact_failed += 1
-                self.log(Level.SEVERE, "Error creating artifact for " + file_obj.getName() + ": " + str(e))
-
-            # Update progress bar
-            progressBar.progress(artifact_count)
-
-        # --- POST COMPLETION MESSAGE ---
-        self.log(Level.INFO, "Artifact creation complete. Success: " + str(artifact_success) + 
-                ", Failed: " + str(artifact_failed))
-
-        message_text = ("Successfully processed " + str(extraction_results['complete_volumes']) + " complete volume(s). " +
+        message_text = ("NTFS Timestomping Detection Complete - " +
                        "Exported " + str(total_exported) + " file(s) (" + str(total_failed) + " failed). " +
-                       "Created " + str(artifact_success) + " artifact(s). " +
-                       "Files exported to: " + self.export_dir_path)
+                       "Created " + str(artifact_created) + " artifact(s) from detected results. " +
+                       "Detection Results are exported to: " + self.detection_results_dir_path)
         
         message = IngestMessage.createMessage(IngestMessage.MessageType.DATA, TimestompingDetectorDSIngestModuleFactory.moduleName, message_text)
         IngestServices.getInstance().postMessage(message)
 
-        self.log(Level.INFO, "NTFS Timestomping Detector module completed successfully")
+        # Generate report
+        summary_path = os.path.join(self.detection_results_dir_path, "summary.txt")
+        report_output_path = os.path.join(self.detection_results_dir_path, "NTFS_Timestomping_Report.html")
+        
+        if os.path.exists(summary_path):
+            try:
+                report_generator = HTMLReportGenerator(
+                    logger_obj=self._logger,
+                    module=self,                    # Passes the ingest module (self)
+                    module_name=TimestompingDetectorDSIngestModuleFactory.moduleName
+                )
+
+                report_path = report_generator.generate_report_from_summary(
+                    summary_path=summary_path,
+                    output_path=report_output_path
+                )
+                self.log(Level.INFO, "HTML report generated: " + report_path)
+            except Exception as e:
+                self.log(Level.WARNING, "Failed to generate HTML report: " + str(e))
+        else:
+            self.log(Level.WARNING, "Summary file not found at: " + summary_path)
+
+        self.log(Level.INFO, "NTFS Timestomping Detector Data Source Ingest Module completed successfully")
         return IngestModule.ProcessResult.OK
