@@ -3,7 +3,7 @@
 """
 External Processor Package
 
-Python 3 layer for heavy-duty data processing, feature engineering, and ML inference.
+Python 3 layer for data processing, feature engineering, and ML inference.
 """
 
 __version__ = "1.0"

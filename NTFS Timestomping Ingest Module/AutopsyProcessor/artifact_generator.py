@@ -3,9 +3,6 @@
 """
 Artifact Generator for NTFS Timestomping Detector
 Generates Autopsy blackboard artifacts from detected_files.csv
-
-Simplified approach: Creates artifacts on the data source itself,
-displaying CSV data directly in Autopsy UI without file matching.
 """
 
 import csv
@@ -15,24 +12,7 @@ from org.sleuthkit.datamodel import BlackboardArtifact, BlackboardAttribute
 
 
 class ArtifactGenerator(object):
-    """
-    Generates Autopsy blackboard artifacts from detected_files.csv
-
-    Creates artifacts directly on the data source to display detection
-    results in Autopsy's UI. No file matching required.
-    """
-
     def __init__(self, case, csv_file_path, logger=None, progress_bar=None, data_source=None):
-        """
-        Initialize the artifact generator
-
-        Args:
-            case: The Autopsy Case object
-            csv_file_path: Path to detected_files.csv file
-            logger: Autopsy Logger object
-            progress_bar: Autopsy ProgressBar object for UI feedback
-            data_source: The data source object to attach artifacts to
-        """
         self.case = case
         self.csv_file_path = csv_file_path
         self.sleuth_case = case.getSleuthkitCase()
@@ -41,7 +21,6 @@ class ArtifactGenerator(object):
         self.data_source = data_source
 
     def log(self, level, message):
-        """Log message using Autopsy logger"""
         if not self.logger:
             print("[" + str(level) + "] " + message)
             return
@@ -52,10 +31,6 @@ class ArtifactGenerator(object):
             print("[ERROR] Logging failed: " + message + " (" + str(e) + ")")
 
     def create_artifact_type(self):
-        """
-        Create custom artifact type for timestomping detections
-        Returns the artifact type object
-        """
         try:
             blackboard = self.sleuth_case.getBlackboard()
             artifact_type = blackboard.getOrAddArtifactType(
@@ -75,13 +50,8 @@ class ArtifactGenerator(object):
             return None
 
     def create_attribute_types(self):
-        """
-        Create custom attribute types for detection data
-        Returns dictionary of attribute type objects
-        """
         attribute_types = {}
 
-        # Define attributes matching the CSV columns you want to display
         attr_definitions = [
             ("TSK_TIMESTOMP_FILEPATH", BlackboardAttribute.TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING, "File Path"),
             ("TSK_TIMESTOMP_FILENAME", BlackboardAttribute.TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE.STRING, "File Name"),
@@ -111,22 +81,12 @@ class ArtifactGenerator(object):
             return {}
 
     def process_csv_and_create_artifacts(self):
-        """
-        Read CSV file and create blackboard artifacts for each detection.
-
-        Creates artifacts on the data source, displaying all CSV data
-        directly in Autopsy's Results tree under "NTFS Timestomping Detection".
-
-        Returns:
-            (success, artifact_count, error_count)
-        """
         if not os.path.exists(self.csv_file_path):
             self.log(Level.SEVERE, "CSV file not found: " + self.csv_file_path)
             return False, 0, 0
 
         self.log(Level.INFO, "Starting artifact generation from: " + self.csv_file_path)
 
-        # Create artifact and attribute types
         artifact_type = self.create_artifact_type()
         if not artifact_type:
             self.log(Level.SEVERE, "Cannot proceed without artifact type")
@@ -137,7 +97,6 @@ class ArtifactGenerator(object):
             self.log(Level.SEVERE, "Cannot proceed without attribute types")
             return False, 0, 0
 
-        # We need a content object to attach artifacts to
         content_obj = self.data_source
 
         if not content_obj:
@@ -145,7 +104,6 @@ class ArtifactGenerator(object):
             return False, 0, 0
 
         try:
-            # Read CSV file
             self.log(Level.INFO, "Reading CSV file...")
             rows = []
 
@@ -159,15 +117,13 @@ class ArtifactGenerator(object):
             if not rows:
                 self.log(Level.WARNING, "CSV file is empty - no detections to display")
                 return True, 0, 0
-
-            # Set up progress bar
+            
             if self.progress_bar:
                 try:
                     self.progress_bar.switchToDeterminate(len(rows))
                 except Exception:
                     pass
 
-            # Create one artifact per CSV row
             artifact_count = 0
             error_count = 0
             module_name = "NTFSTimestompingDetector"
@@ -175,13 +131,10 @@ class ArtifactGenerator(object):
 
             for idx, row in enumerate(rows):
                 try:
-                    # Create artifact on the data source
                     artifact = content_obj.newDataArtifact(artifact_type, [])
 
-                    # Build attributes from CSV row
                     attributes = []
 
-                    # FilePath
                     file_path = row.get('FilePath', '').strip()
                     if file_path:
                         attributes.append(BlackboardAttribute(
@@ -190,7 +143,6 @@ class ArtifactGenerator(object):
                             file_path
                         ))
 
-                    # FileName
                     file_name = row.get('FileName', '').strip()
                     if file_name:
                         attributes.append(BlackboardAttribute(
@@ -199,7 +151,6 @@ class ArtifactGenerator(object):
                             file_name
                         ))
 
-                    # Confidence Score
                     confidence_str = row.get('Confidence', '').strip()
                     if confidence_str:
                         try:
@@ -212,7 +163,6 @@ class ArtifactGenerator(object):
                         except ValueError:
                             pass
 
-                    # Severity
                     severity = row.get('Severity', '').strip()
                     if severity:
                         attributes.append(BlackboardAttribute(
@@ -221,7 +171,6 @@ class ArtifactGenerator(object):
                             severity
                         ))
 
-                    # Forensic Summary
                     forensic_summary = row.get('Forensic_Summary', '').strip()
                     if forensic_summary:
                         attributes.append(BlackboardAttribute(
@@ -230,7 +179,6 @@ class ArtifactGenerator(object):
                             forensic_summary
                         ))
 
-                    # Detection Reasons
                     detection_reasons = row.get('Detection_Reasons', '').strip()
                     if detection_reasons:
                         attributes.append(BlackboardAttribute(
@@ -239,7 +187,6 @@ class ArtifactGenerator(object):
                             detection_reasons
                         ))
 
-                    # Recommended Action
                     recommended_action = row.get('Recommended_Action', '').strip()
                     if recommended_action:
                         attributes.append(BlackboardAttribute(
@@ -248,15 +195,12 @@ class ArtifactGenerator(object):
                             recommended_action
                         ))
 
-                    # Add all attributes to the artifact
                     if attributes:
                         artifact.addAttributes(attributes)
                     
-                    # Track created artifact for batch posting
                     created_artifacts.append(artifact)
                     artifact_count += 1
 
-                    # Update progress
                     if self.progress_bar and idx % 50 == 0:
                         try:
                             self.progress_bar.progress(idx)
@@ -267,7 +211,6 @@ class ArtifactGenerator(object):
                     self.log(Level.WARNING, "Error creating artifact for row " + str(idx + 1) + ": " + str(e))
                     error_count += 1
 
-            # CRITICAL FIX: Post artifacts to blackboard for UI update
             try:
                 blackboard = self.sleuth_case.getBlackboard()
                 if created_artifacts:

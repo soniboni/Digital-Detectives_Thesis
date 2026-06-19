@@ -5,15 +5,6 @@ Raw Files Parser Module for NTFS Timestomping Detection
 
 This module provides parsing functionality for NTFS system files ($MFT, $LogFile, $UsnJrnl:$J).
 It converts binary system files into human-readable CSV structures for further analysis.
-
-Environment: Python 3.x
-Dependencies: dfir_ntfs, pandas, datetime, struct
-
-Parser Classes:
-    - MFTParser: Parses Master File Table ($MFT)
-    - USNJournalParser: Parses Update Sequence Number Journal ($UsnJrnl:$J)
-    - LogFileParser: Parses transaction log file ($LogFile)
-    - RawFilesParser: Orchestrator class that coordinates all parsers
 """
 
 import sys
@@ -31,27 +22,16 @@ from Parser.ThirdParty.dfir_ntfs.USN import ChangeJournalParser, ResolveReasonCo
 from Parser.ThirdParty.dfir_ntfs.LogFile import LogFileParser as DFIRLogFileParser
 
 
-# Configure logging
 logger = logging.getLogger(__name__)
 
 
 class MFTParser:
-    """
-    Parser for Master File Table ($MFT).
-    
-    Extracts:
-    - Standard Information ($SI) attributes: Creation, Modification, MFT Change, Access timestamps
-    - File Name ($FN) attributes: Creation, Modification, MFT Change, Access timestamps
-    - File metadata: Entry number, active status, parent FRN, file path
-    """
-    
     # NTFS attribute type codes
     STANDARD_INFORMATION = 0x10
     FILE_NAME = 0x30
     
     @staticmethod
     def mft_format_timestamp(dt_obj: Optional[datetime]) -> Optional[str]:
-        """Format datetime object to string with microsecond precision."""
         if dt_obj is None:
             return None
         try:
@@ -61,12 +41,6 @@ class MFTParser:
     
     @staticmethod
     def mft_extract_si_timestamps(file_record) -> Dict[str, Optional[str]]:
-        """
-        Extract $STANDARD_INFORMATION timestamps from a file record.
-        
-        Returns dict with keys: SI_C (Creation), SI_M (Modification), 
-                                SI_E (MFT Change), SI_A (Access)
-        """
         si_timestamps = {
             "SI_C": None,
             "SI_M": None,
@@ -93,11 +67,6 @@ class MFTParser:
     
     @staticmethod
     def mft_extract_fn_info(file_record, parser) -> Dict[str, Optional[str]]:
-        """
-        Extract $FILE_NAME attribute information including timestamps.
-        
-        Returns dict with keys: FileName, ParentFRN, FN_C, FN_M, FN_E, FN_A
-        """
         fn_info = {
             "FileName": None,
             "ParentFRN": None,
@@ -134,7 +103,6 @@ class MFTParser:
     
     @staticmethod
     def mft_build_file_path(file_record, parser, path_cache: Dict) -> Optional[str]:
-        """Build the full file path for a given file record."""
         try:
             paths = parser.build_full_paths(file_record)
             if paths:
@@ -145,15 +113,6 @@ class MFTParser:
     
     @classmethod
     def parse_mft(cls, mft_path: Path) -> pd.DataFrame:
-        """
-        Parse the MFT file and extract all relevant metadata.
-        
-        Args:
-            mft_path: Path to the $MFT file
-            
-        Returns:
-            pandas.DataFrame: Parsed MFT data with columns for all timestamps and metadata
-        """
         records = []
         path_cache = {}
         
@@ -204,17 +163,6 @@ class MFTParser:
 
 
 class USNJournalParser:
-    """
-    Parser for Update Sequence Number Journal ($UsnJrnl:$J).
-    
-    Extracts:
-    - File reference numbers (FRN)
-    - Timestamps of change events
-    - Reason codes for changes (e.g., DATA_EXTEND, BASIC_INFO_CHANGE)
-    - File names and parent FRNs
-    """
-    
-    # USN Reason flags
     REASON_FLAGS = {
         0x00000001: "DATA_OVERWRITE",
         0x00000002: "DATA_EXTEND",
@@ -241,7 +189,6 @@ class USNJournalParser:
     
     @staticmethod
     def usn_format_timestamp(dt_obj: Optional[datetime]) -> Optional[str]:
-        """Format datetime object to string with microsecond precision."""
         if dt_obj is None:
             return None
         try:
@@ -251,7 +198,6 @@ class USNJournalParser:
     
     @staticmethod
     def usn_parse_reason_flags(reason_code: int) -> str:
-        """Parse reason code integer into list of flag names."""
         if reason_code == 0:
             return "NONE"
         
@@ -264,30 +210,18 @@ class USNJournalParser:
     
     @staticmethod
     def usn_check_basic_detection_pattern(reason_code: int) -> bool:
-        """Check if the reason code contains BASIC_INFO_CHANGE flag."""
         return bool(reason_code & 0x00020000)
     
     @staticmethod
     def usn_check_close_pattern(reason_code: int) -> bool:
-        """Check if the reason code contains CLOSE flag."""
         return bool(reason_code & 0x80000000)
     
     @staticmethod
     def usn_check_file_create_pattern(reason_code: int) -> bool:
-        """Check if the reason code contains FILE_CREATE flag."""
         return bool(reason_code & 0x00000100)
     
     @classmethod
     def parse_usnjrnl(cls, usnjrnl_path: Path) -> pd.DataFrame:
-        """
-        Parse the UsnJrnl file and extract all relevant metadata.
-        
-        Args:
-            usnjrnl_path: Path to the $UsnJrnl:$J file
-            
-        Returns:
-            pandas.DataFrame: Parsed UsnJrnl data with reason flags and detection patterns
-        """
         records = []
         
         logger.info(f"Parsing UsnJrnl:J file: {usnjrnl_path.name}")
@@ -340,16 +274,6 @@ class USNJournalParser:
 
 
 class LogFileParser:
-    """
-    Parser for NTFS Transaction Log File ($LogFile).
-    
-    Extracts:
-    - Transaction records and their operation types
-    - Timestamp change events (UpdateResidentValue operations on timestamps)
-    - Old vs. new timestamp values during metadata updates
-    """
-    
-    # NTFS Operation Codes
     OPERATION_CODES = {
         0x00: "Noop",
         0x01: "CompensationLogRecord",
@@ -393,12 +317,10 @@ class LogFileParser:
     
     @staticmethod
     def logfile_get_operation_name(op_code: int) -> str:
-        """Get human-readable operation name."""
         return LogFileParser.OPERATION_CODES.get(op_code, f"Unknown_0x{op_code:02X}")
     
     @staticmethod
     def logfile_filetime_to_datetime(filetime_bytes: bytes) -> Optional[str]:
-        """Convert FILETIME (8-byte little-endian) to datetime string."""
         if not filetime_bytes or len(filetime_bytes) != 8:
             return None
         
@@ -418,15 +340,6 @@ class LogFileParser:
     
     @staticmethod
     def logfile_extract_timestamps_from_buffer(data_buffer: bytes, attribute_offset: int) -> Dict[str, Optional[str]]:
-        """
-        Extract timestamps from redo/undo data buffer based on attribute offset.
-        
-        NTFS Standard Information attribute has 4 timestamps at specific offsets:
-        - 0x18: All 4 timestamps (C, M, E, A)
-        - 0x20: M, E, A timestamps
-        - 0x28: E, A timestamps
-        - 0x30: A timestamp
-        """
         timestamps = {
             "C": None,
             "M": None,
@@ -467,17 +380,19 @@ class LogFileParser:
     
     @staticmethod
     def logfile_is_timestamp_change_record(record) -> bool:
-        """Check if a LogFile record represents a timestamp change event."""
         try:
-            if record.get_redo_operation() != 0x07:  # UpdateResidentValue
+            # UpdateResidentValue
+            if record.get_redo_operation() != 0x07:
                 return False
             
+            # Offset for Standard Information in file record
             record_offset = record.get_record_offset()
-            if record_offset != 0x38:  # Offset for Standard Information in file record
+            if record_offset != 0x38:  
                 return False
             
+            # Timestamp attribute ranges
             attr_offset = record.get_attribute_offset()
-            if attr_offset < 0x18 or attr_offset > 0x30:  # Timestamp attribute ranges
+            if attr_offset < 0x18 or attr_offset > 0x30:
                 return False
             
             return True
@@ -488,15 +403,6 @@ class LogFileParser:
     
     @classmethod
     def parse_logfile(cls, logfile_path: Path) -> pd.DataFrame:
-        """
-        Parse the LogFile and extract all relevant transaction records.
-        
-        Args:
-            logfile_path: Path to the $LogFile
-            
-        Returns:
-            pandas.DataFrame: Parsed LogFile data including timestamp change events
-        """
         records = []
         
         logger.info(f"Parsing LogFile: {logfile_path.name}")
@@ -549,7 +455,6 @@ class LogFileParser:
                     
                     is_timestamp_change = cls.logfile_is_timestamp_change_record(record)
                     
-                    # Try to extract timestamp data from redo buffer
                     undo_timestamps = {"C": None, "M": None, "E": None, "A": None}
                     redo_timestamps = {"C": None, "M": None, "E": None, "A": None}
                 
@@ -594,53 +499,21 @@ class LogFileParser:
 
 
 class RawFilesParser:
-    """
-    Orchestrator class for parsing all NTFS system files.
-    
-    Coordinates parsing of $MFT, $LogFile, and $UsnJrnl:$J, generating
-    three individual CSV output files for downstream processing.
-    """
-    
     def __init__(self, logger_obj=None):
-        """
-        Initialize the parser.
-        
-        Args:
-            logger_obj: Optional logger object. If not provided, uses module logger.
-        """
         self.logger = logger_obj if logger_obj else logger
     
     def parse_all(self, exported_files_dir: Path, output_dir: Path) -> Dict[str, Tuple[bool, str, Optional[pd.DataFrame]]]:
-        """
-        Parse all three NTFS system files from the exported files directory.
-        
-        Args:
-            exported_files_dir: Directory containing exported $MFT, $LogFile, and $UsnJrnl:$J files
-            output_dir: Output directory for parsed CSV files (created by ntfs_timestomping_detector.py)
-            
-        Returns:
-            dict: Results for each parser with format:
-                {
-                    'mft': (success: bool, message: str, dataframe: DataFrame or None),
-                    'logfile': (success: bool, message: str, dataframe: DataFrame or None),
-                    'usnjrnl': (success: bool, message: str, dataframe: DataFrame or None)
-                }
-        """
         exported_files_dir = Path(exported_files_dir)
         output_dir = Path(output_dir)
         
-        # Search for exported files using glob patterns (dynamic naming from raw_files_extractor.py)
-        # Files are named as: {volume_name}_vid_{volume_id}_datasource_{datasource_id}_file_{file_id}_{file_name}
         mft_files = list(exported_files_dir.glob("*_$MFT"))
         logfile_files = list(exported_files_dir.glob("*_$LogFile"))
         usnjrnl_files = list(exported_files_dir.glob("*_$UsnJrnl_$J"))
         
-        # Select the first match for each file type
         mft_path = mft_files[0] if mft_files else None
         logfile_path = logfile_files[0] if logfile_files else None
         usnjrnl_path = usnjrnl_files[0] if usnjrnl_files else None
         
-        # Verify input files exist
         missing_files = []
         if mft_path is None:
             missing_files.append("$MFT")
@@ -693,7 +566,7 @@ class RawFilesParser:
             self.logger.error(msg)
             results['logfile'] = (False, msg, None)
         
-        # Parse UsnJrnl
+        # Parse UsnJrnl (UsnJrnl:$J)
         self.logger.info("Parsing $UsnJrnl:$J...")
         try:
             df_usnjrnl = USNJournalParser.parse_usnjrnl(usnjrnl_path)

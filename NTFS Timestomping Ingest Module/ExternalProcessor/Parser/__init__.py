@@ -2,9 +2,6 @@
 
 """
 Parser Package for NTFS System Files
-
-Modules:
-    - raw_files_parser: Parser classes for $MFT, $LogFile, and $UsnJrnl:$J
 """
 
 from .raw_files_parser import (

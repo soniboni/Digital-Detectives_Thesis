@@ -6,31 +6,6 @@ Data Preprocessing Module for NTFS Timestomping Detection
 This module provides preprocessing functionality for parsed NTFS system files.
 It transforms raw CSV outputs from the Parser stage (MFT_parsed.csv, LogFile_parsed.csv, 
 UsnJrnl_parsed.csv) into a unified grouped events CSV for feature engineering.
-
-Coding style and logic adapted from data_preprocessing.txt (Phase 2: Batch Data Preprocessing).
-Single-dataset (non-batch) processing model compatible with Autopsy plugin.
-
-Environment: Python 3.x
-Dependencies: pandas, numpy, pathlib, logging
-
-Pipeline Flow (from ProjectOverview.txt):
-    Stage 2 (Parser) Output -> Stage 3 (This Module) -> Stage 4 (Feature Engineering)
-    
-    Input:  "Parsed Files" directory containing:
-            - MFT_parsed.csv
-            - LogFile_parsed.csv  
-            - UsnJrnl_parsed.csv
-            
-    Output: "Grouped Events File" directory containing:
-            - grouped_events.csv
-
-Directory Structure (from ntfs_timestomping_detector.py):
-    NTFS Timestomping Detector/
-    ├── Exported NTFS Files/      # Stage 1: Raw binary NTFS files
-    ├── Parsed Files/             # Stage 2: Parser output (INPUT for this module)
-    ├── Grouped Events File/      # Stage 3: This module's output
-    ├── File Features/            # Stage 4: Feature engineering output
-    └── Detection Results/        # Stage 5: ML inference output
 """
 
 import pandas as pd
@@ -46,54 +21,10 @@ warnings.filterwarnings('ignore')
 logger = logging.getLogger(__name__)
 
 class DataPreprocessor:
-    """
-    Orchestrator class for data preprocessing.
-    
-    Coordinates the preprocessing of parsed NTFS files and exports grouped events.
-    
-    Directory Structure:
-        Input:  parsed_dir_path = "Parsed Files" (from ntfs_timestomping_detector.py)
-        Output: grouped_events_dir_path = "Grouped Events File"
-    
-    Usage:
-        preprocessor = DataPreprocessor()
-        results = preprocessor.preprocess_all(
-            parsed_files_dir=Path("path/to/Parsed Files"),
-            output_dir=Path("path/to/Grouped Events File")
-        )
-    """
-    
     def __init__(self, logger_obj=None):
-        """
-        Initialize the preprocessor.
-        
-        Args:
-            logger_obj: Optional logger object. If not provided, uses module logger.
-        """
         self.logger = logger_obj if logger_obj else logger
     
     def preprocess_all(self, parsed_files_dir, output_dir):
-        """
-        Execute the complete preprocessing pipeline.
-        
-        This method orchestrates all preprocessing steps and outputs a single
-        grouped_events.csv file containing all forensic events sorted by file.
-        
-        Args:
-            parsed_files_dir: Input directory containing parsed CSV files from Parser stage
-                             (maps to "Parsed Files" directory from ntfs_timestomping_detector.py)
-            output_dir: Output directory for grouped_events.csv
-                       (maps to "Grouped Events File" directory from ntfs_timestomping_detector.py)
-            
-        Returns:
-            Dict with processing results:
-            {
-                'success': bool,
-                'message': str,
-                'grouped_events_csv': Path or None,
-                'event_count': int
-            }
-        """
         parsed_files_dir = Path(parsed_files_dir)
         output_dir = Path(output_dir)
         
@@ -104,7 +35,6 @@ class DataPreprocessor:
         self.logger.info("Output directory: {}".format(output_dir))
         
         try:
-            # Load parsed data
             self.logger.info("\n[Step 1/6] Loading parsed CSV files...")
             data = load_phase1_data(parsed_files_dir)
             if data is None:
@@ -171,13 +101,6 @@ class DataPreprocessor:
                 'event_count': 0
             }
 
-
-# =============================================================================
-# UNIFIED EVENT SCHEMA DEFINITION
-# ============================================================================="
-# Final column order for grouped_events.csv output
-# This schema merges LogFile and UsnJrnl events into a single structure
-
 FINAL_COLUMNS = [
     # Identifiers
     'dataID', 'FileFRN', 'FileName', 'FilePath', 'EventSource', 'EventTimestamp',
@@ -194,21 +117,7 @@ FINAL_COLUMNS = [
     'HasBasicInfoChange', 'HasClose', 'HasFileCreate'
 ]
 
-# =============================================================================
-# DATA LOADING FUNCTIONS
-# =============================================================================
-
 def load_phase1_data(parsed_files_dir):
-    """
-    Load MFT, LogFile, and UsnJrnl CSVs from Parser stage output.
-    
-    Parameters:
-        parsed_files_dir: Path to directory containing parsed CSV files
-                         (MFT_parsed.csv, LogFile_parsed.csv, UsnJrnl_parsed.csv)
-    
-    Returns:
-        dict with keys: mft, logfile, usnjrnl (DataFrames) or None on error
-    """
     parsed_files_dir = Path(parsed_files_dir)
     
     logger.info("Loading parsed NTFS files from: {}".format(parsed_files_dir))
@@ -217,7 +126,6 @@ def load_phase1_data(parsed_files_dir):
     logfile_csv = parsed_files_dir / "LogFile_parsed.csv"
     usnjrnl_csv = parsed_files_dir / "UsnJrnl_parsed.csv"
     
-    # Check if files exist
     missing_files = []
     if not mft_csv.exists():
         missing_files.append("MFT_parsed.csv")
@@ -252,21 +160,8 @@ def load_phase1_data(parsed_files_dir):
         logger.error("Error loading parsed files: {}".format(str(e)))
         return None
 
-
-# =============================================================================
-# MFT PREPROCESSING FUNCTION
-# =============================================================================
-
+# MFT Preprocessing Function
 def preprocess_mft(df_mft):
-    """
-    Create MFT reference table for joining with LogFile and UsnJrnl.
-    
-    Parameters:
-        df_mft: MFT DataFrame from Parser stage
-    
-    Returns:
-        df_mft_ref: Preprocessed MFT reference table with FileFRN as key
-    """
     logger.info("Preprocessing MFT...")
     
     mft_columns = [
@@ -275,14 +170,11 @@ def preprocess_mft(df_mft):
         '$FN-C', '$FN-M', '$FN-E', '$FN-A'
     ]
     
-    # Select columns that exist
     available_cols = [c for c in mft_columns if c in df_mft.columns]
     df_mft_ref = df_mft[available_cols].copy()
     
-    # Rename EntryNumber to FileFRN
     df_mft_ref = df_mft_ref.rename(columns={'EntryNumber': 'FileFRN'})
     
-    # Handle missing values
     if 'FileName' in df_mft_ref.columns:
         df_mft_ref['FileName'] = df_mft_ref['FileName'].fillna('')
     if 'FilePath' in df_mft_ref.columns:
@@ -292,29 +184,14 @@ def preprocess_mft(df_mft):
     
     return df_mft_ref
 
-# =============================================================================
-# LOGFILE PROCESSING FUNCTION
-# =============================================================================
-
+# LogFile Processing Function
 def process_logfile_events(df_logfile, df_mft_ref):
-    """
-    Process LogFile events and join with MFT reference.
-    
-    Parameters:
-        df_logfile: LogFile DataFrame from Parser stage
-        df_mft_ref: MFT reference table
-    
-    Returns:
-        df_logfile_joined: LogFile events with MFT metadata
-    """
     logger.info("Processing LogFile events...")
     
-    # Clean TargetFRN
     df_logfile = df_logfile.copy()
     df_logfile['TargetFRN_clean'] = pd.to_numeric(df_logfile['TargetFRN'], errors='coerce')
     df_logfile['TargetFRN_clean'] = df_logfile['TargetFRN_clean'].fillna(-1).astype(int)
     
-    # Filter valid records
     df_logfile_valid = df_logfile[df_logfile['TargetFRN_clean'] >= 0].copy()
     
     logger.info("  Valid LogFile records: {:,}".format(len(df_logfile_valid)))
@@ -327,37 +204,21 @@ def process_logfile_events(df_logfile, df_mft_ref):
         how='left'
     )
     
-    # Add event source
     df_logfile_joined['EventSource'] = 'LogFile'
     
-    # Set EventTimestamp from Redo_$SI-E
     df_logfile_joined['EventTimestamp'] = df_logfile_joined.get('Redo_$SI-E', np.nan)
     
     return df_logfile_joined
 
-# =============================================================================
-# USNJRNL PROCESSING FUNCTION
-# =============================================================================
+# USNJRNL Processing Function
 
 def process_usnjrnl_events(df_usnjrnl, df_mft_ref):
-    """
-    Process UsnJrnl events and join with MFT reference.
-    
-    Parameters:
-        df_usnjrnl: UsnJrnl DataFrame from Parser stage
-        df_mft_ref: MFT reference table
-    
-    Returns:
-        df_usnjrnl_joined: UsnJrnl events with MFT metadata
-    """
     logger.info("Processing UsnJrnl events...")
     
-    # Clean FRN
     df_usnjrnl = df_usnjrnl.copy()
     df_usnjrnl['FRN_clean'] = pd.to_numeric(df_usnjrnl['FRN'], errors='coerce')
     df_usnjrnl['FRN_clean'] = df_usnjrnl['FRN_clean'].fillna(-1).astype(int)
     
-    # Filter valid records
     df_usnjrnl_valid = df_usnjrnl[df_usnjrnl['FRN_clean'] >= 0].copy()
     
     logger.info("  Valid UsnJrnl records: {:,}".format(len(df_usnjrnl_valid)))
@@ -371,7 +232,6 @@ def process_usnjrnl_events(df_usnjrnl, df_mft_ref):
         suffixes=('_usn', '_mft')
     )
     
-    # Use UsnJrnl filename, fallback to MFT
     if 'FileName_usn' in df_usnjrnl_joined.columns:
         df_usnjrnl_joined['FileName'] = df_usnjrnl_joined['FileName_usn'].fillna(
             df_usnjrnl_joined['FileName_mft'].fillna('')
@@ -380,40 +240,19 @@ def process_usnjrnl_events(df_usnjrnl, df_mft_ref):
             columns=[c for c in ['FileName_usn', 'FileName_mft'] if c in df_usnjrnl_joined.columns]
         )
     
-    # Add event source
     df_usnjrnl_joined['EventSource'] = 'UsnJrnl'
-    
-    # Set EventTimestamp from Timestamp
     df_usnjrnl_joined['EventTimestamp'] = df_usnjrnl_joined.get('Timestamp', np.nan)
     
     return df_usnjrnl_joined
 
-# =============================================================================
-# SCHEMA NORMALIZATION FUNCTIONS
-# =============================================================================
-
+# Schema Normalization Functions
 def normalize_logfile_schema(df_logfile_joined, data_id=1):
-    """
-    Normalize LogFile events to unified schema.
-    
-    Adds placeholder columns for UsnJrnl-specific fields that don't apply
-    to LogFile records.
-    
-    Parameters:
-        df_logfile_joined: Processed LogFile DataFrame
-        data_id: Dataset identifier
-    
-    Returns:
-        DataFrame with unified schema columns in correct order
-    """
     logger.info("Normalizing LogFile schema...")
     
     df = df_logfile_joined.copy()
     
-    # Add dataID
     df['dataID'] = data_id
     
-    # Add placeholder columns for UsnJrnl-specific fields
     df['USN'] = np.nan
     df['ReasonCode'] = np.nan
     df['ReasonFlags'] = ''
@@ -421,7 +260,6 @@ def normalize_logfile_schema(df_logfile_joined, data_id=1):
     df['HasClose'] = False
     df['HasFileCreate'] = False
     
-    # Ensure all unified schema columns exist
     for col in FINAL_COLUMNS:
         if col not in df.columns:
             df[col] = np.nan if col not in ['ReasonFlags', 'RedoOPName', 'UndoOPName'] else ''
@@ -430,27 +268,12 @@ def normalize_logfile_schema(df_logfile_joined, data_id=1):
 
 
 def normalize_usnjrnl_schema(df_usnjrnl_joined, data_id=1):
-    """
-    Normalize UsnJrnl events to unified schema.
-    
-    Adds placeholder columns for LogFile-specific fields that don't apply
-    to UsnJrnl records.
-    
-    Parameters:
-        df_usnjrnl_joined: Processed UsnJrnl DataFrame
-        data_id: Dataset identifier
-    
-    Returns:
-        DataFrame with unified schema columns in correct order
-    """
     logger.info("Normalizing UsnJrnl schema...")
     
     df = df_usnjrnl_joined.copy()
     
-    # Add dataID
     df['dataID'] = data_id
-    
-    # Add placeholder columns for LogFile-specific fields
+  
     df['LSN'] = np.nan
     df['RedoOP'] = np.nan
     df['UndoOP'] = np.nan
@@ -461,59 +284,35 @@ def normalize_usnjrnl_schema(df_usnjrnl_joined, data_id=1):
     df['TargetVCN'] = np.nan
     df['IsTimestampChange'] = False
     
-    # Undo/Redo timestamps not applicable
     for ts_col in ['Undo_$SI-C', 'Undo_$SI-M', 'Undo_$SI-E', 'Undo_$SI-A',
                    'Redo_$SI-C', 'Redo_$SI-M', 'Redo_$SI-E', 'Redo_$SI-A']:
         df[ts_col] = ''
     
-    # Ensure all columns exist
     for col in FINAL_COLUMNS:
         if col not in df.columns:
             df[col] = np.nan if col not in ['ReasonFlags', 'RedoOPName', 'UndoOPName'] else ''
     
     return df[FINAL_COLUMNS]
 
-
-# =============================================================================
-# EVENT COMBINER AND SORTER
-# =============================================================================
-
+# Combine and Sort Events
 def combine_and_sort_events(df_logfile_norm, df_usnjrnl_norm):
-    """
-    Combine LogFile and UsnJrnl events and sort by file and timestamp.
-    
-    Parameters:
-        df_logfile_norm: Normalized LogFile events
-        df_usnjrnl_norm: Normalized UsnJrnl events
-    
-    Returns:
-        df_grouped: Combined and sorted DataFrame
-    """
     logger.info("Combining and sorting events...")
     
-    # Combine event streams
     df_combined = pd.concat([df_logfile_norm, df_usnjrnl_norm], ignore_index=True)
     
     logger.info("  Combined events: {:,}".format(len(df_combined)))
     
-    # Convert EventTimestamp
     df_combined['EventTimestamp'] = pd.to_datetime(df_combined['EventTimestamp'], errors='coerce')
     
-    # Sort by FileFRN, then EventTimestamp, then LSN/USN
-    # LSN and USN determine sequence within same timestamp
-    
-    # Create sort keys
     sentinel_date = pd.Timestamp('1970-01-01')
     df_combined['_sort_ts'] = df_combined['EventTimestamp'].fillna(sentinel_date)
     df_combined['_sort_seq'] = df_combined['LSN'].fillna(0) + df_combined['USN'].fillna(0)
     
-    # Sort by FileFRN, timestamp, sequence
     df_grouped = df_combined.sort_values(
         by=['FileFRN', '_sort_ts', '_sort_seq'],
         ascending=[True, True, True],
     ).reset_index(drop=True)
     
-    # Remove temporary columns
     df_grouped = df_grouped.drop(columns=['_sort_ts', '_sort_seq'])
     
     logger.info("  Grouped events: {:,} records".format(len(df_grouped)))
@@ -521,23 +320,9 @@ def combine_and_sort_events(df_logfile_norm, df_usnjrnl_norm):
     return df_grouped
 
 
-# =============================================================================
-# MODULE ENTRY POINT
-# =============================================================================
-
 if __name__ == "__main__":
-    """
-    Direct execution entry point for testing.
-    
-    Usage:
-        python data_preprocessing.py <parsed_dir> <output_dir>
-        
-    Example:
-        python data_preprocessing.py "Parsed Files" "Grouped Events File"
-    """
     import sys
-    
-    # Configure logging for direct execution
+
     logging.basicConfig(
         level=logging.INFO,
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'

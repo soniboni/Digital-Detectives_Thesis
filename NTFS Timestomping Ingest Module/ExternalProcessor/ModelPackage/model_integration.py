@@ -5,23 +5,6 @@ Model Integration - ML Inference for NTFS Timestomping Detection
 
 This module applies the trained LightGBM model to feature-engineered files
 and produces detection outputs suitable for Autopsy plugin integration.
-
-Coding style and logic adapted from model_integration.txt (Phase 4: ML Model Application).
-Single-dataset (non-batch) processing model compatible with Autopsy plugin.
-
-Environment: Python 3.x
-Dependencies: pandas, numpy, joblib, pathlib, logging
-
-Pipeline Flow:
-    Stage 3 (Feature Engineering) Output -> Stage 4 (This Module) -> Detection Results
-    
-    Input:  "File Features" directory containing:
-            - file_features.csv
-            
-    Output: "Detection Results" directory containing:
-            - detected_files.csv
-            - files_with_features.csv
-            - summary.txt
 """
 
 import pandas as pd
@@ -37,23 +20,7 @@ from datetime import datetime
 warnings.filterwarnings('ignore')
 logger = logging.getLogger(__name__)
 
-
 class ModelIntegration:
-    """
-    Orchestrator class for ML model inference and forensic reporting.
-    
-    Applies trained LightGBM model to feature-engineered files and generates
-    detection outputs with severity ratings and forensic explanations.
-    
-    Usage:
-        integrator = ModelIntegration(model_dir, features_dir, output_dir, logger_obj)
-        results = integrator.load_models()
-        df_input = integrator.load_features()
-        X = integrator.prepare_features(df_input)
-        y_prob, y_pred = integrator.predict(X)
-    """
-    
-    # Feature columns (must match training order)
     FEATURE_COLUMNS = [
         'num_timestamp_changes',
         'num_backward_jumps',
@@ -86,22 +53,12 @@ class ModelIntegration:
         'total_events'
     ]
     
-    # Columns to exclude from features (metadata)
     EXCLUDE_COLUMNS = ['dataID', 'FileName', 'is_timestomped', 'FilePath']
 
     # LightGBM optimal threshold from training
     THRESHOLD = 0.02
     
     def __init__(self, model_dir, features_dir, output_dir, logger_obj=None):
-        """
-        Initialize model integration.
-        
-        Args:
-            model_dir: Path to ModelTraining folder containing joblib files
-            features_dir: Path to File Features folder containing file_features.csv
-            output_dir: Path to Detection Results folder for outputs
-            logger_obj: Optional logger object
-        """
         self.logger = logger_obj if logger_obj else logger
         self.model_dir = Path(model_dir)
         self.features_dir = Path(features_dir)
@@ -115,19 +72,16 @@ class ModelIntegration:
         self.df_input = None
         self._find_df_input()
         
-        # Loaded models
         self.model = None
         self.scaler = None
     
     def log(self, level, msg):
-        """Log message using logger or print."""
         if self.logger:
             self.logger.log(level, msg)
         else:
-            print(f"[{level}] {msg}")
+            sys.stderr.write(f"[{level}] {msg}\n")
     
     def _find_df_input(self):
-        """Find file_features.csv in features directory."""
         if self.features_dir.exists():
             csv_files = list(self.features_dir.glob("file_features.csv"))
             if csv_files:
@@ -135,7 +89,6 @@ class ModelIntegration:
                 self.log(logging.INFO, f"Found input CSV: {self.df_input}")
     
     def load_models(self):
-        """Load trained model and scaler."""
         try:
             if not self.model_path.exists():
                 raise FileNotFoundError(f"Model not found: {self.model_path}")
@@ -156,7 +109,6 @@ class ModelIntegration:
             raise RuntimeError(error_msg)
     
     def load_features(self):
-        """Load feature-engineered CSV file."""
         try:
             if not self.df_input or not self.df_input.exists():
                 raise FileNotFoundError(f"Input CSV not found: {self.df_input}")
@@ -173,20 +125,15 @@ class ModelIntegration:
             raise RuntimeError(error_msg)
     
     def prepare_features(self, df_input):
-        """Prepare feature matrix for inference."""
         try:
-            # Check for missing columns
             missing_cols = [col for col in self.FEATURE_COLUMNS if col not in df_input.columns]
             if missing_cols:
                 self.log(logging.WARNING, f"Missing columns: {missing_cols}")
             
-            # Extract features
             X = df_input[self.FEATURE_COLUMNS].copy()
             
-            # Handle missing values
             X = X.fillna(0)
             
-            # Convert boolean columns to int
             bool_cols = X.select_dtypes(include=['bool']).columns
             X[bool_cols] = X[bool_cols].astype(int)
             
@@ -200,15 +147,12 @@ class ModelIntegration:
             raise RuntimeError(error_msg)
     
     def predict(self, X, df_input=None):
-        """Generate predictions from feature matrix."""
         try:
-            # Get probability scores
             y_prob = self.model.predict_proba(X)[:, 1]
             
             # Apply threshold to get binary predictions
             y_pred = (y_prob >= self.THRESHOLD).astype(int)
             
-            # Add results to dataframe
             if df_input is not None:
                 df_results = df_input.copy()
             elif isinstance(self.df_input, pd.DataFrame):
@@ -231,30 +175,27 @@ class ModelIntegration:
             raise RuntimeError(error_msg)
     
     def analyze_detection_reasons(self, df_results):
-        """Analyze detection reasons and generate forensic explanations."""
-
-        print("Confidence Distribution:")
-        print("=" * 50)
+        self.logger.info("Confidence Distribution:")
+        self.logger.info("=" * 50)
 
         # High confidence (>0.5)
         high_conf = (df_results['Confidence'] > 0.5).sum()
-        print(f"High Confidence (>0.5):      {high_conf:,}")
+        self.logger.info(f"High Confidence (>0.5):      {high_conf:,}")
 
         # Medium confidence (0.1 - 0.5)
         med_conf = ((df_results['Confidence'] > 0.1) & (df_results['Confidence'] <= 0.5)).sum()
-        print(f"Medium Confidence (0.1-0.5): {med_conf:,}")
+        self.logger.info(f"Medium Confidence (0.1-0.5): {med_conf:,}")
 
         # Low confidence (threshold - 0.1)
         low_conf = ((df_results['Confidence'] >= self.THRESHOLD) & (df_results['Confidence'] <= 0.1)).sum()
-        print(f"Low Confidence ({self.THRESHOLD}-0.1):   {low_conf:,}")
+        self.logger.info(f"Low Confidence ({self.THRESHOLD}-0.1):   {low_conf:,}")
 
         # Below threshold
         below_thresh = (df_results['Confidence'] < self.THRESHOLD).sum()
-        print(f"Below Threshold (<{self.THRESHOLD}):   {below_thresh:,}")
+        self.logger.info(f"Below Threshold (<{self.THRESHOLD}):   {below_thresh:,}")
     
     @staticmethod
     def convert_seconds_to_readable(seconds):
-        """Convert seconds to human-readable duration."""
         if seconds >= 86400:
             return f"{seconds/86400:.1f} days"
         elif seconds >= 3600:
@@ -265,7 +206,6 @@ class ModelIntegration:
             return f"{seconds:.0f} seconds"
     
     def generate_detection_reasons_enhanced(self, row):
-        """Generate forensically-contextualized detection reasons."""
         indicators = []
         
         # Backward timestamp jumps
@@ -371,7 +311,6 @@ class ModelIntegration:
     
     @staticmethod
     def format_short_reason(indicators):
-        """Format indicators into short CSV-friendly string."""
         if not indicators:
             return ""
         parts = []
@@ -380,11 +319,9 @@ class ModelIntegration:
         return "; ".join(parts)
     
     def get_overall_severity(self, indicators, confidence):
-        """Determine overall severity from indicators and confidence score."""
         if not indicators:
             return "LOW"
         
-        # Get maximum indicator severity
         indicator_severities = [ind['severity'] for ind in indicators]
         if 'HIGH' in indicator_severities:
             max_indicator_severity = 'HIGH'
@@ -393,7 +330,6 @@ class ModelIntegration:
         else:
             max_indicator_severity = 'LOW'
         
-        # Modulate severity based on confidence
         if confidence > 0.5:
             return max_indicator_severity
         elif confidence > 0.1:
@@ -407,7 +343,6 @@ class ModelIntegration:
             return 'LOW'
     
     def get_recommended_action(self, indicators, severity):
-        """Generate recommended action based on indicators and severity."""
         if not indicators:
             return "No action required"
         
@@ -428,48 +363,26 @@ class ModelIntegration:
             return "MONITOR: Low confidence detection, consider in context of other findings"
     
     def apply_detection_analysis(self, df_results):
-        """
-        Apply detection analysis pipeline to generate forensic indicators and recommendations.
-        
-        Performs 5-step analysis on results:
-        1. Generate forensic indicators from features
-        2. Create detection reason summaries
-        3. Count indicators per file
-        4. Calculate overall severity scores
-        5. Generate recommended actions
-        
-        Args:
-            df_results: DataFrame with Confidence and Flagged columns
-            
-        Returns:
-            DataFrame with added columns: Indicators, Detection_Reasons, Indicator_Count, Severity, Recommended_Action
-        """
-        
-        # Step 1: Apply enhanced detection to create Indicators column FIRST
         df_results['Indicators'] = df_results.apply(self.generate_detection_reasons_enhanced, axis=1)
 
-        # Step 2: Create Detection_Reasons from Indicators
         df_results['Detection_Reasons'] = df_results['Indicators'].apply(self.format_short_reason)
 
-        # Step 3: Calculate Indicator_Count
         df_results['Indicator_Count'] = df_results['Indicators'].apply(len)
 
-        # Step 4: Calculate Severity using BOTH indicators AND confidence
         df_results['Severity'] = df_results.apply(
             lambda row: self.get_overall_severity(row['Indicators'], row['Confidence']), 
             axis=1
         )
 
-        # Step 5: Generate Recommended_Action based on indicators and severity
         df_results['Recommended_Action'] = df_results.apply(
             lambda row: self.get_recommended_action(row['Indicators'], row['Severity']),
             axis=1
         )
 
-        print("Enhanced detection reasons generated")
-        print(f"Files with indicators: {(df_results['Indicator_Count'] > 0).sum():,}")
-        print(f"\nSeverity Distribution (Flagged Files):")
-        print(df_results[df_results['Flagged']]['Severity'].value_counts())
+        self.logger.info("Enhanced detection reasons generated")
+        self.logger.info(f"Files with indicators: {(df_results['Indicator_Count'] > 0).sum():,}")
+        self.logger.info(f"Severity Distribution (Flagged Files):")
+        self.logger.info(str(df_results[df_results['Flagged']]['Severity'].value_counts()))
         
         return df_results
     
@@ -481,21 +394,19 @@ class ModelIntegration:
         # Candidate Reduction Rate (CRR)
         crr = cleared_files / total_files
 
-        # Estimated NNI (assuming ~12 true positives based on LoneWolf ground truth)
-        # In production, this would be unknown
+        # Estimated NNI (Number Needed to Investigate)
         estimated_true_positives = 12  # LoneWolf has 12 known timestomped files
         nni = flagged_files / estimated_true_positives if estimated_true_positives > 0 else 0
 
-        # Flag rate
         flag_rate = flagged_files / total_files
 
-        print("Forensic Metrics:")
-        print("=" * 50)
-        print(f"Total Files Analyzed:        {total_files:,}")
-        print(f"Files Flagged:               {flagged_files:,} ({flag_rate*100:.2f}%)")
-        print(f"Files Cleared:               {cleared_files:,}")
-        print(f"Candidate Reduction Rate:    {crr*100:.2f}%")
-        print(f"Estimated NNI:               {nni:.1f} files/detection")
+        self.logger.info("Forensic Metrics:")
+        self.logger.info("=" * 50)
+        self.logger.info(f"Total Files Analyzed:        {total_files:,}")
+        self.logger.info(f"Files Flagged:               {flagged_files:,} ({flag_rate*100:.2f}%)")
+        self.logger.info(f"Files Cleared:               {cleared_files:,}")
+        self.logger.info(f"Candidate Reduction Rate:    {crr*100:.2f}%")
+        self.logger.info(f"Estimated NNI:               {nni:.1f} files/detection")
         
         return {
             'total_files': total_files,
@@ -506,13 +417,10 @@ class ModelIntegration:
         }
     
     def generate_detected_files_output(self, df_results):
-        """Generate detected_files.csv with flagged files and explanations."""
         try:
             df_detected = df_results[df_results['Flagged']].copy()
             
-            # Create forensic summary
             def create_forensic_summary(row):
-                """Create a brief forensic summary statement."""
                 indicators = row['Indicators']
                 if not indicators:
                     return "Pattern match suggests possible timestomping"
@@ -534,12 +442,10 @@ class ModelIntegration:
 
             df_detected['Forensic_Summary'] = df_detected.apply(create_forensic_summary, axis=1)
 
-            # Calculate backward jump duration in readable format
             df_detected['Backward_Jump_Duration'] = df_detected['max_backward_jump_seconds'].apply(
                 lambda x: self.convert_seconds_to_readable(x) if x > 0 else "N/A"
             )
             
-            # Convert boolean columns to proper boolean strings
             if 'only_SI_modified' in df_detected.columns:
                 df_detected['only_SI_modified'] = df_detected['only_SI_modified'].astype(bool).map({True: 'true', False: 'false'})
 
@@ -549,7 +455,6 @@ class ModelIntegration:
             if 'consecutive_timestamp_changes' in df_detected.columns:
                 df_detected['consecutive_timestamp_changes'] = df_detected['consecutive_timestamp_changes'].astype(bool).map({True: 'true', False: 'false'})
             
-            # Select and order columns for output
             detected_columns = [
                 'FileName',
                 'Confidence',
@@ -567,7 +472,6 @@ class ModelIntegration:
                 'consecutive_timestamp_changes'
             ]
 
-            # Add FilePath if available
             if 'FilePath' in df_detected.columns:
                 detected_columns = ['FilePath'] + detected_columns
             
@@ -577,13 +481,11 @@ class ModelIntegration:
                 key=lambda x: x.map({'HIGH': 0, 'MEDIUM': 1, 'LOW': 2}) if x.name == 'Severity' else x
             )
 
-            # Re-sort properly
             severity_order = {'HIGH': 0, 'MEDIUM': 1, 'LOW': 2}
             df_detected_output['_sort'] = df_detected_output['Severity'].map(severity_order)
             df_detected_output = df_detected_output.sort_values(['_sort', 'Confidence'], ascending=[True, False])
             df_detected_output = df_detected_output.drop('_sort', axis=1)
             
-            # Save to CSV
             detected_path = self.output_dir / f"detected_files.csv"
             df_detected_output.to_csv(str(detected_path), index=False)
             
@@ -594,7 +496,7 @@ class ModelIntegration:
             for severity, count in df_detected_output['Severity'].value_counts().items():
                 self.log(logging.INFO, f"    {severity}: {count}")
             self.log(logging.INFO, f"\nTop 5 Detected Files:")
-            print(df_detected_output.head()[['FileName', 'Confidence', 'Severity', 'Forensic_Summary']])
+            self.log(logging.INFO, str(df_detected_output.head()[['FileName', 'Confidence', 'Severity', 'Forensic_Summary']]))
             
             return detected_path
         except Exception as e:
@@ -603,12 +505,9 @@ class ModelIntegration:
             raise RuntimeError(error_msg)
     
     def generate_full_features_output(self, df_results):
-        """Generate files_with_features.csv with all files and features."""
         try:
-            # Create a copy for output
             df_output = df_results.copy()
 
-            # Boolean columns that need conversion to true/false strings
             boolean_columns = [
                 'only_SI_modified',
                 'repeated_update_resident_value',
@@ -621,7 +520,6 @@ class ModelIntegration:
                 'has_usn_basic_pattern'
             ]
 
-            # Convert boolean columns to proper boolean strings
             for col in boolean_columns:
                 if col in df_output.columns:
                     df_output[col] = df_output[col].astype(bool).map({True: 'true', False: 'false'})
@@ -650,23 +548,23 @@ class ModelIntegration:
             self.log(logging.ERROR, error_msg)
             raise RuntimeError(error_msg)
     
-    
     def generate_summary_report(self, df_results, metrics=None):
-        """Generate summary.txt with executive summary."""
         try:
-            # Calculate forensic metrics
             if metrics is None:
                 metrics = self.calculate_forensic_metrics(df_results)
             
-            # Extract metrics for use in report
             total_files = metrics['total_files']
             flagged_files = metrics['flagged_files']
             flag_rate = metrics['flag_rate']
             crr = metrics['crr']
             nni = metrics['nni']
             
-            # Get top 10 suspicious files
-            top_10 = df_results.nlargest(10, 'Confidence')[['FileName', 'Confidence', 'Severity', 'Indicator_Count']]
+            severity_order_map = {'HIGH': 0, 'MEDIUM': 1, 'LOW': 2}
+            all_flagged = df_results[df_results['Flagged']].copy()
+            all_flagged['_sort'] = all_flagged['Severity'].map(severity_order_map)
+            all_flagged_sorted = all_flagged.sort_values(['_sort', 'Confidence'], ascending=[True, False])[
+                ['FileName', 'Confidence', 'Severity', 'Indicator_Count']
+            ]
 
             # Count detection patterns
             backward_jumps = (df_results['num_backward_jumps'] > 0).sum()
@@ -684,7 +582,6 @@ class ModelIntegration:
             med_sev = (df_results[df_results['Flagged']]['Severity'] == 'MEDIUM').sum()
             low_sev = (df_results[df_results['Flagged']]['Severity'] == 'LOW').sum()
             
-            # Generate summary report
             summary_report = f"""================================================================================
 NTFS TIMESTOMPING DETECTION REPORT
 ================================================================================
@@ -715,13 +612,13 @@ Candidate Reduction Rate:   {crr*100:.2f}%
 Number Needed to Investigate: ~{nni:.1f} files per expected true positive
 
 --------------------------------------------------------------------------------
-TOP 10 MOST SUSPICIOUS FILES
+ALL FLAGGED FILES ({flagged_files} DETECTED) - SORTED BY SEVERITY THEN CONFIDENCE
 --------------------------------------------------------------------------------
 Rank  Confidence  Severity  Indicators  FileName
 ----  ----------  --------  ----------  --------
 """
 
-            for i, (_, row) in enumerate(top_10.iterrows(), 1):
+            for i, (_, row) in enumerate(all_flagged_sorted.iterrows(), 1):
                 summary_report += f"{i:<5} {row['Confidence']:.6f}  {row['Severity']:<8}  {int(row['Indicator_Count']):<10}  {row['FileName']}\n"
 
             summary_report += f"""
@@ -790,10 +687,14 @@ Based on: Oh et al. (2024) NTFS timestomping detection methodology
 --------------------------------------------------------------------------------
 OUTPUT FILES GENERATED
 --------------------------------------------------------------------------------
-1. detected_files.csv      - {flagged_files:,} flagged files with explanations
-2. files_with_features.csv - {total_files:,} files with all features  
-3. summary.txt             - This report
+1. detected_files.csv - Triage-ready list of all {flagged_files:,} files flagged as potentially timestomped. Includes confidence scores, severity ratings (HIGH/MEDIUM/LOW), forensic summaries, recommended actions, and key feature values per file. Sorted by severity then confidence. Use this as your primary investigative starting point.
 
+2. files_with_features.csv - Complete feature dataset covering all {total_files:,} analyzed files, both flagged and cleared. Contains all 29 model input features alongside confidence scores and flag status. Use for deeper statistical analysis, threshold experimentation, or re-scoring files under alternative detection criteria.
+
+3. summary.txt - This executive report. Provides high-level statistics, the complete ranked list of all {flagged_files:,} flagged files, indicator distribution, and methodology notes. Designed for inclusion in case reports or investigative briefings.
+
+4. autopsy.log.0 - Autopsy's main runtime log file, which records runtime messages, errors, warnings, and status updates generated by Autopsy while working on a case.
+   
 ================================================================================
 Generated by Digital Detectives Timestomping Detector v1.0
 ================================================================================
@@ -805,6 +706,7 @@ Generated by Digital Detectives Timestomping Detector v1.0
 
             self.log(logging.INFO, f"Output 3: summary.txt")
             self.log(logging.INFO, f"  Location: {summary_path}")
+            self.log(logging.INFO, f"  Flagged Files Listed: {len(all_flagged_sorted)}")
             
             return summary_path
         except Exception as e:
@@ -812,40 +714,7 @@ Generated by Digital Detectives Timestomping Detector v1.0
             self.log(logging.ERROR, error_msg)
             raise RuntimeError(error_msg)
 
-
-# =============================================================================
-# MODULE ENTRY POINT - ORCHESTRATOR FUNCTION
-# =============================================================================
-
 def run_model_integration(model_dir, features_dir, output_dir, logger_obj=None):
-    """
-    Execute the complete model integration pipeline.
-    
-    Main entry point that orchestrates the entire ML inference and output
-    generation process for NTFS timestomping detection.
-    
-    Args:
-        model_dir: Path to ModelTraining folder containing joblib files
-        features_dir: Path to File Features folder containing file_features.csv
-        output_dir: Path to Detection Results folder for outputs
-        logger_obj: Optional logger object
-    
-    Returns:
-        dict: Results with 'success', 'message', 'file_count', 'flagged_count',
-              and 'output_files' (paths to generated CSVs/reports)
-    
-    Example:
-        results = run_model_integration(
-            model_dir="ModelTraining",
-            features_dir="File Features",
-            output_dir="Detection Results"
-        )
-        if results['success']:
-            print(f"Analyzed {results['file_count']:,} files")
-            print(f"Flagged {results['flagged_count']:,} suspicious files")
-    """
-    
-    # Configure logger if not provided
     if logger_obj is None:
         logger_obj = logging.getLogger(__name__)
     
@@ -860,16 +729,12 @@ def run_model_integration(model_dir, features_dir, output_dir, logger_obj=None):
     flag_rate = 0.0
     
     try:
-        # Load models
         integrator.load_models()
         
-        # Load feature data
         df_input = integrator.load_features()
         
-        # Prepare features
         X = integrator.prepare_features(df_input)
         
-        # Generate predictions
         y_prob, y_pred, df_results = integrator.predict(X, df_input)
         
         if 'Confidence' not in df_results.columns:
@@ -877,12 +742,10 @@ def run_model_integration(model_dir, features_dir, output_dir, logger_obj=None):
         if 'Flagged' not in df_results.columns:
             df_results['Flagged'] = y_pred.astype(bool)
         
-        # Analyze detection reasons and generate forensic explanations
         df_results = integrator.apply_detection_analysis(df_results)
         
         logger_obj.info("Generating detection indicators...")
         
-        # Generate detection indicators
         df_results['Indicators'] = df_results.apply(integrator.generate_detection_reasons_enhanced, axis=1)
         df_results['Detection_Reasons'] = df_results['Indicators'].apply(ModelIntegration.format_short_reason)
         df_results['Indicator_Count'] = df_results['Indicators'].apply(len)
@@ -896,24 +759,18 @@ def run_model_integration(model_dir, features_dir, output_dir, logger_obj=None):
         logger_obj.info("Enhanced detection reasons generated")
         logger_obj.info("Files with indicators: {:,}".format((df_results['Indicator_Count'] > 0).sum()))
         
-        # Calculate metrics
         total_files = len(df_results)
         flagged_files = df_results['Flagged'].sum()
         flag_rate = flagged_files / total_files
         
-        # Calculate forensic metrics
         metrics = integrator.calculate_forensic_metrics(df_results)
         
-        # Generate outputs
         logger_obj.info("\n" + "=" * 80)
         logger_obj.info("GENERATING OUTPUT FILES")
         logger_obj.info("=" * 80)
         
-        
-        # Create output directory
         integrator.output_dir.mkdir(parents=True, exist_ok=True)
-        
-        # Generate all outputs
+     
         detected_path = integrator.generate_detected_files_output(df_results)
         features_path = integrator.generate_full_features_output(df_results)
         summary_path = integrator.generate_summary_report(df_results, metrics)
@@ -954,22 +811,7 @@ def run_model_integration(model_dir, features_dir, output_dir, logger_obj=None):
         }
 
 
-# =============================================================================
-# DIRECT EXECUTION ENTRY POINT
-# =============================================================================
-
 if __name__ == "__main__":
-    """
-    Direct execution entry point for testing.
-    
-    Usage:
-        python model_integration.py <model_dir> <features_dir> <output_dir>
-        
-    Example:
-        python model_integration.py "ModelTraining" "File Features" "Detection Results"
-    """
-    
-    # Configure logging for direct execution
     logging.basicConfig(
         level=logging.INFO,
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
@@ -982,20 +824,20 @@ if __name__ == "__main__":
         
         results = run_model_integration(model_dir, features_dir, output_dir)
         
-        print("\nResults:")
-        print("  Success: {}".format(results['success']))
-        print("  Message: {}".format(results['message']))
-        print("  Files Analyzed: {}".format(results['file_count']))
-        print("  Files Flagged: {}".format(results['flagged_count']))
+        logging.info("\nResults:")
+        logging.info("  Success: {}".format(results['success']))
+        logging.info("  Message: {}".format(results['message']))
+        logging.info("  Files Analyzed: {}".format(results['file_count']))
+        logging.info("  Files Flagged: {}".format(results['flagged_count']))
         if results['output_files']:
-            print("  Output Files:")
+            logging.info("  Output Files:")
             for name, path in results['output_files'].items():
-                print("    - {}: {}".format(name, path))
+                logging.info("    - {}: {}".format(name, path))
         
         sys.exit(0 if results['success'] else 1)
     else:
-        print("Model Integration Module for NTFS Timestomping Detection")
-        print("\nUsage: python model_integration.py <model_dir> <features_dir> <output_dir>")
-        print("\nExample:")
-        print("  python model_integration.py \"ModelTraining\" \"File Features\" \"Detection Results\"")
+        logging.info("Model Integration Module for NTFS Timestomping Detection")
+        logging.info("\nUsage: python model_integration.py <model_dir> <features_dir> <output_dir>")
+        logging.info("\nExample:")
+        logging.info("  python model_integration.py \"ModelTraining\" \"File Features\" \"Detection Results\"")
         sys.exit(0)

@@ -4,7 +4,6 @@ NTFS Raw Files Extractor
 
 Extracts NTFS system files ($MFT, $LogFile, $UsnJrnl:$J)
 from disk images. It handles volume detection, file searching, validation, and export.
-
 """
 
 import os
@@ -36,12 +35,10 @@ class NTFSFileExtractor:
             children = data_source.getChildren()
             
             for child in children:
-                # If child is a Volume System (Partition Table), get its child volumes
                 if isinstance(child, VolumeSystem):
                     self.log(Level.INFO, "Found Volume System (Partition Table). Retrieving child volumes...")
                     volumes.extend(child.getChildren())
                 else:
-                    # If the child is already a Volume, add it directly
                     volumes.append(child)
             
             self.log(Level.INFO, "Total volumes detected: " + str(len(volumes)))
@@ -176,11 +173,6 @@ class NTFSFileExtractor:
             return (False, None)
     
     def extract_all_files(self, file_manager, data_source, export_dir):
-        """
-        Main extraction method. Detects volumes, scans for required files, 
-        validates completeness, and exports files.
-        """
-
         results = {
             'volumes_scanned': 0,
             'complete_volumes': 0,
@@ -191,7 +183,7 @@ class NTFSFileExtractor:
             'export_dir': export_dir
         }
         
-        # Phase 1: Detect all volumes
+        # STAGE 1: Detect all volumes
         try:
             volumes = self.detect_volumes(data_source)
         except Exception as e:
@@ -202,7 +194,7 @@ class NTFSFileExtractor:
             self.log(Level.WARNING, "No volumes detected in data source.")
             return results
         
-        # Phase 2: Scan each volume for required files and export
+        # STAGE 2: Scan each volume for required files and export
         complete_volume_data = []
         
         for volume in volumes:
@@ -224,7 +216,7 @@ class NTFSFileExtractor:
                 self.log(Level.WARNING, "Error scanning volume: " + str(e))
                 continue
         
-        # Phase 3: Export files from complete volumes
+        # STAGE 3: Export files from complete volumes
         for volume_data in complete_volume_data:
             if self.context.isJobCancelled():
                 break
@@ -262,14 +254,12 @@ class NTFSFileExtractor:
         return results
     
     def analyze_extraction_results(self, extraction_results):
-
         volumes_scanned = extraction_results['volumes_scanned']
         complete_volumes = extraction_results['complete_volumes']
         incomplete_volumes = extraction_results['incomplete_volumes']
         total_exported = extraction_results['total_exported']
         total_failed = extraction_results['total_failed']
         
-        # Log extraction summary
         self.log(Level.INFO, "Extraction Summary:")
         self.log(Level.INFO, "  - Volumes Scanned: " + str(volumes_scanned))
         self.log(Level.INFO, "  - Complete Volumes: " + str(complete_volumes))
@@ -277,7 +267,6 @@ class NTFSFileExtractor:
         self.log(Level.INFO, "  - Files Exported: " + str(total_exported))
         self.log(Level.INFO, "  - Export Failures: " + str(total_failed))
         
-        # Check if any files were exported
         if total_exported == 0:
             if complete_volumes == 0:
                 message_text = ("No complete volumes found. " +
@@ -293,7 +282,6 @@ class NTFSFileExtractor:
                 'log_message': message_text
             }
         
-        # If we have exported files, continue with processing
         message_text = ("NTFS raw files extraction successful. Processed " + str(complete_volumes) + " complete volume(s). " +
                        "Exported " + str(total_exported) + " file(s) (" + str(total_failed) + " failed).")
         

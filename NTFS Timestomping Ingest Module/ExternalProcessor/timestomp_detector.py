@@ -4,11 +4,7 @@
 External Processor - NTFS Timestomping Detection Main Entry Point
 
 This module serves as the main entry point for the Python 3 external processing layer.
-It orchestrates parsing of NTFS system files and prepares data for feature engineering
-and ML inference.
-
-Environment: Python 3.x
-Purpose: Main orchestrator for external data processing
+It orchestrates parsing of NTFS system files and prepares data for feature engineering and ML inference.
 """
 
 import sys
@@ -17,7 +13,6 @@ import argparse
 import logging
 from pathlib import Path
 
-# Add parent directories to path for module imports
 sys.path.insert(0, str(Path(__file__).parent))
 
 from Parser.raw_files_parser import RawFilesParser
@@ -36,7 +31,6 @@ def setup_logging():
 
 
 def parse_arguments():
-    """Parse command-line arguments."""
     parser = argparse.ArgumentParser(
         description='NTFS Timestomping Detection - External Processor'
     )
@@ -57,29 +51,15 @@ def parse_arguments():
 
 
 def main():
-    """
-    Main entry point for external processor.
-    
-    Orchestrates:
-    1. Raw file parsing ($MFT, $LogFile, $UsnJrnl)
-    2. Data preprocessing (temporal alignment and event grouping)
-    3. Feature engineering (forensic feature extraction)
-    4. Future: ML model inference
-    5. Future: Report generation
-    
-    Returns parsed results as JSON to stdout.
-    """
-    
     logger = setup_logging()
     
     try:
-        # Parse command-line arguments
         args = parse_arguments()
         
         exported_files_dir = Path(args.exported_dir)
         module_output_root = Path(args.output_dir)
         
-        # Define stage directories (matching ntfs_timestomping_detector.py)
+        # Define directories 
         parsed_files_dir = module_output_root / "Parsed Files"
         grouped_events_dir = module_output_root / "Grouped Events File"
         features_dir = module_output_root / "File Features"
@@ -95,11 +75,9 @@ def main():
         logger.info("File features directory: {}".format(features_dir))
         logger.info("Detection results directory: {}".format(results_dir))
         
-        # Validate input directory
         if not exported_files_dir.exists():
             raise ValueError("Exported files directory does not exist: {}".format(exported_files_dir))
         
-        # Validate and create output directories
         if not parsed_files_dir.exists():
             raise ValueError("Parsed Files directory does not exist: {}".format(parsed_files_dir))
         
@@ -107,7 +85,6 @@ def main():
         features_dir.mkdir(parents=True, exist_ok=True)
         results_dir.mkdir(parents=True, exist_ok=True)
         
-        # Prepare results dictionary
         results = {
             'parsing': {},
             'preprocessing': {},
@@ -115,7 +92,7 @@ def main():
             'model_integration': {}
         }
         
-        # --- STAGE 1: RAW FILE PARSING ---
+        # STAGE 1: Raw File Parsing
         logger.info("\n" + "=" * 80)
         logger.info("STAGE 1: RAW FILE PARSING")
         logger.info("=" * 80)
@@ -138,13 +115,12 @@ def main():
             else:
                 logger.warning("✗ {}: {}".format(file_type, message))
         
-        # Only proceed to preprocessing if parsing succeeded
         if not parsing_success:
             logger.warning("Parsing completed with errors - skipping preprocessing")
             results['preprocessing']['success'] = False
             results['preprocessing']['message'] = 'Skipped due to parsing errors'
         else:
-            # --- STAGE 2: DATA PREPROCESSING ---
+            # STAGE 2: Data Preprocessing
             logger.info("\n" + "=" * 80)
             logger.info("STAGE 2: DATA PREPROCESSING")
             logger.info("=" * 80)
@@ -175,7 +151,7 @@ def main():
                     'event_count': 0
                 }
             
-            # --- STAGE 3: FEATURE ENGINEERING ---
+            # STAGE 3: Feature Engineering
             logger.info("\n" + "=" * 80)
             logger.info("STAGE 3: FEATURE ENGINEERING")
             logger.info("=" * 80)
@@ -192,9 +168,9 @@ def main():
                 }
                 
                 if feature_results['success']:
-                    logger.info("✓ Feature Engineering: {}".format(feature_results['message']))
+                    logger.info("Feature Engineering: {}".format(feature_results['message']))
                 else:
-                    logger.warning("✗ Feature Engineering: {}".format(feature_results['message']))
+                    logger.warning("Feature Engineering: {}".format(feature_results['message']))
             
             except Exception as e:
                 error_msg = "Feature engineering error: {}".format(str(e))
@@ -206,16 +182,14 @@ def main():
                     'file_count': 0
                 }
         
-        # --- STAGE 4: ML MODEL INFERENCE ---
+        # STAGE 4: ML MODEL INFERENCE
         logger.info("\n" + "=" * 80)
         logger.info("STAGE 4: ML MODEL INFERENCE")
         logger.info("=" * 80)
         
         try:
-            # Get paths to model and features
             model_training_dir = Path(__file__).parent / "ModelPackage" / "ModelTraining"
             
-            # Only perform inference if feature engineering succeeded
             if results['feature_engineering'].get('success'):
                 inference_result = run_model_integration(
                     str(model_training_dir),
@@ -234,7 +208,7 @@ def main():
                 }
                 
                 if inference_result['success']:
-                    logger.info("✓ Model Inference: {}".format(inference_result['message']))
+                    logger.info("Model Inference: {}".format(inference_result['message']))
                     logger.info("  - Total files: {}".format(inference_result.get('file_count', 0)))
                     logger.info("  - Flagged files: {} ({:.2f}%)".format(
                         inference_result.get('flagged_count', 0),
@@ -242,7 +216,7 @@ def main():
                     ))
                     logger.info("  - Output files: {}".format(len(inference_result.get('output_files', {}))))
                 else:
-                    logger.warning("✗ Model Inference: {}".format(inference_result['message']))
+                    logger.warning("Model Inference: {}".format(inference_result['message']))
             else:
                 logger.warning("Skipping model inference due to feature engineering errors")
                 results['model_integration'] = {
@@ -266,14 +240,11 @@ def main():
                 'output_files': {}
             }
         
-        # --- FUTURE STAGES ---
         # STAGE 5: Report Generation
-        
         logger.info("\n" + "=" * 80)
         logger.info("PROCESSING COMPLETE")
         logger.info("=" * 80)
         
-        # Output results as JSON to stdout (for the Jython invoker to parse)
         print(json.dumps(results, indent=2, default=str))
         
         return 0
@@ -281,7 +252,6 @@ def main():
     except Exception as e:
         logger.error("Fatal error in external processor: {}".format(str(e)), exc_info=True)
         
-        # Output error as JSON
         error_result = {
             'parsing': {},
             'preprocessing': {},

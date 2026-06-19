@@ -5,11 +5,6 @@ External Process Invoker - Bridge between Jython (Autopsy) and Python 3
 
 This module acts as a bridge to invoke the Python 3 external processor from the Jython ingest module.
 It spawns a subprocess running the Python 3 timestomp_detector.py with the necessary parameters.
-
-PRODUCTION VERSION: Uses bundled Python 3 runtime for distribution
-
-Environment: Jython 2.7 (Autopsy)
-Purpose: Communication bridge between Jython and Python 3 layers
 """
 
 import subprocess
@@ -20,32 +15,16 @@ import json
 try:
     from java.util.logging import Level
 except ImportError:
-    # Fallback for non-Jython environments
     Level = None
 
 
 class ExternalProcessInvoker:
-    """
-    Invokes the external Python 3 processor as a subprocess.
-    
-    Handles communication between Jython ingest module and Python 3 processing layer.
-    Uses bundled Python 3 runtime for portability.
-    """
-    
     def __init__(self, logger_obj=None):
-        """
-        Initialize the invoker.
-        
-        Args:
-            logger_obj: Optional logger object from Autopsy. If not provided, prints to stdout.
-        """
         self.logger = logger_obj
         self.python3_executable = self._get_bundled_python_executable()
     
     def log(self, level, msg):
-        """Log message using Autopsy logger or print."""
         if self.logger:
-            # Use Level.INFO as default if level is None
             if level is None:
                 level = Level.INFO if Level else None
             if level is not None:
@@ -56,31 +35,14 @@ class ExternalProcessInvoker:
             print(msg)
     
     def _get_bundled_python_executable(self):
-        """
-        Get the path to the bundled Python 3 executable.
-        
-        The bundled Python is located in the PythonRuntime folder within the module directory.
-        
-        Returns:
-            str: Path to bundled Python 3 executable
-            
-        Raises:
-            RuntimeError: If bundled Python executable is not found
-        """
-        # Get the module's base directory
-        # __file__ points to AutopsyProcessor/external_process_invoker.py
-        # We need to go up two levels to reach the module root
         module_base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         
-        # Path to bundled Python runtime
         bundled_python_dir = os.path.join(module_base_dir, "PythonRuntime")
         bundled_python_exe = os.path.join(bundled_python_dir, "python.exe")
         
-        # Verify the bundled Python exists
         if os.path.exists(bundled_python_exe):
             self.log(Level.INFO, "Using bundled Python 3 at: " + bundled_python_exe)
             
-            # Verify it's actually Python 3
             try:
                 result = subprocess.Popen(
                     [bundled_python_exe, "--version"],
@@ -104,7 +66,6 @@ class ExternalProcessInvoker:
                 self.log(Level.SEVERE, error_msg)
                 raise RuntimeError(error_msg)
         else:
-            # Bundled Python not found - provide helpful error message
             error_msg = (
                 "Bundled Python 3 runtime not found!\n"
                 "Expected location: " + bundled_python_exe + "\n"
@@ -115,34 +76,7 @@ class ExternalProcessInvoker:
             raise RuntimeError(error_msg)
     
     def invoke_parsing(self, exported_files_dir, module_output_dir):
-        """
-        Invoke the Python 3 external processor pipeline for parsing, preprocessing, feature engineering, and model integration.
-        
-        This method invokes the complete processing pipeline:
-        - Stage 1: Raw file parsing ($MFT, $LogFile, $UsnJrnl → CSV files)
-        - Stage 2: Data preprocessing (CSV files → grouped_events.csv)
-        - Stage 3: Feature engineering (grouped_events.csv → file_features.csv)
-        - Stage 4: Model integration (file_features.csv → detection results)
-        
-        Args:
-            exported_files_dir: Path to directory containing exported $MFT, $LogFile, $UsnJrnl
-            module_output_dir: Path to module output root directory
-                              (contains "Parsed Files", "Grouped Events File", "File Features", "Detection Results" subdirectories)
-            
-        Returns:
-            dict: Result dictionary with keys:
-                - 'success': bool - whether the process succeeded
-                - 'message': str - status message
-                - 'results': dict - processing results if successful, None otherwise
-                  Format: {
-                    'parsing': {mft, logfile, usnjrnl results},
-                    'preprocessing': {grouped_events results},
-                    'feature_engineering': {file_features results}
-                    'model_integration': {detection results}
-                  }
-        """
         try:
-            # Verify Python 3 executable exists
             if not self.python3_executable:
                 return {
                     'success': False,
@@ -157,11 +91,9 @@ class ExternalProcessInvoker:
                     'results': None
                 }
             
-            # Get the path to the external processor
             module_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
             timestomp_detector_path = os.path.join(module_dir, "ExternalProcessor", "timestomp_detector.py")
             
-            # Verify timestomp_detector.py exists
             if not os.path.exists(timestomp_detector_path):
                 return {
                     'success': False,
@@ -169,8 +101,6 @@ class ExternalProcessInvoker:
                     'results': None
                 }
             
-            # Prepare arguments for subprocess
-            # --output-dir is the MODULE ROOT containing all subdirectories
             args = [
                 self.python3_executable,
                 timestomp_detector_path,
@@ -181,26 +111,22 @@ class ExternalProcessInvoker:
             self.log(Level.INFO, "Invoking Python 3 external processor pipeline")
             self.log(Level.INFO, "Command: " + " ".join(args))
             
-            # Spawn subprocess
             process = subprocess.Popen(
                 args,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 universal_newlines=True,
-                cwd=module_dir  # Set working directory to module root
+                cwd=module_dir 
             )
             
-            # Wait for process to complete
             stdout, stderr = process.communicate()
             
-            # Log stderr if present (for debugging)
             if stderr:
                 stderr_lines = stderr.strip().split('\n')
                 for line in stderr_lines:
                     if line.strip():
                         self.log(Level.INFO, "External processor: " + line)
             
-            # Check return code
             if process.returncode != 0:
                 error_msg = "External processor failed with return code {}".format(process.returncode)
                 if stderr:
@@ -217,7 +143,6 @@ class ExternalProcessInvoker:
                     'results': None
                 }
             
-            # Parse results from stdout
             try:
                 if not stdout or not stdout.strip():
                     return {
@@ -228,7 +153,36 @@ class ExternalProcessInvoker:
                 
                 results = json.loads(stdout)
                 
-                # Validate the results structure
+                try:
+                    results = json.loads(stdout)
+                except Exception:
+                    txt = stdout.strip()
+                    last_open = txt.rfind('{')
+                    last_close = txt.rfind('}')
+                    extracted = None
+                    if last_open != -1 and last_close != -1 and last_close > last_open:
+                        candidate = txt[last_open:last_close+1]
+                        try:
+                            results = json.loads(candidate)
+                            extracted = candidate
+                        except Exception:
+                            results = None
+                    if results is None:
+                        for line in txt.splitlines()[::-1]:
+                            s = line.strip()
+                            if not s:
+                                continue
+                            if (s.startswith('{') and s.endswith('}')) or (s.startswith('[') and s.endswith(']')):
+                                try:
+                                    results = json.loads(s)
+                                    extracted = s
+                                    break
+                                except Exception:
+                                    continue
+
+                    if results is None:
+                        raise ValueError('No JSON object could be decoded')
+                
                 if 'parsing' not in results:
                     self.log(Level.WARNING, "Results missing 'parsing' key")
                     return {
@@ -237,18 +191,15 @@ class ExternalProcessInvoker:
                         'results': None
                     }
                 
-                # Check if preprocessing was performed
                 has_preprocessing = 'preprocessing' in results and results['preprocessing']
                 has_feature_engineering = 'feature_engineering' in results and results['feature_engineering']
                 has_model_integration = 'model_integration' in results and results['model_integration']
                 
-                # Determine overall success
                 parsing_results = results.get('parsing', {})
                 preprocessing_results = results.get('preprocessing', {})
                 feature_engineering_results = results.get('feature_engineering', {})
                 model_integration_results = results.get('model_integration', {})
                 
-                # Log each stage
                 parsing_success = any(r.get('success') for r in parsing_results.values() if isinstance(r, dict))
                 preprocessing_success = preprocessing_results.get('success', False) if has_preprocessing else None
                 feature_success = feature_engineering_results.get('success', False) if has_feature_engineering else None
@@ -305,22 +256,6 @@ class ExternalProcessInvoker:
             }
     
     def invoke_preprocessing(self, module_output_dir):
-        """
-        Invoke just the preprocessing stage (requires parsed CSV files to exist).
-        
-        This method can be used to re-run preprocessing without re-parsing if the
-        parsed CSV files ($MFT_parsed.csv, LogFile_parsed.csv, UsnJrnl_parsed.csv)
-        already exist in the "Parsed Files" directory.
-        
-        Args:
-            module_output_dir: Path to module output root directory
-        
-        Returns:
-            dict: Result dictionary with keys:
-                - 'success': bool
-                - 'message': str
-                - 'results': dict with 'preprocessing' section or None
-        """
         try:
             if not self.python3_executable or not os.path.exists(self.python3_executable):
                 return {
@@ -331,7 +266,6 @@ class ExternalProcessInvoker:
             
             module_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
             
-            # Path to preprocessing module
             preproc_script = os.path.join(module_dir, "ExternalProcessor", "ModelPackage", "data_preprocessing.py")
             parsed_files_dir = os.path.join(str(module_output_dir), "Parsed Files")
             grouped_events_dir = os.path.join(str(module_output_dir), "Grouped Events File")
@@ -393,22 +327,6 @@ class ExternalProcessInvoker:
             }
     
     def invoke_feature_engineering(self, module_output_dir):
-        """
-        Invoke just the feature engineering stage (requires grouped_events.csv to exist).
-        
-        This method can be used to re-run feature engineering without re-parsing or 
-        re-preprocessing if the grouped_events.csv already exists in the 
-        "Grouped Events File" directory.
-        
-        Args:
-            module_output_dir: Path to module output root directory
-        
-        Returns:
-            dict: Result dictionary with keys:
-                - 'success': bool
-                - 'message': str
-                - 'results': dict with 'feature_engineering' section or None
-        """
         try:
             if not self.python3_executable or not os.path.exists(self.python3_executable):
                 return {
@@ -419,7 +337,6 @@ class ExternalProcessInvoker:
             
             module_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
             
-            # Path to feature engineering module
             feature_script = os.path.join(module_dir, "ExternalProcessor", "ModelPackage", "feature_engineering.py")
             grouped_events_dir = os.path.join(str(module_output_dir), "Grouped Events File")
             features_dir = os.path.join(str(module_output_dir), "File Features")
@@ -481,21 +398,6 @@ class ExternalProcessInvoker:
             }
     
     def invoke_model_integration(self, module_output_dir):
-        """
-        Invoke the model integration stage for ML inference.
-        
-        Note: This is called automatically by invoke_parsing() as STAGE 4.
-        This method is provided for flexibility if re-running inference separately.
-        
-        Args:
-            module_output_dir: Path to module output root directory
-        
-        Returns:
-            dict: Result dictionary with keys:
-                - 'success': bool
-                - 'message': str
-                - 'results': dict with 'model_integration' section or None
-        """
         try:
             if not self.python3_executable or not os.path.exists(self.python3_executable):
                 return {
@@ -506,7 +408,6 @@ class ExternalProcessInvoker:
             
             module_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
             
-            # Path to model integration module
             model_integration_script = os.path.join(module_dir, "ExternalProcessor", "ModelPackage", "model_integration.py")
             features_dir = os.path.join(str(module_output_dir), "File Features")
             detection_dir = os.path.join(str(module_output_dir), "Detection Results")
